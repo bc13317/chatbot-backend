@@ -32,7 +32,8 @@ app.post("/chat", async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 3000;
+// AI‑Hosting verlangt zwingend Port 8080
+const port = 8080;
 app.listen(port, () => {
-  console.log(`Server l�uft auf Port ${port}`);
+  console.log(`Server läuft auf Port ${port}`);
 });
