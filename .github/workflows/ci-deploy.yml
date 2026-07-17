@@ -1,0 +1,33 @@
+name: CI Build Deploy
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+      - name: Build backend image and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
+      - name: Trigger remote deploy
+        env:
+          MITTWALD_TOKEN: ${{ secrets.MITTWALD_API_TOKEN }}
+        run: |
+          curl -X POST "https://api.mittwald.example/v2/projects/p-ak2q3k/containers/deploy" \
+            -H "Authorization: Bearer $MITTWALD_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"image":"ghcr.io/'"${{ github.repository_owner }}"'/'"${{ github.repository }}"':latest","containerId":"cebd7dac-3271-4cc1-ae0f-2c29ae26fb64","port":8080"}'
