@@ -38,5 +38,8 @@ const HOST = '0.0.0.0';
 
 app.listen(PORT, HOST, () => {
   console.log(`server start - pid=${process.pid} env=${process.env.NODE_ENV || 'dev'} PORT=${PORT}`);
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', time: new Date().toISOString() });
 });
+
 
