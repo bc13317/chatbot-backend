@@ -22,8 +22,18 @@ RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --prod
 # Copy backend source
 COPY . .
 
-# Copy frontend build into backend public folder
-COPY --from=builder /app/frontend/dist ./public
+# Copy frontend package files for caching
+COPY frontend/package.json frontend/
+COPY frontend/package-lock.json frontend/  # harmless if missing
+
+# Install frontend deps: prefer npm ci if lockfile exists, otherwise npm install
+RUN cd frontend && \
+    if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+# Copy full frontend and build
+COPY frontend/ frontend/
+RUN cd frontend && npm run build
+
 
 ENV PORT=8080
 EXPOSE 8080
