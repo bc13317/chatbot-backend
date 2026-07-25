@@ -27,8 +27,8 @@ app.get("/health", (req, res) => {
 // -----------------------------------------------------------------------------
 // n8n WEBHOOK CALL
 // -----------------------------------------------------------------------------
-const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL;        // e.g. https://p-XXXXXX.project.space/webhook/polischat-search
-const N8N_WEBHOOK_TOKEN = process.env.N8N_WEBHOOK_TOKEN;    // your secret token
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL;        // https://p-ak2q3k.project.space/
+const N8N_WEBHOOK_TOKEN = process.env.N8N_WEBHOOK_TOKEN;    // JJ12m3B@45!JJ12m3B@45!!
 
 async function fetchWebFacts(query) {
   try {
