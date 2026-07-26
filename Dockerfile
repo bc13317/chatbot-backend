@@ -4,8 +4,7 @@ WORKDIR /app
 
 # Copy frontend package files for caching
 COPY frontend/package*.json frontend/
-RUN cd frontend && \
-    if [ -f package-lock.json ]; then npm ci; else npm install; fi
+RUN cd frontend && if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Copy frontend source and build
 COPY frontend/ frontend/
@@ -15,9 +14,9 @@ RUN cd frontend && npm run build
 FROM node:20-alpine AS runtime
 WORKDIR /app
 
-# Copy backend package files and install production deps
+# Copy backend package files and install production deps (use npm install to avoid lockfile mismatch)
 COPY package*.json ./
-RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --production; fi
+RUN npm install --production --no-audit --no-fund
 
 # Copy backend source
 COPY . .
