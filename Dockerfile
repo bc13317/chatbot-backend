@@ -16,14 +16,14 @@ FROM node:20-alpine AS runtime
 WORKDIR /app
 
 # Copy backend package files and install production deps
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --production; fi
 
 # Copy backend source
 COPY . .
 
-# Ensure frontend build is present in runtime image
-COPY --from=builder /app/frontend/dist frontend/dist
+# Copy built frontend from builder stage into runtime image
+COPY --from=builder /app/frontend/dist ./frontend/dist
 
 ENV PORT=8080
 EXPOSE 8080
