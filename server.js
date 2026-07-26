@@ -1,4 +1,3 @@
-// FILE: server.js
 import express from "express";
 import fetch from "node-fetch";
 import path from "path";
@@ -10,23 +9,17 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.json());
 
-// -----------------------------------------------------------------------------
 // STATIC FRONTEND
-// -----------------------------------------------------------------------------
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 app.get("/", (req, res) => res.sendFile(path.join(publicPath, "index.html")));
 
-// -----------------------------------------------------------------------------
-// HEALTH ENDPOINT
-// -----------------------------------------------------------------------------
+// HEALTH
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok", time: new Date().toISOString() });
 });
 
-// -----------------------------------------------------------------------------
-// CHAT ENDPOINT (direkter Mittwald AI Hosting Call)
-// -----------------------------------------------------------------------------
+// CHAT ENDPOINT
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
@@ -34,7 +27,6 @@ app.post("/chat", async (req, res) => {
       return res.status(400).json({ error: "Missing message" });
     }
 
-    // LLM Call
     const response = await fetch("https://api.ai.mittwald.de/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -46,30 +38,20 @@ app.post("/chat", async (req, res) => {
         messages: [
           { role: "user", content: userMessage }
         ]
-      }),
-      timeout: 30000
+      })
     });
-
-    if (!response.ok) {
-      const text = await response.text();
-      console.error("LLM API error:", response.status, text);
-      return res.status(502).json({ error: "Upstream API error", status: response.status });
-    }
 
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content || "";
 
     res.json({ reply });
-
   } catch (error) {
     console.error("chat handler error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// -----------------------------------------------------------------------------
 // START SERVER
-// -----------------------------------------------------------------------------
 const PORT = process.env.PORT || 8080;
 const HOST = "0.0.0.0";
 app.listen(PORT, HOST, () => {
