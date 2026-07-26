@@ -25,54 +25,16 @@ app.get("/health", (req, res) => {
 });
 
 // -----------------------------------------------------------------------------
-// n8n WEBHOOK CALL
-// -----------------------------------------------------------------------------
-const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL;        // https://p-ak2q3k.project.space/webhook/polischat-search
-const N8N_WEBHOOK_TOKEN = process.env.N8N_WEBHOOK_TOKEN;    // JJ12m3B@45!JJ12m3B@45!!
-
-async function fetchWebFacts(query) {
-  try {
-    const res = await fetch(N8N_WEBHOOK_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-webhook-token": N8N_WEBHOOK_TOKEN
-      },
-      body: JSON.stringify({ query }),
-      timeout: 15000
-    });
-
-    if (!res.ok) {
-      console.warn("n8n webhook error:", res.status);
-      return [];
-    }
-
-    const json = await res.json();
-    return json.hits || [];
-  } catch (err) {
-    console.warn("n8n fetch failed:", err.message);
-    return [];
-  }
-}
-
-// -----------------------------------------------------------------------------
-// CHAT ENDPOINT (LLM + n8n Web-Fakten)
+// CHAT ENDPOINT (direkter Mittwald AI Hosting Call)
 // -----------------------------------------------------------------------------
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
-    if (!userMessage) return res.status(400).json({ error: "Missing message" });
+    if (!userMessage) {
+      return res.status(400).json({ error: "Missing message" });
+    }
 
-    // 1) Fetch current web facts from n8n
-    const hits = await fetchWebFacts(userMessage);
-
-    const contextText = hits.length
-      ? "Aktuelle Web-Fakten:\n" + hits.map(h =>
-          `${h.title} — ${h.url} (${h.publishedAt || "n.d."})`
-        ).join("\n")
-      : "Keine aktuellen Web-Fakten verfügbar.";
-
-    // 2) LLM call with context
+    // LLM Call
     const response = await fetch("https://api.ai.mittwald.de/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -82,7 +44,6 @@ app.post("/chat", async (req, res) => {
       body: JSON.stringify({
         model: process.env.MODEL,
         messages: [
-          { role: "system", content: contextText },
           { role: "user", content: userMessage }
         ]
       }),
@@ -98,8 +59,7 @@ app.post("/chat", async (req, res) => {
     const data = await response.json();
     const reply = data.choices?.[0]?.message?.content || "";
 
-    // 3) Return reply + sources to frontend
-    res.json({ reply, sources: hits });
+    res.json({ reply });
 
   } catch (error) {
     console.error("chat handler error:", error);
