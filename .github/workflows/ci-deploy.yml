@@ -43,8 +43,8 @@ jobs:
         env:
           MITTWALD_TOKEN: ${{ secrets.MITTWALD_API_TOKEN }}
         run: |
-          curl -X POST "https://api.mittwald.example/v2/projects/p-ak2q3k/containers/deploy" \
-            -H "Authorization: Bearer $MITTWALD_TOKEN" \
+          curl -v -X POST "https://p-ak2q3k.project.space/webhook-test/polischat-search" \
             -H "Content-Type: application/json" \
-            -d '{"image":"ghcr.io/'"${{ github.repository_owner }}"'/'"${{ github.event.repository.name }}"':latest","containerId":"cebd7dac-3271-4cc1-ae0f-2c29ae26fb64","port":8080"}'
+            -d '{"query":"test search","other":"value"}'
+
             
