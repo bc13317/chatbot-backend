@@ -3,26 +3,42 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node for frontend build
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - name: Build frontend
+          node-version: '20.x'
+
+      - name: Install and build frontend
+        working-directory: frontend
         run: |
-          cd frontend
           npm ci
           npm run build
-      - name: Build backend image and push
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+
       - name: Trigger remote deploy
         env:
           MITTWALD_TOKEN: ${{ secrets.MITTWALD_API_TOKEN }}
@@ -30,4 +46,4 @@ jobs:
           curl -X POST "https://api.mittwald.example/v2/projects/p-ak2q3k/containers/deploy" \
             -H "Authorization: Bearer $MITTWALD_TOKEN" \
             -H "Content-Type: application/json" \
-            -d '{"image":"ghcr.io/'"${{ github.repository_owner }}"'/'"${{ github.repository }}"':latest","containerId":"cebd7dac-3271-4cc1-ae0f-2c29ae26fb64","port":8080"}'
+            -d '{"image":"ghcr.io/'"${{ github.repository_owner }}"'/'"${{ github.event.repository.name }}"':latest","containerId":"cebd7dac-3271-4cc1-ae0f-2c29ae26fb64","port":8080}'
