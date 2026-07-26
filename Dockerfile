@@ -2,12 +2,12 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy package files first for caching
-COPY frontend/package.json frontend/
-COPY frontend/package-lock.json frontend/  # falls vorhanden; harmless wenn nicht
+# Copy frontend package files for caching
+COPY frontend/package*.json frontend/
 RUN cd frontend && \
     if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
+# Copy frontend source and build
 COPY frontend/ frontend/
 RUN cd frontend && npm run build
 
@@ -15,24 +15,15 @@ RUN cd frontend && npm run build
 FROM node:20-alpine AS runtime
 WORKDIR /app
 
-# Install backend production deps
+# Copy backend package files and install production deps
 COPY package.json package-lock.json ./
 RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --production; fi
 
 # Copy backend source
 COPY . .
 
-# Copy frontend package files for caching
-COPY frontend/package*.json frontend/
-
-# Install frontend deps: prefer npm ci if lockfile exists, otherwise npm install
-RUN cd frontend && \
-    if [ -f package-lock.json ]; then npm ci; else npm install; fi
-
-# Copy full frontend and build
-COPY frontend/ frontend/
-RUN cd frontend && npm run build
-
+# Ensure frontend build is present in runtime image
+COPY --from=builder /app/frontend/dist frontend/dist
 
 ENV PORT=8080
 EXPOSE 8080
