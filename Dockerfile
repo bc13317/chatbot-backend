@@ -12,7 +12,7 @@ COPY frontend/ frontend/
 RUN cd frontend && npm run build
 
 # Stage 2: Runtime image for backend
-FROM node:18-alpine AS runtime
+FROM node:20-alpine AS runtime
 WORKDIR /app
 
 # Install backend production deps
@@ -23,8 +23,7 @@ RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --prod
 COPY . .
 
 # Copy frontend package files for caching
-COPY frontend/package.json frontend/
-COPY frontend/package-lock.json frontend/  # harmless if missing
+COPY frontend/package*.json frontend/
 
 # Install frontend deps: prefer npm ci if lockfile exists, otherwise npm install
 RUN cd frontend && \
