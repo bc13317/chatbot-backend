@@ -23,18 +23,58 @@ app.get("/health", (req, res) => {
 app.post("/chat", async (req, res) => {
   try {
     const userMessage = req.body.message;
-    if (!userMessage) return res.status(400).json({ error: "Missing message" });
+    if (!userMessage) {
+      return res.status(400).json({ error: "Missing message" });
+    }
 
     // required env checks
     const AI_API_KEY = process.env.AI_API_KEY;
     const MODEL = process.env.MODEL;
-    const N8N_WEBHOOK = process.env.N8N_WEBHOOK;
+    const N8N_WEBHOOK = process.env.N8N_WEBHOOK;          // z.B. https://p-ak2q3k.project.space/webhook-test/polischat-search
+    const N8N_TOKEN = process.env.N8N_WEBHOOK_TOKEN || ""; // optional, falls im Webhook genutzt
 
     if (!AI_API_KEY || !MODEL) {
       return res.status(500).json({ error: "Server misconfiguration: missing AI_API_KEY or MODEL" });
     }
 
-    // Call AI provider
+    // 1) Echtzeit-Daten von n8n holen (falls konfiguriert)
+    let realtimeData = null;
+    if (N8N_WEBHOOK) {
+      try {
+        const n8nResp = await fetch(N8N_WEBHOOK, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(N8N_TOKEN ? { "x-webhook-token": N8N_TOKEN } : {})
+          },
+          body: JSON.stringify({ query: userMessage })
+        });
+
+        if (n8nResp.ok) {
+          realtimeData = await n8nResp.json();
+        } else {
+          const txt = await n8nResp.text();
+          console.warn("n8n error:", n8nResp.status, txt);
+        }
+      } catch (err) {
+        console.warn("Failed to call n8n webhook:", err.message);
+      }
+    }
+
+    // 2) Prompt für AI bauen – mit Echtzeitdaten, falls vorhanden
+    const contextFromN8n = realtimeData
+      ? `Echtzeitdaten:\n${JSON.stringify(realtimeData, null, 2)}\n\n`
+      : "";
+
+    const prompt = `
+Nutzerfrage:
+${userMessage}
+
+${contextFromN8n}
+Nutze die oben stehenden Echtzeitdaten, falls sie relevant sind, und antworte präzise und verständlich auf Deutsch.
+`;
+
+    // 3) Call AI provider
     const aiResp = await fetch("https://api.ai.mittwald.de/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -43,7 +83,7 @@ app.post("/chat", async (req, res) => {
       },
       body: JSON.stringify({
         model: MODEL,
-        messages: [{ role: "user", content: userMessage }]
+        messages: [{ role: "user", content: prompt }]
       })
     });
 
@@ -56,19 +96,7 @@ app.post("/chat", async (req, res) => {
     const data = await aiResp.json();
     const reply = data.choices?.[0]?.message?.content ?? "";
 
-    // Forward to n8n webhook if configured (non-blocking)
-    if (N8N_WEBHOOK) {
-      try {
-        await fetch(N8N_WEBHOOK, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMessage, reply })
-        });
-      } catch (err) {
-        console.warn("Failed to notify n8n webhook:", err.message);
-      }
-    }
-
+    // 4) Antwort zurück an Frontend
     res.json({ reply });
   } catch (error) {
     console.error("chat handler error:", error);
