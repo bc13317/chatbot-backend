@@ -64,7 +64,7 @@ Antworte präzise und verständlich auf Deutsch.
 `;
 
     // AI Provider
-    const aiResp = await fetch("https://api.ai.mittwald.de/v1/chat/completions", {
+    const aiResp = await fetch("https://llm.aihosting.mittwald.de/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
