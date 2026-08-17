@@ -1,39 +1,28 @@
 # Stage 1: Build frontend
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy package files first for caching
-COPY frontend/package.json frontend/
-COPY frontend/package-lock.json frontend/  # falls vorhanden; harmless wenn nicht
-RUN cd frontend && \
-    if [ -f package-lock.json ]; then npm ci; else npm install; fi
+# Copy frontend package files for caching
+COPY frontend/package*.json frontend/
+RUN cd frontend && if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
+# Copy frontend source and build
 COPY frontend/ frontend/
 RUN cd frontend && npm run build
 
 # Stage 2: Runtime image for backend
-FROM node:18-alpine AS runtime
+FROM node:20-alpine AS runtime
 WORKDIR /app
 
-# Install backend production deps
-COPY package.json package-lock.json ./
-RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --production; fi
+# Copy backend package files and install production deps (use npm install to avoid lockfile mismatch)
+COPY package*.json ./
+RUN npm install --production --no-audit --no-fund
 
 # Copy backend source
 COPY . .
 
-# Copy frontend package files for caching
-COPY frontend/package.json frontend/
-COPY frontend/package-lock.json frontend/  # harmless if missing
-
-# Install frontend deps: prefer npm ci if lockfile exists, otherwise npm install
-RUN cd frontend && \
-    if [ -f package-lock.json ]; then npm ci; else npm install; fi
-
-# Copy full frontend and build
-COPY frontend/ frontend/
-RUN cd frontend && npm run build
-
+# Copy built frontend from builder stage into runtime image
+COPY --from=builder /app/frontend/dist ./frontend/dist
 
 ENV PORT=8080
 EXPOSE 8080
