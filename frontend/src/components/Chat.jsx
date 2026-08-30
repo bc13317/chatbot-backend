@@ -124,6 +124,9 @@ export default function Chat() {
 
   return (
     <div className="chat-container" style={{ maxWidth: 720, margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
+<div className="ai-disclosure" style={{ maxWidth: 720, margin: "0 auto 12px", padding: "8px 12px", background: "#f1f3f5", borderRadius: 8, fontSize: 13, color: "#555" }}>
+  Hinweis: Du sprichst hier mit einem KI-gestützten Assistenten, keiner echten Person. Bei komplexeren Anliegen leiten wir dich an unser Support-Team weiter.
+</div>
       <div ref={messagesRef} className="messages" style={{ minHeight: 300, maxHeight: 500, overflowY: "auto", padding: 12, border: "1px solid #eee", borderRadius: 8 }}>
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.from}`} style={{ margin: "8px 0", textAlign: m.from === "user" ? "right" : "left" }}>
