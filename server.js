@@ -308,14 +308,26 @@ if (pending && pending.awaitingSatisfaction) {
     const GREETING_PATTERN = /^(hallo|hi|hey|servus|moin|guten\s?tag|guten\s?morgen|guten\s?abend|na)[\s!.,]*$/i;
     const SMALLTALK_PATTERN = /\b(wie gehts|wie geht es dir|was machst du|wetter|spaß|witz)\b/i;
 
-    if (GREETING_PATTERN.test(userMessage.trim())) {
+       if (GREETING_PATTERN.test(userMessage.trim())) {
       return res.json({
         reply: "Hallo! Ich bin der Assistent von POLI SOCIAL. Ich helfe dir gerne bei Fragen zu deinem Konto, zur Registrierung, zu unseren Richtlinien oder zum Schalten von Werbung. Möchtest du Hilfe zu Konto, Werbung oder Richtlinien?",
-        followUps: ["Konto", "Werbung", "Richtlinien"]
+        followUps: ["Ich habe eine Frage zu meinem Konto", "Ich möchte Werbung schalten", "Ich habe eine Frage zu den Richtlinien"]
       });
     }
     if (SMALLTALK_PATTERN.test(userMessage)) {
       return res.json({ reply: "Ich bin ein sachlicher Assistent von POLI SOCIAL — bei Fragen zu deinem Konto, Richtlinien oder Werbung helfe ich dir gern." });
+    }
+        const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*)?(danke|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
+    const FAREWELL_PATTERN = /^(ciao|tsch(ü|ue)ss|bye|auf wiedersehen|man sieht sich|bis bald)[\s!.,]*$/i;
+
+    if (FAREWELL_PATTERN.test(userMessage.trim())) {
+      clearPending(userId);
+      return res.json({ reply: "Bis bald! Wenn du weitere Fragen hast, bin ich hier für dich." });
+    }
+
+    if (THANKS_PATTERN.test(userMessage.trim())) {
+      clearPending(userId);
+      return res.json({ reply: "Gerne! Wenn du noch weitere Fragen hast, helfe ich dir gerne weiter." });
     }
     // Expliziter Ticket-Wunsch: Bot erstellt sofort selbst ein Ticket, statt auf manuellen Weg zu verweisen
     const TICKET_REQUEST_PATTERN = /(ticket erstellen|erstell.*ticket|ein ticket|mit (einem |dem )?support|mit einem mitarbeiter|menschlichen support|jemanden vom team|echten menschen sprechen|support-mitarbeiter)/i;
