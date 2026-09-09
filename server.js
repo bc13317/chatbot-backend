@@ -195,10 +195,9 @@ if (pending && pending.stage === "clarifying") {
     if (pending && pending.awaitingClarification) {
       // pending.stage can be 'post_answer' or 'awaiting_clarify'
       // Interpret common quick replies
-      if (/(^ja\b|^ja,? das hilft|^ja, danke|^super|^passt$)/i.test(userMessage)) {
-        // User confirms the answer helped
-        clearPending(userId);
-        // Ask if they need anything else; if not, later ask satisfaction on farewell
+           if (/(^ja\b|^ja,? das hilft|^ja, danke|^super|^passt$)/i.test(userMessage)) {
+        // User confirms - jetzt auf "brauchst du noch etwas" warten, Zustand NICHT löschen
+        setPending(userId, { stage: "anything_else", originalQuestion: pending.originalQuestion, lastReply: pending.lastReply });
         return res.json({
           reply: "Super, freut mich, dass ich helfen konnte. Brauchst du noch etwas anderes?",
           followUps: ["Nein, danke", "Ja, noch etwas"]
@@ -271,7 +270,22 @@ if (pending && pending.stage === "clarifying") {
     }
 
     // If awaiting satisfaction
-    if (pending && pending.awaitingSatisfaction) {
+    if (pending && pending.stage === "anything_else") {
+      if (/(^nein\b|^nein,?)/i.test(userMessage)) {
+        setPending(userId, { stage: "satisfaction", originalQuestion: pending.originalQuestion, lastReply: pending.lastReply, awaitingSatisfaction: true });
+        return res.json({
+          reply: "Alles klar, danke fürs Vorbeischauen! Warst du insgesamt mit meiner Hilfe zufrieden?",
+          followUps: ["Ja", "Nein"]
+        });
+      }
+      if (/(^ja\b|^ja,?)/i.test(userMessage)) {
+        clearPending(userId);
+        return res.json({ reply: "Klar, was möchtest du wissen?" });
+      }
+      clearPending(userId);
+      // sonst: fällt durch zur normalen Verarbeitung als neue Frage
+    }    
+if (pending && pending.awaitingSatisfaction) {
       if (/(^ja\b|^ja,?)/i.test(userMessage)) {
         clearPending(userId);
         return res.json({ reply: "Danke für dein Feedback! Schön, dass alles geklappt hat. Auf Wiedersehen!" });
