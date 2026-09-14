@@ -1,0 +1,656 @@
+[
+  {
+    "id": "\tnutzervereinbarung_geltungsbereich",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung - Geltungsbereich",
+    "inhalt": "Die Nutzervereinbarung, Datenschutzrichtlinien, Cookie-Richtlinien, Copyright-Richtlinien und Community-Richtlinien gelten für alle Produkte der Parteibook24 UG (haftungsbeschränkt) und alle Plattformen inklusive POLI SOCIAL. Parteibook24 UG vertritt nicht den Staat, die Regierung oder regierungsbezogene Organisationen. Es wird lediglich die Möglichkeit geboten, sich auf der Plattform zu verifizieren, zu registrieren und Informationen zu zivilgesellschaftlichen und politischen Themen mit der Community zu teilen. Ziel ist die Vernetzung zivilgesellschaftlicher und politischer Organisationen sowie Initiativen mit Mitmenschen einer Region. Parteibook24 UG haftet nicht für auf der Plattform erstellte Inhalte und ist nicht für deren Erstellung verantwortlich."
+  },
+  {
+    "id": "\tnutzervereinbarung_vertrag",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §1 - Vertrag",
+    "inhalt": "Durch Nutzung der Dienste erklärt sich der Nutzer mit sämtlichen Bedingungen einverstanden. Die Nutzung unterliegt zusätzlich den Cookie-Richtlinien, Datenschutzrichtlinien, Community-Richtlinien und Copyright-Richtlinien, die u.a. beschreiben, wie persönliche Daten erfasst, verwendet und gespeichert werden. Mit Registrierung oder Nutzung der Dienste (z. B. der POLI SOCIAL Plattform) wird ein rechtsverbindlicher Vertrag mit Parteibook24 UG geschlossen - im eigenen Namen oder im Namen einer zivilgesellschaftlichen/politischen Organisation oder Initiative. Wer dem Vertrag nicht zustimmt, soll sich nicht registrieren. Der Vertrag kann jederzeit durch Löschung des Kontos beendet werden. Dieser Vertrag gilt unter anderem für die Plattform POLI SOCIAL. Registrierte Nutzer sind 'Mitglieder', nicht registrierte Nutzer 'Besucher'. Vertragspartner ist stets Parteibook24 UG (haftungsbeschränkt), die sich verpflichtet, deutsches und europäisches Recht einzuhalten."
+  },
+  {
+    "id": "\tnutzervereinbarung_nutzergruppe_mitbuerger",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §2.I - Nutzergruppe Mitbürger*innen",
+    "inhalt": "Die Nutzergruppe Mitbürger*innen kann von jedem Mitmenschen genutzt werden, um einen persönlichen Account zu eröffnen. Diese Nutzergruppe ist von der Beitragserstellung ausgeschlossen - sie kann Beiträge anderer nur kommentieren und liken, aber keine eigenen Beiträge erstellen."
+  },
+  {
+    "id": "\tnutzervereinbarung_nutzergruppe_initiative",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §2.II - Nutzergruppe individuelle/persönliche Initiative",
+    "inhalt": "Diese Nutzergruppe kann von Personen genutzt werden, die eine individuelle/persönliche Initiative, Bürgerinitiative oder Bürgerbewegung initiiert haben oder initiieren möchten, die nicht unter das Dach einer Organisation fällt. Sie kann Beiträge erstellen. Die Registrierung erfolgt neben dem Namen der Initiative mit dem eigenen Namen der hauptverantwortlichen Person, die über einen Verifizierungsprozess bestätigt werden muss. Die Identitätsverifizierung wird vom externen Dienstleister Veriff OÜ durchgeführt, wofür deren eigene Datenschutzbestimmungen gelten (www.veriff.com/privacy-notice). Ziel der Verifizierung ist es, sicherzustellen, dass Inhalte verantwortungsvoll geteilt werden und keine Hetze gegenüber Personengruppen verbreitet wird."
+  },
+  {
+    "id": "\tnutzervereinbarung_nutzergruppe_organisationen_erlaubt",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §2.III - Nutzergruppe Organisationen: Voraussetzungen",
+    "inhalt": "Die Nutzergruppe Organisationen kann Beiträge erstellen, muss sich dafür aber mit eigenem Namen registrieren und verifizieren. Die Registrierung ist ausschließlich zivilgesellschaftlichen und politischen Organisationen der Rechtsformen e.V., gGmbH, gUG und Stiftungen vorbehalten. Zugelassen sind Organisationen aus Bereichen wie u.a. Antidiskriminierung, Bildung, Digitale Rechte und Datenschutz, Frauenrechte, Gesundheit und Pflege, Menschenrechte, Migration und Integration, Umwelt- und Klimaschutz, Verbraucherschutz sowie Schüler-, Studierenden- und Jugendverbände mit entsprechender Haupttätigkeit. Parteibook24 UG behält sich das Recht vor, diese Liste laufend anzupassen."
+  },
+  {
+    "id": "\tnutzervereinbarung_nutzergruppe_organisationen_ausgeschlossen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §2.III - Nutzergruppe Organisationen: Ausschlüsse",
+    "inhalt": "Von der Nutzergruppe Organisationen ausgeschlossen sind: Sportvereine (aktuell), alle kommerziellen bzw. gewinnorientierten Organisationen (z. B. AGs, GmbHs, Personengesellschaften) sowie deren Lobbyverbände, Betreiber von Zeitungen, Fernsehsendern, Radiosendern, Podcasts sowie Journalisten. Diese Ausschlüsse dienen dazu, Informationsüberflutung zu begrenzen und Nutzern nur Inhalte direkt von der jeweiligen Quell-Organisation zu zeigen. Rassistische, diskriminierende oder antidemokratische Organisationen sind ebenfalls von der Registrierung ausgeschlossen. Keiner Organisation ist es erlaubt, Beiträge hochzuladen, die Hautfarbe, Nationalität, Religion, Herkunft oder sexuelle Orientierung/Identität als Problem definieren oder stigmatisieren. Verstöße führen zunächst zu einer Verwarnung, bei schweren oder wiederholten Verstößen zum vollständigen Ausschluss von den Diensten."
+  },
+  {
+    "id": "\tnutzervereinbarung_nutzergruppe_werbetreibende_besucher",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §2.IV+V - Werbetreibende und Besucher",
+    "inhalt": "Die Nutzergruppe Werbetreibende kann unter einem Mitbürger*innen-Account eröffnet werden. Unternehmen können dort unter dem Namen des Hauptverantwortlichen Werbung auf POLI SOCIAL schalten. Besucher können eine begrenzte Anzahl von Funktionen nutzen, ohne sich zu registrieren - sie überspringen den Registrierungsprozess. Parteibook24 UG behält sich vor, die Liste der zugelassenen Organisationskategorien zu erweitern oder zu ändern, verpflichtet sich aber, kommerzielle bzw. gewinnorientierte Organisationen stets ausschließlich der Nutzergruppe Werbetreibende zuzuordnen, nie der Nutzergruppe Organisationen."
+  },
+  {
+    "id": "\tnutzervereinbarung_registrierung_mitbuerger",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §3.I - Registrierung Mitbürger*innen",
+    "inhalt": "Bei der Registrierung als Mitbürger*in müssen E-Mail-Adresse sowie Vor- und Nachname angegeben werden. Nach Verifizierung der E-Mail-Adresse wird der Account freigeschaltet und der Nutzer kann auf die Plattform zugreifen."
+  },
+  {
+    "id": "\tnutzervereinbarung_registrierung_initiative",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §3.II - Registrierung persönliche/individuelle Initiative",
+    "inhalt": "Personen, die eine persönliche/individuelle Initiative registrieren möchten, müssen sich durch Eingabe persönlicher Daten verifizieren. Falls vorhanden sollten eine eigene E-Mail-Adresse der Initiative, Adresse, Homepage und Telefonnummer angegeben werden. Zusätzlich kann ein PDF-Dokument zur Identitätsprüfung hochgeladen werden, insbesondere wenn keine Homepage mit Impressum existiert. Ein Video-Verifizierungscall kann zur Freischaltung erforderlich sein. Diese Nutzergruppe registriert sich für Landkreise, Städte, Verwaltungseinheiten, Verwaltungsgemeinschaften und Bezirke."
+  },
+  {
+    "id": "\tnutzervereinbarung_registrierung_organisation",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §3.III - Registrierung Organisationen",
+    "inhalt": "Organisationen müssen sich durch Eingabe organisationsbezogener Daten verifizieren, idealerweise mit eigener E-Mail-Adresse, Adresse, Homepage und Telefonnummer. Ein PDF-Dokument kann zur Verifizierung hochgeladen werden. Organisationen registrieren sich wahrheitsgemäß für die Regionen/Ebenen, in denen sie tatsächlich aktiv sind (Bundesebene, Bundesländer, Stadt- und Landkreise, Verwaltungseinheiten, Verwaltungsgemeinschaften, Bezirke sowie Hashtag International). Nach Auswahl der Regionen muss die E-Mail-Adresse verifiziert werden, danach folgt eine manuelle Prüfung durch das Admin-Team. Erst nach abgeschlossener E-Mail-Verifizierung und manueller Prüfung erhält die Organisation Zugang zu ihrem Konto. Mit der Registrierung bestätigt die Organisation, in eigenem Namen zu handeln und nicht als Vertreter ausgeschlossener Organisationstypen (Großunternehmen, Lobbyisten, Rassisten, Populisten etc.)."
+  },
+  {
+    "id": "\tnutzervereinbarung_beitraege_erstellen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §4 - Beiträge erstellen",
+    "inhalt": "Organisationen und persönliche/individuelle Initiativen verpflichten sich, Beiträge bereitzustellen, die hauptsächlich mit ihrer Haupttätigkeit in Verbindung stehen. Sie dürfen nicht hauptsächlich als Verbreitungsmedium fremder Inhalte agieren oder überwiegend Produkte kommerzieller Unternehmen vermarkten. Organisationen, die nicht mindestens 75% ihrer Inhalte vollständig selbst erstellen, können nach mehrfacher Verwarnung von der Plattform ausgeschlossen werden. Bei der Erstellung von Beiträgen dürfen zudem die Community-Richtlinien nicht verletzt werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_pflichten_zugang",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §5 - Pflichten: Zugang zu den Diensten",
+    "inhalt": "Nutzer bestätigen, dass sie zum Vertragsabschluss berechtigt sind und das erforderliche Mindestalter erreicht haben. Die Dienste sind nicht für die Nutzung durch Minderjährige unter 16 Jahren bestimmt (das gesetzliche Mindestalter, sofern gesetzlich keine höhere Grenze vorgeschrieben ist). Nutzer bestätigen zudem, nur einen Account unter ihrem echten Namen zu haben und nicht bereits von den Diensten ausgeschlossen worden zu sein. Wer eine Organisation, ein Unternehmen oder eine persönliche Initiative registriert, bestätigt, dazu berechtigt zu sein und den Account unter dem eingegebenen, echten Namen zu betreiben. Die Erstellung eines Accounts unter falschen Angaben verstößt gegen die AGB."
+  },
+  {
+    "id": "\tnutzervereinbarung_pflichten_konto",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §5 - Pflichten: Ihr Konto und Laufzeit",
+    "inhalt": "Kontoinhaber verpflichten sich, ein sicheres Passwort zu wählen und geheim zu halten, keinen Teil ihres Accounts an Dritte weiterzugeben und Gesetze sowie Community-Richtlinien einzuhalten. Nutzer tragen die Verantwortung für alle Handlungen über ihr Konto, außer sie haben es geschlossen oder einen Missbrauch gemeldet. Accounts können so lange behalten werden, wie POLI SOCIAL als Plattform existiert - es besteht jedoch keine Garantie für eine bestimmte Nutzungsdauer. Parteibook24 UG behält sich das Recht vor, Accounts bei Verstößen gegen Nutzervereinbarung, Datenschutz-, Cookie-, Urheberrechts- oder Community-Richtlinien zu löschen."
+  },
+  {
+    "id": "\tnutzervereinbarung_beirat_kontrollfunktion",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §6.I - Beirat: Kontrollfunktion",
+    "inhalt": "POLI SOCIAL ist nach eigener Aussage die erste Social-Media-Plattform, die sich freiwillig, aber rechtsverbindlich unter zivilgesellschaftliche Kontrolle gestellt hat. Ein Beirat wird eingerichtet, um die Plattform unter zivilgesellschaftliche Aufsicht zu stellen. Er soll sicherstellen, dass keine Organisation durch die Plattformstruktur benachteiligt oder bevorzugt wird, dass verbindliche ethische Community-Richtlinien etabliert werden, dass nur zivilgesellschaftliche und politische Organisationen/Initiativen Beiträge erstellen dürfen (mindestens 75% selbsterstellte Inhalte), dass keine rassistischen, diskriminierenden oder demokratiefeindlichen Organisationen zugelassen werden, und dass keine Algorithmen zur Feed-Sortierung eingeführt werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_beirat_struktur",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §6.II - Beirat: Struktur und Abstimmung",
+    "inhalt": "Die Beiratsmitglieder bestehen ausschließlich aus registrierten zivilgesellschaftlichen Organisationen der Plattform, mit unbestimmter, freiwilliger Amtszeit. Politische Parteien, deren Jugendorganisationen sowie staatliche Institutionen sind als Beiratsmitglieder ausgeschlossen. Der Beirat tagt in der Regel einmal jährlich im ersten Halbjahr, digital, physisch oder hybrid. Verbesserungsvorschläge können bis zwei Monate vor der Sitzung eingereicht werden; ein positives Votum benötigt eine Mehrheit von 75,1% der anwesenden Organisationen. Verstößt die Geschäftsführung gegen die Beirats-Grundprinzipien, kann sie mit einer Mehrheit von 95% des Beirats abberufen werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_beirat_strukturaenderung",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §6.III - Beirat: Einrichtung und Strukturänderung",
+    "inhalt": "Der Beirat wird für eine Plattform eingerichtet, sobald sich mindestens 300 mitwirkungsberechtigte Organisationen registriert haben. Die Struktur soll künftig über Governance-Token abgewickelt werden. Zukünftige Tochtergesellschaften, die ebenfalls eine Social-Media-Plattform betreiben, müssen einen gleichwertigen Beirat implementieren. Eine Lizenzvergabe an nicht verbundene Unternehmen, ein vollständiger Unternehmensverkauf oder Asset Deal zum Weiterverkauf der Software ist ausgeschlossen. Für Änderungen des Gesellschaftszwecks, Maßnahmen zur Einschränkung des Beirats, einen entsprechenden Komplettverkauf, die Auflösung der Gesellschaft oder Satzungsänderungen mit Bezug auf die Beiratsrechte ist eine Mehrheit von 100% der Gesellschafter sowie eine Zustimmung von 75,1% des Beirats erforderlich."
+  },
+  {
+    "id": "\tnutzervereinbarung_werbebeitraege_bedingungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §7 - Kostenlose Nutzung und kostenpflichtige Werbebeiträge",
+    "inhalt": "Alle Nutzergruppen können sich kostenlos registrieren. Mitbürger*innen erhalten garantiert kostenlose Nutzung, Organisationen garantiert kostenlose Beitragserstellung und Nutzung aller Funktionen. Kostenpflichtig sind ausschließlich Werbebeiträge: Über einen Mitbürger*innen-Account kann ein Unternehmen registriert und für dieses regional Werbung geschaltet werden, zugeordnet zu Hashtags/Regionen/Ebenen. Es besteht keine Garantie für den gewünschten Veröffentlichungszeitpunkt. Zahlung erfolgt ausschließlich über Google und Apple Pay, Zahlungsinformationen werden von Parteibook24 UG nicht gespeichert. Es besteht keine Mindestlaufzeit oder Abonnement - Werbebeiträge werden einzeln erworben und bezahlt, eine Rückerstattung ist ausgeschlossen."
+  },
+  {
+    "id": "\tnutzervereinbarung_werbebeitraege_zahlung_kuendigung",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §7 - Zahlung, Kündigung, Rückerstattung",
+    "inhalt": "Vertragspartner ist Parteibook24 UG (haftungsbeschränkt), Kurzer Weg 6, 78054 Villingen-Schwenningen, Amtsgericht Freiburg, Registernummer HRB 721341, Umsatzsteuer-ID DE328232368. Eine Kündigung ist nicht notwendig, da keine Mindestlaufzeit oder Abonnement besteht. Wer die Dienste nicht mehr nutzen und Werbeanzeigen entfernen möchte, kann dies durch Löschung des Kontos tun. Für das Schalten von Werbung kann keine Erstattung verlangt werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_mitteilungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §8 - Mitteilungen und Nachrichten",
+    "inhalt": "Nutzer erklären sich einverstanden, Mitteilungen entweder innerhalb des Dienstes oder an bereitgestellte Kontaktangaben (E-Mail, Telefonnummer, Postanschrift) zu erhalten. Sind Kontaktangaben veraltet, können wichtige Mitteilungen nicht zugestellt werden. Nutzer müssen ihre Kontaktangaben aktuell halten."
+  },
+  {
+    "id": "\tnutzervereinbarung_teilen_nutzung",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §9 - Teilen und Nutzung bereitgestellter Informationen",
+    "inhalt": "Geteilte Informationen können von anderen Personen (Mitgliedern, Besuchern, Dritten auch außerhalb der Dienste) gesehen, kopiert, heruntergeladen und verwendet werden. Organisationen können Videos, Bilder, Veranstaltungen, Hyperlinks, Texte oder PDFs teilen. Da diese Inhalte auch Lehrkräften, Schüler*innen und Student*innen zur Verfügung gestellt werden, erklären sich Nutzer damit einverstanden, dass bereitgestellte Dokumente heruntergeladen, eingesehen und auch als Unterrichtsmaterial oder für Projektarbeiten genutzt werden dürfen."
+  },
+  {
+    "id": "\tnutzervereinbarung_lizenz_daten",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §10 - Lizenz für bereitgestellte Inhalte",
+    "inhalt": "Alle Inhalte und persönlichen Daten, die Nutzer bereitstellen, bleiben deren Eigentum - es wird lediglich eine nicht-exklusive Lizenz an Parteibook24 UG gewährt. Es wird keine personalisierte Werbung geschaltet und keine Daten zu Werbezwecken an Dritte weitergegeben; Werbetreibende erhalten nur anonymisierte statistische Informationen. Erstellte Beiträge werden im Newsfeed unter dem Hashtag der jeweiligen Region angezeigt und sind damit für andere Mitglieder sichtbar. Wird ein Profil gelöscht, werden keine Daten mehr gespeichert (außer gesetzlich vorgeschrieben) und alle erstellten Inhalte existieren danach nicht mehr auf der Plattform - ausgenommen Inhalte, die außerhalb der Anwendung geteilt oder heruntergeladen wurden."
+  },
+  {
+    "id": "\tnutzervereinbarung_verfuegbarkeit_einschraenkungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §10 - Verfügbarkeit, Drittinhalte und Einschränkungen",
+    "inhalt": "Parteibook24 UG behält sich vor, Dienstleistungen jederzeit zu ändern, auszusetzen, einzustellen oder Preise zu ändern, und ist nicht verpflichtet, veröffentlichte Inhalte dauerhaft zu speichern - POLI SOCIAL ist kein Speicherdienst. Für Inhalte und Verhalten Dritter (auch anderer Mitglieder) sowie für Veranstaltungen, die von Mitgliedern organisiert werden, wird keine Verantwortung übernommen. Bei Verstößen gegen den Vertrag oder Missbrauch kann die Nutzung eingeschränkt, das Konto ausgesetzt oder gekündigt werden. Alle geistigen Eigentumsrechte an den Diensten selbst (Marken, Logos, „POLI SOCIAL“-Bezeichnung) verbleiben bei Parteibook24 UG."
+  },
+  {
+    "id": "\tnutzervereinbarung_bildungseinrichtungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §11 - Nutzung an Schulen und Universitäten",
+    "inhalt": "Universitäten, Schulen, Bildungseinrichtungen, Lehrern, Professoren sowie Schülern und Studenten ist es erlaubt, die Plattform für Bildungszwecke, Unterricht sowie Projekt-, Bachelor-, Master- und Doktorarbeiten zu nutzen. Registrierte Organisationen erklären sich damit einverstanden, dass ihre bereitgestellten Inhalte in diesem Rahmen von Schulen und Universitäten genutzt werden dürfen."
+  },
+  {
+    "id": "\tnutzervereinbarung_aenderung",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §12 - Änderung der Vereinbarung",
+    "inhalt": "Parteibook24 UG ist berechtigt, Nutzervereinbarung, Datenschutz-, Cookie- und Community-Richtlinien zu ändern. Bei wesentlichen Änderungen wird über die Dienste oder auf andere Weise informiert, bevor die Änderungen in Kraft treten. Änderungen wirken nicht rückwirkend. Wer mit Änderungen nicht einverstanden ist, kann sein Konto löschen. Die weitere Nutzung der Dienste nach Veröffentlichung oder Benachrichtigung über Änderungen gilt als Zustimmung zu den aktualisierten Bedingungen."
+  },
+  {
+    "id": "\tnutzervereinbarung_haftungsausschluss",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §13 - Haftungsausschluss und Haftungsbeschränkung",
+    "inhalt": "Parteibook24 UG übernimmt keine Gewährleistung für Qualität, Sicherheit oder Zuverlässigkeit der Dienste und garantiert keinen unterbrechungsfreien oder fehlerfreien Betrieb; die Dienste werden ohne Mängelgewähr wie verfügbar bereitgestellt. Soweit gesetzlich zulässig, wird die Haftung für entgangene Gewinne, Rufschädigung, Datenverlust sowie indirekte, Neben- oder Folgeschäden ausgeschlossen. Die Haftung gegenüber Nutzern ist auf den Gesamtbetrag der während der Vertragslaufzeit gezahlten Gebühren begrenzt. Diese Beschränkungen gelten nicht bei Verletzung von Leben, Körper oder Gesundheit, bei Vorsatz, grober Fahrlässigkeit, Arglist oder Verletzung einer Kardinalpflicht (einer Pflicht, deren Erfüllung die ordnungsgemäße Vertragsdurchführung überhaupt erst ermöglicht)."
+  },
+  {
+    "id": "\tnutzervereinbarung_beendigung",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §14 - Beendigung des Vertrags",
+    "inhalt": "Beide Vertragsparteien können den Vertrag jederzeit durch Benachrichtigung der anderen Partei beenden; bei Beendigung entfällt das Recht auf Zugriff auf die Dienste. Nach Beendigung bleibt Parteibook24 UG berechtigt, erhaltenes Feedback weiter zu nutzen, dürfen Mitglieder/Besucher geteilte Inhalte weiter teilen, und bleiben vor Beendigung entstandene Zahlungspflichten bestehen. Ein Konto kann über das eigene Profil geschlossen werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_recht_gerichtsstand",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §15 - Anwendbares Recht und Streitschlichtung",
+    "inhalt": "Im Fall eines Rechtsstreits erklären sich Parteibook24 UG und der Nutzer einverstanden, diesen vor den Gerichten von Frankfurt am Main unter Anwendung deutschen Rechts auszutragen."
+  },
+  {
+    "id": "\tnutzervereinbarung_allgemeine_bedingungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §16 - Allgemeine Bedingungen",
+    "inhalt": "Sollte ein Teil des Vertrags gerichtlich für nicht durchsetzbar erklärt werden, wird er so angepasst, dass die ursprüngliche Absicht erhalten bleibt, notfalls durch Entfernung des unwirksamen Teils bei Fortbestand des übrigen Vertrags. Der Vertrag ersetzt alle vorherigen Vereinbarungen zu den Diensten. Unterlässt Parteibook24 UG es, einem Verstoß entgegenzuwirken, bedeutet das keinen Verzicht auf spätere Durchsetzung. Eine Übertragung des Vertrags oder der Mitgliedschaft ohne Genehmigung ist nicht gestattet. Nutzer bestätigen, alle anwendbaren Gesetze einzuhalten, korrekte und aktuelle Informationen bereitzustellen, ihren richtigen Namen im Profil zu verwenden und die Dienste professionell zu nutzen. Meinungsfreiheit stößt an Grenzen bei Rassismus, Diskriminierung oder Demokratiefeindlichkeit - vorsätzliche Verstöße können zur Vertragsbeendigung und dauerhaftem Zugangsausschluss führen."
+  },
+  {
+    "id": "\tnutzervereinbarung_verbotene_handlungen",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §16 - Was Nutzer nicht tun dürfen",
+    "inhalt": "Nutzer dürfen unter anderem nicht: eine falsche Identität erstellen oder ein Konto für eine andere Person nutzen; Software, Skripte, Bots oder Crawler einsetzen, um die Dienste zu scrapen oder Daten zu kopieren; Sicherheitsfunktionen oder Zugangskontrollen umgehen; über die Dienste erlangte Informationen ohne Genehmigung kopieren oder verbreiten; vertrauliche Informationen anderer offenlegen; geistige Eigentumsrechte Dritter oder von Parteibook24 UG verletzen; schädlichen Code veröffentlichen; die Dienste reverse-engineeren; den Eindruck einer Verbindung zu oder Empfehlung durch Parteibook24 UG erwecken ohne Genehmigung; die Dienste vermieten, verkaufen oder monetarisieren; unautorisierte Deep-Links erstellen; Bots für automatisierten Zugriff nutzen; die Dienste zu Konkurrenzzwecken überwachen; das Erscheinungsbild der Dienste durch Framing oder Mirroring simulieren oder modifizieren; den Betrieb der Dienste stören (z. B. Spam, DoS-Angriffe, Viren); oder gegen die Community-Richtlinien verstoßen. Bei Verstößen kann der Vertrag gekündigt, der Zugang gesperrt und bei schweren Verstößen Anzeige erstattet werden."
+  },
+  {
+    "id": "\tnutzervereinbarung_beschwerden_urheberrecht",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §17 - Beschwerden und Meldungen zu Inhalten",
+    "inhalt": "Der Vertrag erfordert, dass von Mitgliedern veröffentlichte Informationen korrekt sind und keine geistigen Eigentumsrechte oder andere Rechte Dritter verletzen. Für Beschwerden über von Mitgliedern veröffentlichte Inhalte, insbesondere zu Urheberrechtsverletzungen, gelten die separaten Copyright-Richtlinien mit einem eigenen Verfahren."
+  },
+  {
+    "id": "\tnutzervereinbarung_kontakt",
+    "kategorie": "Richtlinie",
+    "titel": "Nutzervereinbarung §18 - Kontaktaufnahme",
+    "inhalt": "Für allgemeine Anfragen kann der Support-Button in den Einstellungen genutzt werden. Rechtliche Mitteilungen oder Klagezustellungen sind an folgende Adresse zu richten: Parteibook24 UG (haftungsbeschränkt), 78054 Villingen-Schwenningen, Kurzer Weg 6, Deutschland."
+  },
+  {
+    "id": "\tdatenschutz_geltungsbereich_verantwortlicher",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Geltungsbereich und Verantwortliche Stelle",
+    "inhalt": "Die Datenschutzrichtlinien gelten für alle Produkte von Parteibook24 UG (haftungsbeschränkt) inklusive POLI SOCIAL, für alle Mitglieder und Besucher. Es wird keine personalisierte Werbung geschaltet und keine personenbezogenen Daten an Dritte verkauft. Verantwortliche Stelle für personenbezogene Daten ist Parteibook24 UG selbst. Änderungen an der Datenschutzerklärung gelten ab dem angegebenen Datum des Inkrafttretens; bei wesentlichen Änderungen wird vorab informiert. Wer mit Änderungen nicht einverstanden ist, kann sein Konto schließen. Die weitere Nutzung nach Veröffentlichung von Änderungen gilt als Zustimmung."
+  },
+  {
+    "id": "\tdatenschutz_erfassung_registrierung",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Erfasste Daten bei Registrierung und Profil",
+    "inhalt": "Für ein Mitbürger*innen-Konto werden Name, E-Mail-Adresse, optional Geburtsdatum und Passwort erhoben. Für zivilgesellschaftliche/politische Organisationen werden Organisationsname, E-Mail, Sitz, Homepage, Kontaktdaten, Passwort und Name der verantwortlichen Person erhoben. Für individuelle/persönliche Initiativen zusätzlich eine Identitätsverifizierung. Bei Mitbürger*innen ist im Profil nur der Name öffentlich sichtbar, alle anderen Bereiche nur für den Profilinhaber. Bei Organisationen und Initiativen sind Profile inklusive aller Informationen, Dokumente, Veranstaltungen und Beiträge für alle Besucher und Mitglieder öffentlich einsehbar."
+  },
+  {
+    "id": "\tdatenschutz_veroeffentlichen_hochladen",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Veröffentlichen und Hochladen von Inhalten",
+    "inhalt": "Mitbürger*innen können Beiträge nur kommentieren und liken - dies wird stets mit ihrem Namen angezeigt, ebenso das Folgen von Organisationen. Weitere Aktionen wie Videoaufrufe oder heruntergeladene Dokumente werden nicht aktiv verfolgt oder analysiert. Organisationen und Initiativen können Inhalte (Videos, Bilder, Events, Dokumente, Kommentare) veröffentlichen, die öffentlich zugänglich sind. Likes und Kommentare zu Beiträgen (auch Werbeanzeigen) können vom Urheber des Beitrags mit dem Namen des kommentierenden Nutzers eingesehen werden. Aus technischen Gründen werden zusätzlich anonymisierte Daten analysiert, u.a. zur Fehlerbehebung und Serveroptimierung."
+  },
+  {
+    "id": "\tdatenschutz_geraet_standort",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Gerät und Standort",
+    "inhalt": "Es werden keine Standortdaten erhoben. Lediglich zur Optimierung der Nutzererfahrung können Gerätedaten wie Bildschirmgröße, Modell und Softwareversion verwendet werden. Weitere vom Gerät übermittelte Daten zum Serverzugriff werden nicht gespeichert."
+  },
+  {
+    "id": "\tdatenschutz_nutzung_dienste",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Protokollierung der Nutzung",
+    "inhalt": "Daten zu Besuch und Nutzung der Plattform werden ausschließlich in anonymisierter Form protokolliert, z. B. um Serverauslastung zu verstehen. Es werden nur anonymisierte Abrufzahlen, Likes, Besuchszeiten und -dauer erfasst, sodass keine eindeutige Zuordnung zu einer Person mehr möglich ist. Diese Daten werden auch für Wartung, Analyse, Prüfung, Zahlungsabwicklung, Betrugserkennung, Marketing und Entwicklung genutzt."
+  },
+  {
+    "id": "\tdatenschutz_dritte_partner",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Informationen von und an Dritte",
+    "inhalt": "Es werden keine Informationen an Partner weitergegeben, außer notwendigen, gesetzlich vorgeschriebenen Daten. Organisationen können Inhalte über YouTube- oder Vimeo-Links einbinden; beim Abspielen gelten dann die Datenschutzbestimmungen des jeweiligen Anbieters. Es werden generell keine Nutzerinformationen für Drittunternehmen gesammelt oder an sie weitergegeben. Klickt ein Nutzer auf externe Links (Homepage, Petitionen, Onlineveranstaltungen etc.), die Organisationen bereitstellen, gelten ab diesem Zeitpunkt die Datenschutzrichtlinien des jeweiligen externen Anbieters."
+  },
+  {
+    "id": "\tdatenschutz_veriff",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Identitätsverifizierung durch Veriff",
+    "inhalt": "Die Identitätsverifizierung für persönliche Initiativen wird vom externen Anbieter Veriff OÜ durchgeführt (Datenschutzbestimmungen unter www.veriff.com/privacy-notice). Veriff erhebt dabei sensible Daten wie Vorname, Name, Geburtsdatum, Nationalität, Adresse, Dokumenttyp und -nummer, Vorder- und Rückseite des Ausweisdokuments, ein Gesichtsbild sowie IP-Adresse, Geo-Location der IP und Gerätetyp. Diese Daten werden bei Veriff drei Monate lang gespeichert und danach vollständig gelöscht. Nach Ablauf der drei Monate speichert Parteibook24 UG weiterhin Vorname, Name, Nationalität, Geburtsdatum und Bild der identifizierten Person, solange das Konto besteht - bei Kontoschließung werden auch diese Daten vollständig gelöscht."
+  },
+  {
+    "id": "\tdatenschutz_appstores",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Google Play und Apple App Store",
+    "inhalt": "Bei Nutzung der Dienste über den Apple App Store oder Google Play Store gelten zusätzlich die Nutzungsbedingungen und Datenschutzbestimmungen des jeweiligen Anbieters. Diese stellen Parteibook24 UG ebenfalls anonymisierte Nutzungsdaten der App zur Verfügung."
+  },
+  {
+    "id": "\tdatenschutz_werbung",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Werbetreibende, Anzeigen und Anzeigenauswahl",
+    "inhalt": "Werbetreibende dürfen auf POLI SOCIAL werben; es werden ihnen jedoch keine personalisierten Nutzerinformationen weitergegeben - nur Kennzahlen wie Impressionen, Klicks und Likes einer Anzeige. Klickt oder liked ein Nutzer eine Werbeanzeige, sieht der Werbetreibende diese Information inklusive Namen; ab dem Klick auf die Anzeige gelten die Datenschutzbestimmungen des Werbetreibenden. Werbung wird nicht personalisiert, sondern regional per Hashtag ausgespielt und ist stets als solche gekennzeichnet. Es gibt keine Option zur individuellen Anzeigenauswahl - Anzeigen werden vorab gefiltert und müssen für Jugendliche über 16 Jahren geeignet sein, da die Plattform auch von Schulen und Universitäten genutzt wird."
+  },
+  {
+    "id": "\tdatenschutz_cookies_verweis",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Verweis auf Cookie-Nutzung",
+    "inhalt": "Zur Datenerfassung werden Cookies und ähnliche Technologien eingesetzt, wie in der separaten Cookie-Richtlinie näher beschrieben."
+  },
+  {
+    "id": "\tdatenschutz_kommunikation_support",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Kommunikation, Support und Benachrichtigungen",
+    "inhalt": "Daten und ggf. Nachrichten werden genutzt, um Beschwerden und technische Probleme zu verfolgen und zu beheben. Kontaktaufnahme erfolgt per E-Mail, Telefon, Plattform-Nachrichten, SMS oder Push-Benachrichtigung, u.a. zu Netzwerk-Updates und Erinnerungen. Nachrichten im Zusammenhang mit den Diensten, einschließlich Sicherheits- und Rechtshinweisen, können nicht abgelehnt werden. Push-Benachrichtigungen können über die Navigation individuell eingestellt werden - Nutzer entscheiden selbst, über welche Aktionen sie informiert werden möchten."
+  },
+  {
+    "id": "\tdatenschutz_gesetzliche_offenlegung",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Gesetzliche Offenlegung von Daten",
+    "inhalt": "Daten können weitergegeben werden, wenn dies gesetzlich, durch Vorladung oder aus anderen rechtlichen Gründen erforderlich ist, oder wenn dies nach Treu und Glauben angemessen erscheint, um illegale Aktivitäten zu untersuchen, Vereinbarungen durchzusetzen, Ansprüche Dritter abzuwehren, die Sicherheit der Dienste zu schützen oder Rechte von Parteibook24 UG, Mitgliedern oder Dritten zu schützen. Betroffene werden über rechtliche Anforderungen informiert, sofern dies nicht gesetzlich oder durch gerichtliche Anordnung verboten oder die Anforderung dringend ist. Zu allgemeine oder vage Anforderungen können angefochten werden."
+  },
+  {
+    "id": "\tdatenschutz_aufbewahrung",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Aufbewahrung von Daten",
+    "inhalt": "Personenbezogene Daten werden so lange aufbewahrt, wie das Konto aktiv ist oder wie es zur Bereitstellung der Dienste erforderlich ist - dies umfasst selbst bereitgestellte Daten sowie durch Nutzung generierte oder abgeleitete Daten. In bestimmten Fällen können Informationen in entpersonalisierter oder aggregierter Form länger aufbewahrt werden."
+  },
+  {
+    "id": "\tdatenschutz_rechte_nutzer",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Rechte auf Zugriff und Kontrolle",
+    "inhalt": "Nutzer können ihre personenbezogenen Daten selbst löschen, ändern oder berichtigen, insbesondere im eigenen Profil. Sie können zudem verlangen, dass die Nutzung ihrer Daten eingestellt oder eingeschränkt wird (z. B. wenn keine gesetzliche Grundlage mehr besteht oder Daten unrichtig sind), und eine Kopie ihrer personenbezogenen Daten in maschinenlesbarer Form anfordern (Auskunftsrecht). Anfragen werden über die angegebenen Kontaktdaten entgegengenommen und gemäß geltendem Recht bearbeitet."
+  },
+  {
+    "id": "\tdatenschutz_kontoschliessung",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Kontoschließung",
+    "inhalt": "Nach Schließung eines POLI SOCIAL-Kontos sind persönliche Daten in der Regel innerhalb von 24 Stunden für andere Nutzer nicht mehr sichtbar; Informationen werden meist unmittelbar nach Kontoschließung gelöscht. Ausnahmen bestehen, wenn die Aufbewahrung zur Erfüllung rechtlicher Verpflichtungen, behördlicher Auflagen, Streitbeilegung, Sicherheitsgewährleistung, Betrugsprävention oder Durchsetzung der Nutzervereinbarung erforderlich ist - z. B. bleiben Backup-Kopien grundsätzlich bestehen. Entpersonalisierte Daten werden auch nach Kontoschließung weiter aufbewahrt. Mit Dritten geteilte Informationen bleiben nach Kontoschließung weiterhin sichtbar, da darauf kein Zugriff mehr besteht."
+  },
+  {
+    "id": "\tdatenschutz_sicherheit",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Sicherheit und Untersuchungen",
+    "inhalt": "Zum Schutz der Daten werden Sicherheitsmaßnahmen wie HTTPS eingesetzt und Systeme regelmäßig auf Schwachstellen überprüft; eine vollständige Garantie gegen Datenabfang, -offenlegung, -veränderung oder -zerstörung kann jedoch nicht gegeben werden. Daten (einschließlich Kommunikation) werden zu Sicherheits-, Betrugspräventions- und Ermittlungszwecken genutzt, etwa zur Untersuchung von Verstößen gegen die Nutzungsbedingungen oder Versuchen, andere Nutzer zu schädigen."
+  },
+  {
+    "id": "\tdatenschutz_datentransfer_rechtsgrundlage",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Grenzüberschreitender Datentransfer und Rechtsgrundlage",
+    "inhalt": "Server können sich auch außerhalb Deutschlands befinden - in jedem Fall wird deutsches und europäisches Recht als Mindestanforderung für die Datenverarbeitung eingehalten. Die Erhebung, Nutzung und Weitergabe personenbezogener Daten erfolgt auf gesetzlicher Grundlage der DSGVO."
+  },
+  {
+    "id": "\tdatenschutz_kontakt",
+    "kategorie": "Richtlinie",
+    "titel": "Datenschutzrichtlinien - Kontaktinformationen",
+    "inhalt": "Bei Fragen oder Beschwerden zur Datenschutzrichtlinie kann Parteibook24 UG online oder postalisch kontaktiert werden: Parteibook24 UG (haftungsbeschränkt), 78054 Villingen-Schwenningen, Kurzer Weg 6, Deutschland. Kann eine Beschwerde nicht durch direkten Kontakt beigelegt werden, stehen weitere rechtliche Möglichkeiten zur Verfügung."
+  },
+  {
+    "id": "\tcookie_einleitung",
+    "kategorie": "Richtlinie",
+    "titel": "Cookie-Richtlinie - Einleitung und Geltungsbereich",
+    "inhalt": "Die Cookie-Richtlinie gilt für alle Produkte, insbesondere POLI SOCIAL, und beschreibt die Nutzung von Cookies und ähnlichen Technologien zum Erfassen und Verwenden von Daten. Mit Nutzung der Plattform oder Website werden die Cookie-Richtlinien akzeptiert."
+  },
+  {
+    "id": "\tcookie_technologien",
+    "kategorie": "Richtlinie",
+    "titel": "Cookie-Richtlinie - Eingesetzte Technologien",
+    "inhalt": "Es werden zwei Arten von Cookies verwendet: dauerhafte Cookies, die über die aktuelle Sitzung hinaus bestehen bleiben (z. B. um Nutzer wiederzuerkennen, ohne dass ein erneutes Login nötig ist), und Sitzungs-Cookies, die nur für den aktuellen Besuch gültig sind. Zusätzlich wird lokaler Speicher genutzt, um Informationen lokal auf dem Gerät zu speichern, etwa zur Aktivierung von Funktionen, zum Merken von Einstellungen und zur Beschleunigung der Website-Funktionalität."
+  },
+  {
+    "id": "\tcookie_zwecke",
+    "kategorie": "Richtlinie",
+    "titel": "Cookie-Richtlinie - Verwendungszwecke",
+    "inhalt": "Cookies werden zur Authentifizierung genutzt (Erkennung eingeloggter Nutzer, z. B. um eingeloggt zu bleiben), zur Sicherheit (schnellere und sicherere Interaktionen, Erkennung schädlicher Aktivitäten und Verstöße), sowie für Präferenzen, Funktionen und Dienste (Ermöglichung von Funktionalität, Festhalten von Browser- und Präferenzinformationen) und für funktionale Verbesserungen der Nutzererfahrung. Es wird ausdrücklich keine personalisierte Werbung auf den Produkten und Plattformen geschaltet."
+  },
+  {
+    "id": "\tcookie_dritte",
+    "kategorie": "Richtlinie",
+    "titel": "Cookie-Richtlinie - Nutzung durch Dritte",
+    "inhalt": "Dritte, etwa Werbetreibende, können nach einem Klick auf eine Werbeanzeige eigene Cookies für Marketingzwecke setzen. Ein weiterer Drittanbieter ist Google über den integrierten YouTube-Player - klickt ein Nutzer auf den Player, kann dieser Informationen erlangen, da eine Verbindung zu einem YouTube-Server aufgebaut wird. Ab diesem Zeitpunkt gelten die Datenschutzbestimmungen und Nutzervereinbarungen von YouTube; eigene, geräte- oder personenspezifische Informationen werden von Parteibook24 UG selbst nicht weitergegeben."
+  },
+  {
+    "id": "\tcookie_browser_steuerung",
+    "kategorie": "Richtlinie",
+    "titel": "Cookie-Richtlinie - Browser-Steuerung und weitere Ressourcen",
+    "inhalt": "Die meisten Browser erlauben es, Cookies über die eigenen Einstellungen zu überprüfen, zu steuern und zu löschen, einschließlich Cookies von Parteibook24 UG. Details dazu liefert die Dokumentation des jeweiligen Browser-Herstellers. Weitere Informationen zur Cookie-Nutzung von Werbetreibenden bieten das Internet Advertising Bureau (US und EU) und die European Interactive Digital Advertising Alliance (EU)."
+  },
+  {
+    "id": "\tcopyright_einleitung",
+    "kategorie": "Richtlinie",
+    "titel": "Copyright-Richtlinien - Einleitung",
+    "inhalt": "Parteibook24 UG respektiert die geistigen Eigentumsrechte Dritter. Gemäß der Nutzervereinbarung müssen alle von Mitgliedern veröffentlichten Informationen wahrheitsgemäß und rechtmäßig sein und dürfen keine geistigen Eigentumsrechte Dritter verletzen. Beschwerden über von Organisationen veröffentlichte Inhalte werden zusammen mit den Kontaktdaten des Beschwerdeführers an die betroffene Organisation weitergeleitet, sofern angemessen. Parteibook24 UG kann Konten von Organisationen deaktivieren oder schließen, die wiederholt geistiges Eigentum Dritter verletzen. Jede Beschwerde oder Gegenbeschwerde muss wahrheitsgemäß sein - bei falschen Angaben besteht persönliche Haftung."
+  },
+  {
+    "id": "\tcopyright_verletzung_melden",
+    "kategorie": "Richtlinie",
+    "titel": "Copyright-Richtlinien - Urheberrechtsverletzung melden",
+    "inhalt": "Eine Urheberrechtsverletzung kann über ein Beschwerdeformular in den Einstellungen oder schriftlich gemeldet werden. Erforderlich sind: Unterschrift einer berechtigten Person, eine Beschreibung des verletzten Werks, eine Beschreibung der Fundstelle auf der Plattform, E-Mail-Adresse und Postanschrift oder Telefonnummer des Beschwerdeführers, eine Erklärung, dass die beanstandete Nutzung nicht gestattet ist, sowie eine eidesstattliche Erklärung, dass die Angaben korrekt sind und der Beschwerdeführer der Rechteinhaber oder bevollmächtigt ist. Beschwerden können an info@poli-social.com oder postalisch an Parteibook24 UG (haftungsbeschränkt), 78054 Villingen-Schwenningen, Kurzer Weg 6, Deutschland gesendet werden."
+  },
+  {
+    "id": "\tcopyright_gegenbeschwerde",
+    "kategorie": "Richtlinie",
+    "titel": "Copyright-Richtlinien - Gegenbeschwerde",
+    "inhalt": "Wer der Ansicht ist, dass eine Urheberrechtsbeschwerde zu Unrecht gegen ihn erhoben wurde, kann eine Gegenbeschwerde einreichen. Erforderlich sind: Unterschrift, Identifizierung des entfernten oder gesperrten Materials, eine eidesstattliche Erklärung, dass die Entfernung fehlerhaft war oder das Material falsch identifiziert wurde, sowie vollständiger Name, E-Mail-Adresse und Postanschrift. Die Gegenbeschwerde kann per E-Mail an info@poli-social.com oder postalisch eingereicht werden. Zusätzlich kann jeder Inhalt über die 'Melden'-Option mit einer kurzen Problembeschreibung gemeldet werden."
+  },
+  {
+    "id": "\tcommunity_grundprinzip",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Grundprinzip",
+    "inhalt": "POLI SOCIAL erlaubt keiner Organisation, Arbeiten, Projekte oder Lösungsvorschläge zu formulieren, die Herkunft, Hautfarbe, Religion, sexuelle Orientierung/Identität oder andere Merkmale einer Personengruppe als Problem definieren oder zu stigmatisieren versuchen. Dieses Prinzip ist für alle registrierten Nutzer und Organisationen verbindlich. Wer dagegen verstößt, wird ermahnt und nach einem erneuten Verstoß ausgeschlossen. Ziel ist ein vertrauensvoller, respektvoller digitaler Raum, der Mitbürger*innen mit zivilgesellschaftlichen und politischen Organisationen und Initiativen konstruktiv verbindet."
+  },
+  {
+    "id": "\tcommunity_plattformnutzung",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Nutzung der Plattform",
+    "inhalt": "Veröffentlichte Inhalte bleiben Eigentum der Nutzer, die die Rechte an ihren Originalwerken behalten. Es dürfen keine Inhalte ohne erforderliche Genehmigung veröffentlicht werden (z. B. fremde Artikel oder im Internet gefundene Inhalte). Eigene, bereits veröffentlichte Originalinhalte dürfen erneut geteilt werden. Alle Beiträge sind auch für nicht registrierte Nutzer öffentlich sichtbar, herunterladbar und teilbar. Inhalte können jederzeit selbst von der Plattform gelöscht werden. Nutzer müssen sich professionell verhalten und dürfen keine irreführenden, betrügerischen, obszönen, bedrohlichen, hasserfüllten, verleumderischen, diskriminierenden oder illegalen Inhalte veröffentlichen; sie tragen die Verantwortung für Schäden, die durch ihre Beiträge entstehen."
+  },
+  {
+    "id": "\tcommunity_melden_konsequenzen",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Melden von Inhalten und Konsequenzen",
+    "inhalt": "Inhalte, die gegen die Richtlinien verstoßen (in Profilen, Beiträgen, Kommentaren etc.), sollen gemeldet werden - dies hilft, Missbrauch aufzudecken. Meldefunktionen sollen nur für den vorgesehenen Zweck genutzt werden. Bei Verstößen gegen Nutzervereinbarung oder Community-Richtlinien kann das Konto beschränkt, ausgesetzt, gelöscht oder deaktiviert werden; wiederholte oder schwere Verstöße können zu einer vorübergehenden oder dauerhaften Sperrung führen. Bei zu Unrecht entfernten Inhalten oder gesperrten Konten kann über die Kontaktdaten Einspruch eingelegt werden."
+  },
+  {
+    "id": "\tcommunity_diskriminierung_gewalt",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Diskriminierung, Annäherungen, Mobbing, Gewalt",
+    "inhalt": "Nicht geduldet werden: Inhalte, die Personen oder Gruppen wegen Abstammung, ethnischer Herkunft, Nationalität, Kaste, Geschlecht, Geschlechtsidentität, sexueller Orientierung, Religion oder Behinderung angreifen, verunglimpfen oder zu Hass/Gewalt gegen sie aufrufen (Hassgruppen werden nicht toleriert); unerbetene Zuneigungsbekundungen, romantische Anfragen oder sexuelle Anspielungen (POLI SOCIAL ist nicht für Partnersuche gedacht); Mobbing einschließlich Beleidigungen und Doxing (Preisgabe persönlicher Daten anderer); sowie Androhung oder Aufstachelung zu Gewalt, Sachbeschädigung oder organisierter Kriminalität."
+  },
+  {
+    "id": "\tcommunity_jugendschutz_terror",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Jugendschutz und terroristische Inhalte",
+    "inhalt": "Da die Plattform auch von Jugendlichen genutzt wird, sind grausame oder anstößige Inhalte nicht erlaubt, darunter Darstellungen schwerer Gewalt, Anstiftung zu Waffenherstellung, Drogenmissbrauch oder Diebstahl, nicht einvernehmliche sexuell eindeutige Inhalte, Prostitution, Kinderausbeutung oder Menschenhandel. Ebenfalls verboten sind Inhalte, die Suizid oder Selbstverletzung (einschließlich Essstörungen) fördern oder dazu auffordern - Anzeichen für Selbstgefährdung anderer Nutzer sollen gemeldet werden. Terroristische Organisationen oder gewaltbereite extremistische Gruppen sowie deren Mitglieder oder Werbung für diese sind auf der Plattform nicht zugelassen."
+  },
+  {
+    "id": "\tcommunity_identitaet_kommerziell",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Falsche Identität und kommerzielle Inhalte",
+    "inhalt": "Nutzer müssen ihre wahre Identität angeben - falsche Profile oder gefälschte Informationen werden nicht geduldet. Es ist nicht erlaubt, kommerzielle Inhalte zu teilen oder Beiträge zu erstellen, die kommerzielle Organisationen oder Lobbyorganisationen unterstützen (ausgenommen sind registrierte Werbetreibende). Auch Berichte von oder für kommerzielle Organisationen dürfen nicht geteilt werden, außer als Kritik daran. Werbung für Produkte oder Stellvertreteraccounts für Unternehmen sind nicht gestattet - Aufrufe für eigene Events oder Spendensammlungen sind hingegen erlaubt."
+  },
+  {
+    "id": "\tcommunity_falschinformation_spam",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Falschinformationen, Spam und Betrug",
+    "inhalt": "Es dürfen keine wissentlich irreführenden oder ungenauen Inhalte verbreitet werden, insbesondere solche, die Wahlen oder gesellschaftliche Prozesse stören sollen. Deepfakes oder manipulierte Inhalte zur Täuschung sind untersagt, ebenso Empfehlungen im Tausch gegen persönliche Vorteile. Nicht geduldet werden unerwünschte, irrelevante oder repetitive Nachrichten, die Ausnutzung tragischer Ereignisse für kommerzielle Zwecke, künstliche Erhöhung von Aufrufen/Likes/Kommentaren, betrügerische Aktivitäten, die Verbreitung schädlicher Software sowie Junk-Mail, Spam, Kettenbriefe oder Phishing."
+  },
+  {
+    "id": "\tcommunity_relevanz_privatsphaere_gesetze",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Themenrelevanz, Privatsphäre und Gesetzeskonformität",
+    "inhalt": "Alle Inhalte müssen zivilgesellschaftlich oder politisch relevant und themenbezogen sein; irrelevante, respektlose oder zu einer Informationsüberflutung führende Inhalte außerhalb der bei der Registrierung definierten Kategorien sind nicht erlaubt. Es dürfen keine E-Mail-Adressen oder persönlichen Informationen ohne Erlaubnis gesammelt oder unrechtmäßig erlangte bzw. vertrauliche Informationen Dritter offengelegt werden; dies gilt insbesondere für Inhalte, die Kinder darstellen, ohne Zustimmung eines Erziehungsberechtigten. Nutzer müssen alle anwendbaren Gesetze einhalten, einschließlich Datenschutz-, Urheberrechts- und Anti-Spam-Gesetzen, und dürfen die Plattform nicht für Schneeballsysteme, Betrug oder den Verkauf illegaler Produkte nutzen."
+  },
+  {
+    "id": "\tcommunity_rechte_dritter",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Schutz der Rechte Dritter und geistiges Eigentum",
+    "inhalt": "Vor der Weitergabe urheberrechtlich geschützter Werke, Marken, privater Informationen oder Geschäftsgeheimnisse Dritter muss die Berechtigung dazu sichergestellt sein. Geistige Eigentumsrechte anderer (Urheberrechte, Patente, Marken, Geschäftsgeheimnisse) dürfen nicht verletzt werden - Beiträge oder Inhalte anderer dürfen nur über die Teilen-Funktion, nicht durch Kopieren, verbreitet werden. Details zur Meldung von Urheberrechtsverletzungen liefern die Copyright-Richtlinien."
+  },
+  {
+    "id": "\tcommunity_rechte_unternehmen",
+    "kategorie": "Richtlinie",
+    "titel": "Community-Richtlinien - Schutz der Rechte von Parteibook24 UG",
+    "inhalt": "Es darf nicht der Eindruck erweckt werden, mit Parteibook24 UG verbunden oder von ihr empfohlen zu sein. Das Scrapen von Informationen von POLI SOCIAL sowie die Beeinträchtigung oder Störung der Plattform sind untersagt. Der Zugriff darf nur über die vorgesehenen offiziellen Benutzeroberflächen (Website für PC/Laptop, App für Mobilgeräte) erfolgen. Hinweise auf Urheber-, Marken- oder sonstige Eigentumsrechte dürfen nicht entfernt werden. Nutzer sind verpflichtet, alle Regeln, Vereinbarungen und Richtlinien dem Sinn und Zweck nach einzuhalten."
+  },
+  {
+    "id": "\tfaq_filter_einstellen",
+    "kategorie": "FAQ",
+    "titel": "Wie stelle ich den Filter richtig ein?",
+    "inhalt": "Klicke oben rechts auf das Filtersymbol. Nach Region filtern: Klicke auf „nach Regionen\". Aktiviere im ersten Dropdown das Land, in dem du suchen möchtest (Mehrfachauswahl möglich). Suche im zweiten Dropdown nach Bundesländern, Landkreisen, Stadtkreisen, Städten, Verwaltungsgemeinschaften, Verwaltungseinheiten und Bezirken (ebenfalls Mehrfachauswahl möglich). Klicke abschließend auf Filter anwenden. Nach Typ und Kategorien filtern: Klicke auf „nach Typ und Kategorien\". Wähle im Bereich Organisation/Typ, ob du Inhalte von Organisationen, von persönlichen Initiativen oder von beiden sehen möchtest. Wähle im Bereich Kategorien, ob du alle Inhalte oder nur themenspezifische Inhalte erhalten möchtest (Mehrfachauswahl möglich)."
+  },
+  {
+    "id": "\tfaq_mitbuerger_keine_beitraege",
+    "kategorie": "FAQ",
+    "titel": "Wieso kann ich als Mitbürger*in keine Beiträge erstellen?",
+    "inhalt": "POLI SOCIAL ermöglicht es Menschen, über einen „Persönliche Initiative\"-Account Inhalte mit ihrer Region zu teilen. Dafür muss sich die Person mit Ausweis und Gesichtserkennung verifizieren. Diese Verifizierung ist notwendig, damit niemand über die Plattform Hass und Hetze verbreitet."
+  },
+  {
+    "id": "\tfaq_werbung_moeglich",
+    "kategorie": "FAQ",
+    "titel": "Kann ich Werbung schalten auf POLI SOCIAL?",
+    "inhalt": "Ja. Alle Mitbürger*innen dürfen lokal, regional oder überregional für ihr Unternehmen Werbung schalten."
+  },
+  {
+    "id": "\tfaq_werbung_schalten_anleitung",
+    "kategorie": "FAQ",
+    "titel": "Wie schalte ich Werbung auf POLI SOCIAL?",
+    "inhalt": "Klicke auf dein Profilbild oben links, scrolle nach unten und klicke auf Ads Manager. Gib die Informationen zu deinem Unternehmen ein und klicke auf Unternehmen erstellen. Klicke auf Werbeanzeige erstellen und wähle die Region aus (deutschlandweit, Bundesland, Stadt- oder Landkreis, Verwaltungsgemeinschaft/-einheit oder Bezirk). Bearbeite die Anzeige wie einen normalen Beitrag: Text, Video, Bild oder YouTube-Link sowie einen Link zu deinem Unternehmen oder Produkt hinzufügen. Wähle Datum und Uhrzeit - für die pünktliche Anzeige sollte das Datum mindestens 7 Tage in der Zukunft liegen - und klicke auf Kaufen. Bezahlt wird mit Google Pay oder Apple Pay. Danach wird geprüft, ob die Werbeanzeige den Richtlinien entspricht; der Status ist im Ads-Manager unter „Warten auf Prüfung\" oder „Upcoming\" einsehbar."
+  },
+  {
+    "id": "\tfaq_richtlinien_uebersicht",
+    "kategorie": "FAQ",
+    "titel": "Wo finde ich Informationen zu den allgemein geltenden Richtlinien?",
+    "inhalt": "Die wichtigsten Richtlinien sind: Nutzervereinbarung, Datenschutzrichtlinien, Richtlinien für Werbeanzeigen, Cookie-Richtlinien, Copyright-Richtlinien, Community-Richtlinien sowie das Impressum. Diese sind über die entsprechenden Links auf der Plattform erreichbar."
+  },
+  {
+    "id": "\tfaq_konto_daten_loeschen",
+    "kategorie": "FAQ",
+    "titel": "Wie kann ich mein Profil und meine gesamten Daten löschen?",
+    "inhalt": "Klicke auf dein Profilbild oben links, dann auf Profil, dann auf das Zahnrad-Symbol, dann auf Account löschen und bestätige mit Ja, löschen. Das Konto und alle Nutzerdaten (z. B. Posts und Kommentare) werden innerhalb von 24 Stunden gelöscht."
+  },
+  {
+    "id": "\tfaq_bezirk_verwaltungseinheit",
+    "kategorie": "FAQ",
+    "titel": "Was ist ein Bezirk oder eine Verwaltungseinheit/-gemeinschaft?",
+    "inhalt": "Verwaltungseinheiten oder -gemeinschaften sind Gebiete, die durch Aufteilung eines Staatsgebiets in räumliche Zuständigkeitsbereiche entstehen - meist Zusammenschlüsse kleiner Städte mit umliegenden Dörfern zur besseren Verwaltungsorganisation (Beispiel: Die Verwaltungsgemeinschaft Konstanz besteht aus der Stadt Konstanz sowie den Gemeinden Allensbach und Reichenau). Ein Bezirk bezeichnet ein abgegrenztes Gebiet bzw. eine hierarchische Gliederungsstufe der Verwaltungsgliederung; die Abgrenzung zum Begriff „Kreis\" unterscheidet sich regional und historisch. Beispiele: Berlin besteht aus zwölf Bezirken (u.a. Mitte, Pankow, Neukölln), Stuttgart aus 23 Stadtbezirken (u.a. Stuttgart-Mitte, Bad Cannstatt, Vaihingen)."
+  },
+  {
+    "id": "\tfaq_disclaimer_plattform",
+    "kategorie": "FAQ",
+    "titel": "Vertritt POLI SOCIAL den Staat oder eine Regierung? (Disclaimer)",
+    "inhalt": "Weder Parteibook24 UG (haftungsbeschränkt) noch POLI SOCIAL vertreten den Staat, die Regierung oder regierungsnahe Organisationen und Institutionen. POLI SOCIAL ist eine Social-Media-Plattform, die zivilgesellschaftlichen und politischen Organisationen sowie Initiativen die Möglichkeit bietet, sich zu verifizieren, zu registrieren und Inhalte mit der Community zu teilen. Parteibook24 UG haftet nicht für auf der Plattform erstellte Inhalte und ist nicht für deren Erstellung verantwortlich. Alle Informationen werden direkt von verifizierten Organisationen und Initiativen bereitgestellt, jeder Beitrag ist einer verifizierten Organisation oder Person namentlich zugeordnet. POLI SOCIAL verwendet keine Algorithmen zur Feed-Sortierung."
+  },
+  {
+    "id": "funktionen_plattform_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Was ist POLI SOCIAL",
+    "inhalt": "POLI SOCIAL ist die weltweit erste Plattform für gesellschaftliche und politische Organisationen, Vereine und Initiativen."
+  },
+  {
+    "id": "funktionen_kernfunktionen_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Welche Kernfunktionen hat POLI SOCIAL",
+    "inhalt": "Die Übersicht bietet eine strukturierte Zusammenstellung der registrierten gesellschaftlichen und politischen Akteure (Organisationen, Vereine und Initiativen). Im Following-Feed werden Inhalte von Accounts angezeigt, denen der Mitmensch folgt; im Explore-Feed werden alle Beiträge von gesellschaftlichen und politischen Akteuren der entsprechenden Region angezeigt. Der Kalender enthält aktuelle Veranstaltungen, Workshops und Seminare inklusive Beschreibungen, Organisatoren, Engagementbereichen, Links und Veranstaltungsart (online, offline oder hybrid). Im Reels-Bereich werden alle Videos aus der Region angezeigt. Newsfeed, Reels, Veranstaltungskalender und die Organisationsübersicht können nach Region, Organisationsform und Themen gefiltert und eingestellt werden."
+  },
+  {
+    "id": "funktionen_profil_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Profil-Funktionen im Überblick",
+    "inhalt": "Ein Profil auf POLI SOCIAL bietet einen Infobereich, in dem Beschreibung, Vorstellungsvideo, PDF-Dokumente und Links der Organisation eingebettet werden können - Links z. B. für Petitionen, PDFs z. B. für die Satzung. Der interne Kalender ist auch im Profil des Mitmenschen eingebettet und synchronisiert sich automatisch mit den Kalendern aller Organisationen, denen der Mitmensch folgt; er dient als personalisierte Übersicht relevanter Veranstaltungen, im Unterschied zum regionalen Eventkalender. Organisationen können außerdem Adresse, Homepage, E-Mail und Telefonnummer zur direkten Kontaktaufnahme angeben."
+  },
+  {
+    "id": "funktionen_newsfeed_reels_detail",
+    "kategorie": "Funktionen",
+    "titel": "Newsfeed und Reels im Detail",
+    "inhalt": "Im Newsfeed- und Reels-Bereich finden Mitmenschen Inhalte von gesellschaftlichen und politischen Akteuren (Organisationen, Vereinen und Initiativen). Beiträge können in Text, Bild und Video hochgeladen werden. Erstellte Inhalte werden mit einer Region und einem Thema markiert und stets allen Mitmenschen der entsprechenden Region angezeigt. Da auf POLI SOCIAL ausschließlich gesellschaftliche/politische Akteure Inhalte erstellen dürfen, minimiert die Plattform die Informationsüberflutung im Vergleich zu anderen Social-Media-Plattformen."
+  },
+  {
+    "id": "funktionen_kalender_uebersicht_detail",
+    "kategorie": "Funktionen",
+    "titel": "Kalender und Übersicht im Detail",
+    "inhalt": "Im Kalender können Veranstaltungen, Workshops und Seminare eingetragen werden, jeweils mit Beschreibung, Engagementbereich, Link, Anhang sowie der Art der Veranstaltung (online, offline oder hybrid). Die Übersicht bietet eine strukturierte Zusammenstellung registrierter gesellschaftlicher und politischer Akteure. Beide Bereiche verhelfen Organisationen und Initiativen zu mehr Reichweite und Sichtbarkeit und lassen sich über den Filter nach Region, Organisationsform und Kategorie anpassen."
+  },
+  {
+    "id": "funktionen_filter_grundlagen",
+    "kategorie": "Funktionen",
+    "titel": "Filter-Grundlagen auf POLI SOCIAL",
+    "inhalt": "Newsfeed, Reels, Veranstaltungskalender und die Organisationsübersicht können nach Region, Organisationsform und Kategorie/Themen gefiltert und eingestellt werden. Bei der Region ist POLI SOCIAL in Länder, Bundesländer, Stadt- und Landkreise, Bezirke sowie Verwaltungseinheiten unterteilt. Bei der Organisationsform lassen sich Unterkategorien von Organisationen und Initiativen aktivieren und deaktivieren. Bei der Kategorie lassen sich gezielt Themen aktivieren und deaktivieren."
+  },
+  {
+    "id": "funktionen_struktur_polisocial",
+    "kategorie": "Funktionen",
+    "titel": "Struktur und Werte von POLI SOCIAL",
+    "inhalt": "POLI SOCIAL zeichnet sich durch eine regionale und überregionale Struktur, eine spezialisierte Plattform und Funktionen, ausschließlich verifizierte Content Creators, transparente Funktionsweise, eine Reichweite, die qualitäts- und lösungsgetrieben statt algorithmusgetrieben ist, sowie den Verzicht auf Algorithmen aus. Inhaltlich bietet die Plattform relevante Informationen, zeiteffizienten Wissenstransfer und ist tauglich für Schulen und Universitäten. Für Demokratie und Meinungsbild dient POLI SOCIAL als Vehikel zur Bürgerbeteiligung, steigert die Wettbewerbsintensität zwischen den Akteuren, stärkt die vierte Gewalt zugunsten der Bevölkerung und erhöht Teilhabe und Chancengleichheit."
+  },
+  {
+    "id": "funktionen_vergleich_andere_plattformen",
+    "kategorie": "Funktionen",
+    "titel": "Unterschied zu anderen Social-Media-Plattformen",
+    "inhalt": "Andere Plattformen sind primär Entertainmentplattformen, deren Reichweite auf Algorithmen und Ads-Ausgaben basiert; Algorithmen prägen dort das Meinungsbild, und es kommt häufiger zu Informationsüberflutung, Fake-News und wenig relevanten Informationen. POLI SOCIAL verzichtet dagegen bewusst auf Algorithmen und stützt sich auf verifizierte Content Creators und eine regionale Struktur. Konkret ermöglicht POLI SOCIAL Akteuren eine direkte Zielgruppenansprache ohne Abhängigkeit von Algorithmen oder Ads-Ausgaben, und Mitmenschen einen regional einstellbaren Newsfeed mit deutlich weniger irrelevanten Inhalten."
+  },
+  {
+    "id": "funktionen_filter_konzept",
+    "kategorie": "Funktionen",
+    "titel": "Wie das Filtern nach Region, Typ und Kategorie zusammenwirkt",
+    "inhalt": "Die Möglichkeit, alle Bereiche nach Region, Organisationsform und Themenbereich einzustellen, ermöglicht eine gezielte und relevante Darstellung aller Inhalte. Bei den Regionen legt man fest, aus welchen Regionen Inhalte und Veranstaltungen angezeigt werden sollen. Beim Typ legt man fest, von welchen Organisationsformen Inhalte und Veranstaltungen angezeigt werden sollen. Bei der Kategorie legt man fest, zu welchen Themen Inhalte und Veranstaltungen angezeigt werden sollen. Mitmenschen sehen dadurch Inhalte, die sowohl zu ihrer Region als auch zu ihren Interessen passen, während gesellschaftliche/politische Akteure gezielt Menschen erreichen, die sich für ihre Themen interessieren und sich in der gewünschten Region befinden."
+  },
+  {
+    "id": "funktionen_filter_verwenden_anleitung",
+    "kategorie": "Funktionen",
+    "titel": "Filter auf POLI SOCIAL öffnen und anwenden",
+    "inhalt": "Klicke oben rechts auf das Filtersymbol, um das Filtermenü zu öffnen. Wähle aus, welche Filterart du nutzen möchtest (Regionen, Typ oder Kategorie), um den entsprechenden Filterbereich zu öffnen. Bei Regionen klickst du auf das Länder-Dropdown, wählst die Länder aus, suchst anschließend nach Bundesländern, Land- und Stadtkreisen, Verwaltungseinheiten oder Bezirken und klickst danach auf 'Filter anwenden'. Bei Typ wählst du über Buttons aus, ob Inhalte ausschließlich von Organisationen oder Initiativen angezeigt werden sollen, und kannst in den Dropdowns spezifische Organisationsformen aktivieren oder deaktivieren. Bei Kategorie kannst du gewünschte Themenbereiche durch Klick auf den jeweiligen Button aktivieren oder deaktivieren."
+  },
+  {
+    "id": "funktionen_inhalte_erstellen_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Welche Inhalte können erstellt werden",
+    "inhalt": "Im Newsfeed können Text, Bilder sowie ein YouTube- oder Vimeo-Link hochgeladen werden. Im Kalender werden Veranstaltungen mit Eventname, Beschreibung, Datum, Kategorie, Eventformat, Region, Link und Anhang veröffentlicht. In der Reels-Sektion werden Videos mit Beschreibung, Region, Kategorie und Hashtags hochgeladen."
+  },
+  {
+    "id": "funktionen_inhalte_erstellen_menue",
+    "kategorie": "Funktionen",
+    "titel": "Menü zum Erstellen neuer Inhalte öffnen",
+    "inhalt": "Klicke oben rechts auf das Plus-Symbol (+), um das Menü zum Erstellen neuer Inhalte zu öffnen. Über dieses Menü kannst du die Bereiche zum Erstellen eines Beitrags, eines Reels oder einer Veranstaltung öffnen (Optionen: Beitrag erstellen, Event erstellen, Reel erstellen)."
+  },
+  {
+    "id": "funktionen_beitrag_erstellen",
+    "kategorie": "Funktionen",
+    "titel": "Beitrag erstellen - Anleitung",
+    "inhalt": "Gib im Textfeld den gewünschten Text ein, der im Beitrag angezeigt werden soll. Wähle die Region aus, auf die sich der Beitrag bezieht, wähle zusätzlich das Thema aus und füge bei Bedarf Hashtags hinzu. Ergänze den Beitrag optional mit bis zu 10 Bildern oder einem YouTube- oder Vimeo-Link und bestätige die Veröffentlichung mit einem Klick auf 'Beitrag erstellen'."
+  },
+  {
+    "id": "funktionen_reel_erstellen",
+    "kategorie": "Funktionen",
+    "titel": "Reel erstellen - Anleitung",
+    "inhalt": "Gib im Textfeld den gewünschten Text ein, der zum Reel angezeigt werden soll. Wähle die Region aus, auf die sich der Beitrag bezieht, wähle zusätzlich das Thema aus und füge bei Bedarf Hashtags hinzu. Klicke auf 'Video aus Galerie hochladen', um das gewünschte Video auszuwählen, und bestätige die Veröffentlichung mit einem Klick auf 'Reel erstellen'."
+  },
+  {
+    "id": "funktionen_event_erstellen",
+    "kategorie": "Funktionen",
+    "titel": "Veranstaltung/Event erstellen - Anleitung",
+    "inhalt": "Lege zunächst fest, ob für die Veranstaltung eine verpflichtende Anmeldung erforderlich ist, und gib die Informationen zur Veranstaltung ein (Name, Datum, Startzeit, Endzeit). Lege die Kategorie und das Eventformat fest (offline, online oder hybrid), füge bei Bedarf einen Link und einen Anhang hinzu und wähle die Region aus, in der die Veranstaltung stattfindet. Füge der Veranstaltung eine Beschreibung hinzu und bestätige die Veröffentlichung mit einem Klick auf 'Veranstaltung erstellen'."
+  },
+  {
+    "id": "funktionen_profil_oeffnen",
+    "kategorie": "Funktionen",
+    "titel": "Profil öffnen",
+    "inhalt": "Klicke oben links auf das POLI-SOCIAL-Icon, um die Sidebar zu öffnen, und klicke auf 'Profil'. Im Profilbereich findest du in der oberen Leiste die Optionen: Profil bearbeiten (Daten zum Account verwalten und aktualisieren), Newsfeed (veröffentlichte Beiträge verwalten), Reels (veröffentlichte Videos verwalten), Kalender (veröffentlichte Events verwalten), Organisationen und Initiativen (Accounts verwalten, denen man folgt) sowie Kontaktmöglichkeiten (hinterlegte Kontaktinformationen bearbeiten)."
+  },
+  {
+    "id": "funktionen_profil_bearbeiten_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Profil bearbeiten - Übersicht der Bereiche",
+    "inhalt": "Im Profil-Bearbeitungsbereich zeigt das Stiftsymbol an, dass die entsprechenden Informationen bearbeitet werden können, das Plus-Symbol zeigt an, dass neue Inhalte hinzugefügt werden können. Bearbeitbare/ergänzbare Bereiche sind: 'Über uns' (Beschreibung hinzufügen), Bilder der Organisation oder Initiative (bis zu drei Bilder für die Organisationsübersicht), Vorstellungsvideo (vom Gerät oder per Link, z. B. YouTube), Engagementbereiche (aus einer Liste auswählen), Dokumente der Organisation oder Initiative (PDF-Dokumente hochladen) und Hilfreiche Links (z. B. zu Websites, Formularen oder Petitionen)."
+  },
+  {
+    "id": "funktionen_profil_uebersicht_synchronisation",
+    "kategorie": "Funktionen",
+    "titel": "Zusammenhang zwischen Profil und Organisationsübersicht",
+    "inhalt": "Alle im Profil erfassten und aktualisierten Inhalte werden automatisch mit der Organisationsübersicht synchronisiert. Dadurch wird sichergestellt, dass Interessierte jederzeit aktuelle und vollständige Informationen über den Account einsehen können. Das Profil ist der personalisierbare Bereich für gesellschaftliche/politische Akteure, in dem alle relevanten Informationen individuell gepflegt werden; die Übersicht dient als öffentliche Darstellung, in der Organisationen gefunden werden können und Beschreibungen, Bilder und Engagementbereiche an einem zentralen Ort bündelt."
+  },
+  {
+    "id": "funktionen_ueber_uns_bearbeiten",
+    "kategorie": "Funktionen",
+    "titel": "Über-uns-Beschreibung bearbeiten",
+    "inhalt": "Klicke auf das Stiftsymbol neben dem Bereich 'Über uns'. Formuliere die Beschreibung deiner Organisation oder Initiative. Das Stiftsymbol wird anschließend durch ein Speichersymbol ersetzt; klicke darauf, um die Änderungen zu speichern."
+  },
+  {
+    "id": "funktionen_bilder_organisationsuebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Bilder für die Organisationsübersicht hinzufügen",
+    "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Bilder der Organisation oder Initiative', um ein Bild hinzuzufügen. Es können maximal drei Bilder gleichzeitig hinterlegt werden. Sind bereits drei Bilder vorhanden, muss zuerst eines über das Papierkorbsymbol gelöscht und die Löschung bestätigt werden, bevor über das Plus-Symbol ein neues Bild hinzugefügt werden kann."
+  },
+  {
+    "id": "funktionen_vorstellungsvideo_hinzufuegen",
+    "kategorie": "Funktionen",
+    "titel": "Vorstellungsvideo hinzufügen",
+    "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Vorstellungsvideo'. Wähle aus, ob ein Video von deinem Gerät über die Galerie hochgeladen oder ein Videolink hinzugefügt werden soll. Bei der Option Link fügst du den Videolink (z. B. YouTube oder Vimeo) in das entsprechende Feld ein und klickst auf 'Hinzufügen', um die Änderung zu speichern."
+  },
+  {
+    "id": "funktionen_engagementbereiche_waehlen",
+    "kategorie": "Funktionen",
+    "titel": "Engagementbereiche wählen",
+    "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Engagementbereiche'. Wähle bis zu fünf Engagementbereiche aus der Liste aus, indem du auf die Kreise neben den jeweiligen Begriffen klickst (nach der Auswahl erscheint ein Häkchen). Speichere die Auswahl, indem du auf die Schaltfläche 'Anwenden' klickst."
+  },
+  {
+    "id": "funktionen_dokumente_hinzufuegen",
+    "kategorie": "Funktionen",
+    "titel": "Dokumente (PDF) zur Organisation hinzufügen",
+    "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Dokumente'. Wähle aus, ob das PDF-Dokument von deinem Gerät hochgeladen oder über einen Link hinzugefügt werden soll. Bei der Option Link kopierst du den Hyperlink in das entsprechende Feld und klickst anschließend auf 'Speichern'."
+  },
+  {
+    "id": "funktionen_hilfreiche_links_hinzufuegen",
+    "kategorie": "Funktionen",
+    "titel": "Hilfreiche Links hinzufügen",
+    "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Hilfreiche Links'. Kopiere den gewünschten Link und füge ihn in das entsprechende Feld ein. Klicke anschließend auf das Plus-Symbol, um dem Link einen Titel zu geben (z. B. für eine Website, ein Formular oder eine Petition), und speichere die Eingabe."
+  },
+  {
+    "id": "funktionen_kontotypen_uebersicht",
+    "kategorie": "Funktionen",
+    "titel": "Welche Kontotypen gibt es auf POLI SOCIAL",
+    "inhalt": "POLI SOCIAL versteht sich als digitale Brücke, die gesellschaftlichen Austausch fördert und es ermöglicht, regionale sowie überregionale Veränderung voranzutreiben. Auf POLI SOCIAL existieren drei Kontotypen: Gesellschaftliche/politische Akteure - diese Organisationen können Inhalte und Veranstaltungen für bestimmte Regionen erstellen, die dann allen Mitmenschen und anderen Organisationen in dieser Region angezeigt werden. Initiativen - Mitmenschen, die eine Initiative starten möchten, können einen Account anlegen und direkt mit anderen Menschen aus der Region kommunizieren. Mitmenschen - können Inhalte filtern, einsehen und kommentieren."
+  },
+  {
+    "id": "funktionen_erste_schritte_app",
+    "kategorie": "Funktionen",
+    "titel": "Erste Schritte - App herunterladen und Registrierung starten",
+    "inhalt": "Lade die POLI-SOCIAL-App herunter und öffne sie, oder gehe auf www.poli-social.com. Tippe anschließend auf 'Weiter mit E-Mail'. Tippe danach auf 'Registrierung', um ein neues Konto anzulegen."
+  },
+  {
+    "id": "funktionen_neues_konto_land_typ",
+    "kategorie": "Funktionen",
+    "titel": "Neues Konto - Land und Kontotyp auswählen",
+    "inhalt": "Bestimme zunächst das Land, in dem dein Konto geführt wird (z. B. Deutschland, Österreich, Schweiz). Wähle anschließend den Kontotyp aus, den du registrieren möchtest: Mitmensch, Organisation oder Initiative. Je nach gewähltem Kontotyp folgt die dazugehörige Schritt-für-Schritt-Anleitung."
+  },
+  {
+    "id": "funktionen_konto_ges_pol_akteure_ablauf",
+    "kategorie": "Funktionen",
+    "titel": "Konto für gesellschaftliche/politische Akteure anlegen",
+    "inhalt": "Für ein Organisationskonto sind bereitzustellen: Organisationsdaten (Name der Organisation, Abkürzung optional, E-Mail, Passwort, Postleitzahl, Stadt, Straße, Hausnummer, Homepage optional), ein optionales Profilbild, die Auswahl der Region(en), für die Inhalte veröffentlicht werden sollen (mit Mehrfachauswahl, inkl. der Option 'Meine Inhalte beschäftigen sich mit bundesweiten Themen' bzw. 'Meine Organisation erstellt Beiträge ausschließlich zu internationalen Themen'), sowie die Auswahl der Themen/Engagementbereiche der Organisation (Mehrfachauswahl, z. B. Anlauf- und Kontaktstelle, Antidiskriminierung, Antikorruption/Transparenz, Beratungsangebote, Beruf und Ausbildung, Bildung, Digitale Rechte & Datenschutz). Abschließend wird der Account über 'Account erstellen' angelegt."
+  },
+  {
+    "id": "funktionen_konto_initiativen_ablauf",
+    "kategorie": "Funktionen",
+    "titel": "Konto für Initiativen anlegen",
+    "inhalt": "Für ein Initiativen-Konto sind bereitzustellen: Daten zur Initiative (Name der Initiative, Abkürzung optional, E-Mail, Passwort, Postleitzahl optional, Stadt optional), ein optionales Profilbild, die Auswahl der Region(en), für die die persönliche Initiative Inhalte veröffentlichen möchte (Mehrfachauswahl), sowie die Auswahl der Engagementbereiche/Themen der Initiative (Mehrfachauswahl, z. B. Anlauf- und Kontaktstelle, Antidiskriminierung, Antikorruption/Transparenz, Beratungsangebote, Beruf und Ausbildung, Bildung, Digitale Rechte & Datenschutz). Abschließend wird der Account über 'Account erstellen' angelegt."
+  },
+  {
+    "id": "funktionen_konto_mitmenschen_ablauf",
+    "kategorie": "Funktionen",
+    "titel": "Konto für Mitmenschen anlegen",
+    "inhalt": "Für ein Mitmenschen-Konto sind bereitzustellen: Personendaten (Nachname, Vorname, E-Mail, Passwort, Geburtstag optional), ein optionales Profilbild, sowie die Auswahl der Region(en), für die man News erhalten möchte. Abschließend wird der Account über 'Account erstellen' angelegt."
+  },
+  {
+    "id": "vision_kernziele",
+    "kategorie": "Vision",
+    "titel": "Vision und Ziele von POLI SOCIAL",
+    "inhalt": "POLI SOCIAL verfolgt das Ziel, eine digitale Infrastruktur anzubieten, mit der die gesamte Gesellschaft effizient vernetzt wird und gesellschaftliche sowie politische Themen, Probleme und Lösungen allen Menschen zugänglich gemacht werden. Mitmenschen erhalten das Recht auf die zeiteffizienteste Art, ungefilterte und originale Informationen direkt von gesellschaftlichen und politischen Akteuren zu erhalten. Akteure erhalten das Recht, ihre Arbeit, Projekte, Ideen, Probleme, Beratungsangebote, Veranstaltungen und Lösungsvorschläge allen Mitmenschen einer Region kostenlos zur Verfügung zu stellen. Ziel ist es, die relevante Plattform für den Informationsaustausch zwischen der Gesellschaft sowie gesellschaftlichen und politischen Akteuren zu werden und die Abhängigkeit von Social-Media-Plattformen und großen Medienhäusern auf Demokratie und öffentliches Meinungsbild zu minimieren."
+  },
+  {
+    "id": "vision_gesellschaftliche_wirkung",
+    "kategorie": "Vision",
+    "titel": "Gesellschaftliche Wirkung von POLI SOCIAL",
+    "inhalt": "POLI SOCIAL wirkt in drei Bereichen: Bildung - gesellschaftliche/politische Bildung wird allen Bürgern zeiteffizient und barrierefrei zugänglich gemacht, u. a. durch Integration in Schulen und Universitäten. Veränderung - Alltagsprobleme werden von Akteuren gezielt dargestellt, Lösungsvorschläge treten in einen Wettbewerb zum Wohl aller, und Bürger erhalten ein transparentes Bild durchsetzbarer Lösungen. Unabhängigkeit - POLI SOCIAL ist der erste direkte digitale Kommunikationskanal zwischen gesellschaftlichen/politischen Akteuren und der Bevölkerung einer Region, wodurch Einflüsse von Lobbyisten, Algorithmen und großen Medienhäusern auf die öffentliche Meinungsbildung minimiert werden."
+  },
+  {
+    "id": "vision_grundproblem_und_loesung",
+    "kategorie": "Vision",
+    "titel": "Welches Grundproblem POLI SOCIAL löst",
+    "inhalt": "Das Grundproblem der heutigen Informationswelt: Es gibt zu viele Inhalte und zu wenig Verständnis beim Konsumenten - Themen erscheinen schnell und emotional, ohne ausreichenden Hintergrund, komplexe Themen werden konsumiert, aber nicht eingeordnet. Zudem sind Probleme sichtbar, Lösungen aber nicht - negative Schlagzeilen prägen die Wahrnehmung, konkrete Lösungsansätze bleiben dagegen meist unsichtbar, was zu Unsicherheit und Rückzug führt. POLI SOCIAL löst das, indem es einen Ort für strukturierte gesellschaftliche Information schafft: Themen werden nicht isoliert gezeigt, sondern mit Akteuren, Lösungen und Handlungsmöglichkeiten verbunden, sodass Menschen erkennen können, wer bereits an relevanten Themen arbeitet."
+  },
+  {
+    "id": "vision_demokratische_teilhabe",
+    "kategorie": "Vision",
+    "titel": "Wie POLI SOCIAL demokratische Teilhabe erleichtert",
+    "inhalt": "Demokratische Mitbestimmung steht laut POLI SOCIAL unter Druck, weil oft der Zugang fehlt, nicht das Interesse: Beteiligung scheitert am Zugang, lokale Angebote und Lösungen sind schwer nachvollziehbar, es fehlt ein einfacher, direkter Kommunikationskanal zwischen Bevölkerung und Akteuren, gute Ideen setzen sich nicht automatisch durch, und Unterstützung bleibt oft ungezielt, weil unklar ist, welche Akteure an welchen Themen arbeiten. POLI SOCIAL adressiert das, indem es gesellschaftliche und politische Arbeit zugänglicher macht, Projekte und Lösungsansätze sichtbar und vergleichbar macht, einen direkten Kanal zwischen Menschen und Akteuren schafft, eine gemeinsame Bühne unabhängig von Budget oder Bekanntheit bietet, und transparent zeigt, welche Akteure welche Themen bearbeiten - wodurch aus diffuser Sympathie gezieltere Unterstützung werden kann."
+  }
+]
