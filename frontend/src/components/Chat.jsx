@@ -3,9 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 const API_URL = import.meta.env.VITE_API_URL || "";
 
 export default function Chat() {
+  const [showDisclosure, setShowDisclosure] = useState(true);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [quickReplies, setQuickReplies] = useState([]);
   const [typing, setTyping] = useState(false);
   const [ticketId, setTicketId] = useState(null);
   const [sending, setSending] = useState(false);
@@ -23,17 +23,15 @@ export default function Chat() {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
-  }, [messages, quickReplies]);
+  }, [messages]);
 
   const lastSent = useRef({ hash: null, ts: 0 });
   const CLIENT_DEBOUNCE_MS = 1500;
+  const lastActivityTs = useRef(Date.now());
+  const INACTIVITY_THRESHOLD_MS = 4 * 60 * 1000; // etwas unter der 5-Minuten-Serverspeicherung
 
   function appendMessage(text, from = "bot") {
     setMessages(prev => [...prev, { from, text }]);
-  }
-
-  function clearQuickReplies() {
-    setQuickReplies([]);
   }
 
   function showTicket(id) {
@@ -43,18 +41,23 @@ export default function Chat() {
   async function doSend(payload) {
     const uid = localStorage.getItem("ps_userId");
     const now = Date.now();
-    const hash = `${payload.message || ""}:${payload.followUpResponse || ""}`;
+    const hash = `${payload.message || ""}`;
     if (hash === lastSent.current.hash && (now - lastSent.current.ts) < CLIENT_DEBOUNCE_MS) {
       appendMessage("Bitte kurz warten ‚Äî ich bearbeite bereits eine √§hnliche Anfrage.", "bot");
       return;
     }
     lastSent.current = { hash, ts: now };
 
+    if (messages.length > 0 && (now - lastActivityTs.current) > INACTIVITY_THRESHOLD_MS) {
+      appendMessage("Es ist etwas Zeit vergangen – falls ich den Faden verloren habe, formuliere deine Frage gerne noch einmal vollständig.", "bot");
+    }
+    lastActivityTs.current = now;
+
     if (payload.message) appendMessage(payload.message, "user");
 
+    setShowDisclosure(false);
     setSending(true);
     setTyping(true);
-    clearQuickReplies();
     showTicket(null);
 
     try {
@@ -63,7 +66,6 @@ export default function Chat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: payload.message || null,
-          followUpResponse: payload.followUpResponse || null,
           userId: uid
         })
       });
@@ -78,7 +80,7 @@ export default function Chat() {
       setTyping(false);
       setSending(false);
 
-        if (data.ticketId) {
+      if (data.ticketId) {
         showTicket(data.ticketId);
       }
 
@@ -88,12 +90,6 @@ export default function Chat() {
 
       if (data.sources && Array.isArray(data.sources) && data.sources.length) {
         appendMessage("Quellen: " + data.sources.map(s => s.title || s.id || "").filter(Boolean).join(", "), "bot");
-      }
-
-      if (data.followUps && Array.isArray(data.followUps) && data.followUps.length) {
-        setQuickReplies(data.followUps);
-      } else {
-        setQuickReplies([]);
       }
 
     } catch (err) {
@@ -111,10 +107,6 @@ export default function Chat() {
     doSend({ message: text });
   }
 
-  function handleQuickReply(text) {
-    doSend({ message: text, followUpResponse: text });
-  }
-
   function onKeyDown(e) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -124,17 +116,21 @@ export default function Chat() {
 
   return (
     <div className="chat-container" style={{ maxWidth: 720, margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
-<div className="ai-disclosure" style={{ maxWidth: 720, margin: "0 auto 12px", padding: "8px 12px", background: "#f1f3f5", borderRadius: 8, fontSize: 13, color: "#555" }}>
-  Hinweis: Du sprichst hier mit einem KI-gest√ºtzten Assistenten, keiner echten Person. Bei komplexeren Anliegen leiten wir dich an unser Support-Team weiter.
-</div>
-      <div ref={messagesRef} className="messages" style={{ minHeight: 300, maxHeight: 500, overflowY: "auto", padding: 12, border: "1px solid #eee", borderRadius: 8 }}>
+         <div style={{ border: "1px solid #eee", borderRadius: 8, overflow: "hidden" }}>
+        {showDisclosure && (
+          <div className="ai-disclosure" style={{ padding: "8px 12px", background: "#f1f3f5", fontSize: 13, color: "#555", borderBottom: "1px solid #eee" }}>
+            Hinweis: Du sprichst hier mit einem KI-gestützten Assistenten, keiner echten Person. Bei komplexeren Anliegen leiten wir dich an unser Support-Team weiter.
+          </div>
+        )}
+        <div ref={messagesRef} className="messages" style={{ minHeight: 300, maxHeight: 500, overflowY: "auto", padding: 12 }}>
         {messages.map((m, i) => (
           <div key={i} className={`msg ${m.from}`} style={{ margin: "8px 0", textAlign: m.from === "user" ? "right" : "left" }}>
-            <div style={{ display: "inline-block", padding: "8px 12px", borderRadius: 12, background: m.from === "user" ? "#0b74de" : "#f1f3f5", color: m.from === "user" ? "#fff" : "#000", maxWidth: "80%" }}>
+                        <div style={{ display: "inline-block", padding: "8px 12px", borderRadius: 12, background: m.from === "user" ? "#0b74de" : "#f1f3f5", color: m.from === "user" ? "#fff" : "#000", maxWidth: "80%", whiteSpace: "pre-wrap" }}>
               {m.text}
             </div>
           </div>
-        ))}
+                ))}
+        </div>
       </div>
 
       <div className="meta" style={{ marginTop: 8 }}>
@@ -143,15 +139,6 @@ export default function Chat() {
           <div className="ticket" style={{ marginBottom: 8 }}>
             Ticket: <strong>{ticketId}</strong>
             <button style={{ marginLeft: 8 }} onClick={() => { navigator.clipboard?.writeText(ticketId); }}>Kopieren</button>
-          </div>
-        )}
-        {quickReplies.length > 0 && (
-          <div className="quick-replies" style={{ marginBottom: 8 }}>
-            {quickReplies.map((q, idx) => (
-              <button key={idx} onClick={() => handleQuickReply(q)} style={{ marginRight: 8, marginBottom: 6, padding: "6px 10px", borderRadius: 20, border: "1px solid #ddd", background: "#fff", cursor: "pointer" }}>
-                {q}
-              </button>
-            ))}
           </div>
         )}
       </div>

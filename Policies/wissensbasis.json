@@ -129,7 +129,7 @@
     "id": "\tnutzervereinbarung_verfuegbarkeit_einschraenkungen",
     "kategorie": "Richtlinie",
     "titel": "Nutzervereinbarung §10 - Verfügbarkeit, Drittinhalte und Einschränkungen",
-    "inhalt": "Parteibook24 UG behält sich vor, Dienstleistungen jederzeit zu ändern, auszusetzen, einzustellen oder Preise zu ändern, und ist nicht verpflichtet, veröffentlichte Inhalte dauerhaft zu speichern - POLI SOCIAL ist kein Speicherdienst. Für Inhalte und Verhalten Dritter (auch anderer Mitglieder) sowie für Veranstaltungen, die von Mitgliedern organisiert werden, wird keine Verantwortung übernommen. Bei Verstößen gegen den Vertrag oder Missbrauch kann die Nutzung eingeschränkt, das Konto ausgesetzt oder gekündigt werden. Alle geistigen Eigentumsrechte an den Diensten selbst (Marken, Logos, „POLI SOCIAL“-Bezeichnung) verbleiben bei Parteibook24 UG."
+    "inhalt": "Parteibook24 UG behält sich vor, Dienstleistungen jederzeit zu ändern, auszusetzen, einzustellen oder Preise zu ändern, und ist nicht verpflichtet, veröffentlichte Inhalte dauerhaft zu speichern - POLI SOCIAL ist kein Speicherdienst. Für Inhalte und Verhalten Dritter (auch anderer Mitglieder) sowie für Veranstaltungen, die von Mitgliedern organisiert werden, wird keine Verantwortung übernommen. Bei Verstößen gegen den Vertrag oder Missbrauch kann die Nutzung eingeschränkt, das Konto ausgesetzt oder gekündigt werden. Alle geistigen Eigentumsrechte an den Diensten selbst (Marken, Logos, „POLI SOCIAL”-Bezeichnung) verbleiben bei Parteibook24 UG."
   },
   {
     "id": "\tnutzervereinbarung_bildungseinrichtungen",
@@ -450,205 +450,205 @@
     "inhalt": "Weder Parteibook24 UG (haftungsbeschränkt) noch POLI SOCIAL vertreten den Staat, die Regierung oder regierungsnahe Organisationen und Institutionen. POLI SOCIAL ist eine Social-Media-Plattform, die zivilgesellschaftlichen und politischen Organisationen sowie Initiativen die Möglichkeit bietet, sich zu verifizieren, zu registrieren und Inhalte mit der Community zu teilen. Parteibook24 UG haftet nicht für auf der Plattform erstellte Inhalte und ist nicht für deren Erstellung verantwortlich. Alle Informationen werden direkt von verifizierten Organisationen und Initiativen bereitgestellt, jeder Beitrag ist einer verifizierten Organisation oder Person namentlich zugeordnet. POLI SOCIAL verwendet keine Algorithmen zur Feed-Sortierung."
   },
   {
-    "id": "funktionen_plattform_uebersicht",
+    "id": "\tfunktionen_plattform_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Was ist POLI SOCIAL",
     "inhalt": "POLI SOCIAL ist die weltweit erste Plattform für gesellschaftliche und politische Organisationen, Vereine und Initiativen."
   },
   {
-    "id": "funktionen_kernfunktionen_uebersicht",
+    "id": "\tfunktionen_kernfunktionen_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Welche Kernfunktionen hat POLI SOCIAL",
     "inhalt": "Die Übersicht bietet eine strukturierte Zusammenstellung der registrierten gesellschaftlichen und politischen Akteure (Organisationen, Vereine und Initiativen). Im Following-Feed werden Inhalte von Accounts angezeigt, denen der Mitmensch folgt; im Explore-Feed werden alle Beiträge von gesellschaftlichen und politischen Akteuren der entsprechenden Region angezeigt. Der Kalender enthält aktuelle Veranstaltungen, Workshops und Seminare inklusive Beschreibungen, Organisatoren, Engagementbereichen, Links und Veranstaltungsart (online, offline oder hybrid). Im Reels-Bereich werden alle Videos aus der Region angezeigt. Newsfeed, Reels, Veranstaltungskalender und die Organisationsübersicht können nach Region, Organisationsform und Themen gefiltert und eingestellt werden."
   },
   {
-    "id": "funktionen_profil_uebersicht",
+    "id": "\tfunktionen_profil_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Profil-Funktionen im Überblick",
     "inhalt": "Ein Profil auf POLI SOCIAL bietet einen Infobereich, in dem Beschreibung, Vorstellungsvideo, PDF-Dokumente und Links der Organisation eingebettet werden können - Links z. B. für Petitionen, PDFs z. B. für die Satzung. Der interne Kalender ist auch im Profil des Mitmenschen eingebettet und synchronisiert sich automatisch mit den Kalendern aller Organisationen, denen der Mitmensch folgt; er dient als personalisierte Übersicht relevanter Veranstaltungen, im Unterschied zum regionalen Eventkalender. Organisationen können außerdem Adresse, Homepage, E-Mail und Telefonnummer zur direkten Kontaktaufnahme angeben."
   },
   {
-    "id": "funktionen_newsfeed_reels_detail",
+    "id": "\tfunktionen_newsfeed_reels_detail",
     "kategorie": "Funktionen",
     "titel": "Newsfeed und Reels im Detail",
     "inhalt": "Im Newsfeed- und Reels-Bereich finden Mitmenschen Inhalte von gesellschaftlichen und politischen Akteuren (Organisationen, Vereinen und Initiativen). Beiträge können in Text, Bild und Video hochgeladen werden. Erstellte Inhalte werden mit einer Region und einem Thema markiert und stets allen Mitmenschen der entsprechenden Region angezeigt. Da auf POLI SOCIAL ausschließlich gesellschaftliche/politische Akteure Inhalte erstellen dürfen, minimiert die Plattform die Informationsüberflutung im Vergleich zu anderen Social-Media-Plattformen."
   },
   {
-    "id": "funktionen_kalender_uebersicht_detail",
+    "id": "\tfunktionen_kalender_uebersicht_detail",
     "kategorie": "Funktionen",
     "titel": "Kalender und Übersicht im Detail",
     "inhalt": "Im Kalender können Veranstaltungen, Workshops und Seminare eingetragen werden, jeweils mit Beschreibung, Engagementbereich, Link, Anhang sowie der Art der Veranstaltung (online, offline oder hybrid). Die Übersicht bietet eine strukturierte Zusammenstellung registrierter gesellschaftlicher und politischer Akteure. Beide Bereiche verhelfen Organisationen und Initiativen zu mehr Reichweite und Sichtbarkeit und lassen sich über den Filter nach Region, Organisationsform und Kategorie anpassen."
   },
   {
-    "id": "funktionen_filter_grundlagen",
+    "id": "\tfunktionen_filter_grundlagen",
     "kategorie": "Funktionen",
     "titel": "Filter-Grundlagen auf POLI SOCIAL",
     "inhalt": "Newsfeed, Reels, Veranstaltungskalender und die Organisationsübersicht können nach Region, Organisationsform und Kategorie/Themen gefiltert und eingestellt werden. Bei der Region ist POLI SOCIAL in Länder, Bundesländer, Stadt- und Landkreise, Bezirke sowie Verwaltungseinheiten unterteilt. Bei der Organisationsform lassen sich Unterkategorien von Organisationen und Initiativen aktivieren und deaktivieren. Bei der Kategorie lassen sich gezielt Themen aktivieren und deaktivieren."
   },
   {
-    "id": "funktionen_struktur_polisocial",
+    "id": "\tfunktionen_struktur_polisocial",
     "kategorie": "Funktionen",
     "titel": "Struktur und Werte von POLI SOCIAL",
     "inhalt": "POLI SOCIAL zeichnet sich durch eine regionale und überregionale Struktur, eine spezialisierte Plattform und Funktionen, ausschließlich verifizierte Content Creators, transparente Funktionsweise, eine Reichweite, die qualitäts- und lösungsgetrieben statt algorithmusgetrieben ist, sowie den Verzicht auf Algorithmen aus. Inhaltlich bietet die Plattform relevante Informationen, zeiteffizienten Wissenstransfer und ist tauglich für Schulen und Universitäten. Für Demokratie und Meinungsbild dient POLI SOCIAL als Vehikel zur Bürgerbeteiligung, steigert die Wettbewerbsintensität zwischen den Akteuren, stärkt die vierte Gewalt zugunsten der Bevölkerung und erhöht Teilhabe und Chancengleichheit."
   },
   {
-    "id": "funktionen_vergleich_andere_plattformen",
+    "id": "\tfunktionen_vergleich_andere_plattformen",
     "kategorie": "Funktionen",
     "titel": "Unterschied zu anderen Social-Media-Plattformen",
     "inhalt": "Andere Plattformen sind primär Entertainmentplattformen, deren Reichweite auf Algorithmen und Ads-Ausgaben basiert; Algorithmen prägen dort das Meinungsbild, und es kommt häufiger zu Informationsüberflutung, Fake-News und wenig relevanten Informationen. POLI SOCIAL verzichtet dagegen bewusst auf Algorithmen und stützt sich auf verifizierte Content Creators und eine regionale Struktur. Konkret ermöglicht POLI SOCIAL Akteuren eine direkte Zielgruppenansprache ohne Abhängigkeit von Algorithmen oder Ads-Ausgaben, und Mitmenschen einen regional einstellbaren Newsfeed mit deutlich weniger irrelevanten Inhalten."
   },
   {
-    "id": "funktionen_filter_konzept",
+    "id": "\tfunktionen_filter_konzept",
     "kategorie": "Funktionen",
     "titel": "Wie das Filtern nach Region, Typ und Kategorie zusammenwirkt",
     "inhalt": "Die Möglichkeit, alle Bereiche nach Region, Organisationsform und Themenbereich einzustellen, ermöglicht eine gezielte und relevante Darstellung aller Inhalte. Bei den Regionen legt man fest, aus welchen Regionen Inhalte und Veranstaltungen angezeigt werden sollen. Beim Typ legt man fest, von welchen Organisationsformen Inhalte und Veranstaltungen angezeigt werden sollen. Bei der Kategorie legt man fest, zu welchen Themen Inhalte und Veranstaltungen angezeigt werden sollen. Mitmenschen sehen dadurch Inhalte, die sowohl zu ihrer Region als auch zu ihren Interessen passen, während gesellschaftliche/politische Akteure gezielt Menschen erreichen, die sich für ihre Themen interessieren und sich in der gewünschten Region befinden."
   },
   {
-    "id": "funktionen_filter_verwenden_anleitung",
+    "id": "\tfunktionen_filter_verwenden_anleitung",
     "kategorie": "Funktionen",
     "titel": "Filter auf POLI SOCIAL öffnen und anwenden",
     "inhalt": "Klicke oben rechts auf das Filtersymbol, um das Filtermenü zu öffnen. Wähle aus, welche Filterart du nutzen möchtest (Regionen, Typ oder Kategorie), um den entsprechenden Filterbereich zu öffnen. Bei Regionen klickst du auf das Länder-Dropdown, wählst die Länder aus, suchst anschließend nach Bundesländern, Land- und Stadtkreisen, Verwaltungseinheiten oder Bezirken und klickst danach auf 'Filter anwenden'. Bei Typ wählst du über Buttons aus, ob Inhalte ausschließlich von Organisationen oder Initiativen angezeigt werden sollen, und kannst in den Dropdowns spezifische Organisationsformen aktivieren oder deaktivieren. Bei Kategorie kannst du gewünschte Themenbereiche durch Klick auf den jeweiligen Button aktivieren oder deaktivieren."
   },
   {
-    "id": "funktionen_inhalte_erstellen_uebersicht",
+    "id": "\tfunktionen_inhalte_erstellen_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Welche Inhalte können erstellt werden",
     "inhalt": "Im Newsfeed können Text, Bilder sowie ein YouTube- oder Vimeo-Link hochgeladen werden. Im Kalender werden Veranstaltungen mit Eventname, Beschreibung, Datum, Kategorie, Eventformat, Region, Link und Anhang veröffentlicht. In der Reels-Sektion werden Videos mit Beschreibung, Region, Kategorie und Hashtags hochgeladen."
   },
   {
-    "id": "funktionen_inhalte_erstellen_menue",
+    "id": "\tfunktionen_inhalte_erstellen_menue",
     "kategorie": "Funktionen",
     "titel": "Menü zum Erstellen neuer Inhalte öffnen",
     "inhalt": "Klicke oben rechts auf das Plus-Symbol (+), um das Menü zum Erstellen neuer Inhalte zu öffnen. Über dieses Menü kannst du die Bereiche zum Erstellen eines Beitrags, eines Reels oder einer Veranstaltung öffnen (Optionen: Beitrag erstellen, Event erstellen, Reel erstellen)."
   },
   {
-    "id": "funktionen_beitrag_erstellen",
+    "id": "\tfunktionen_beitrag_erstellen",
     "kategorie": "Funktionen",
     "titel": "Beitrag erstellen - Anleitung",
     "inhalt": "Gib im Textfeld den gewünschten Text ein, der im Beitrag angezeigt werden soll. Wähle die Region aus, auf die sich der Beitrag bezieht, wähle zusätzlich das Thema aus und füge bei Bedarf Hashtags hinzu. Ergänze den Beitrag optional mit bis zu 10 Bildern oder einem YouTube- oder Vimeo-Link und bestätige die Veröffentlichung mit einem Klick auf 'Beitrag erstellen'."
   },
   {
-    "id": "funktionen_reel_erstellen",
+    "id": "\tfunktionen_reel_erstellen",
     "kategorie": "Funktionen",
     "titel": "Reel erstellen - Anleitung",
     "inhalt": "Gib im Textfeld den gewünschten Text ein, der zum Reel angezeigt werden soll. Wähle die Region aus, auf die sich der Beitrag bezieht, wähle zusätzlich das Thema aus und füge bei Bedarf Hashtags hinzu. Klicke auf 'Video aus Galerie hochladen', um das gewünschte Video auszuwählen, und bestätige die Veröffentlichung mit einem Klick auf 'Reel erstellen'."
   },
   {
-    "id": "funktionen_event_erstellen",
+    "id": "\tfunktionen_event_erstellen",
     "kategorie": "Funktionen",
     "titel": "Veranstaltung/Event erstellen - Anleitung",
     "inhalt": "Lege zunächst fest, ob für die Veranstaltung eine verpflichtende Anmeldung erforderlich ist, und gib die Informationen zur Veranstaltung ein (Name, Datum, Startzeit, Endzeit). Lege die Kategorie und das Eventformat fest (offline, online oder hybrid), füge bei Bedarf einen Link und einen Anhang hinzu und wähle die Region aus, in der die Veranstaltung stattfindet. Füge der Veranstaltung eine Beschreibung hinzu und bestätige die Veröffentlichung mit einem Klick auf 'Veranstaltung erstellen'."
   },
   {
-    "id": "funktionen_profil_oeffnen",
+    "id": "\tfunktionen_profil_oeffnen",
     "kategorie": "Funktionen",
     "titel": "Profil öffnen",
     "inhalt": "Klicke oben links auf das POLI-SOCIAL-Icon, um die Sidebar zu öffnen, und klicke auf 'Profil'. Im Profilbereich findest du in der oberen Leiste die Optionen: Profil bearbeiten (Daten zum Account verwalten und aktualisieren), Newsfeed (veröffentlichte Beiträge verwalten), Reels (veröffentlichte Videos verwalten), Kalender (veröffentlichte Events verwalten), Organisationen und Initiativen (Accounts verwalten, denen man folgt) sowie Kontaktmöglichkeiten (hinterlegte Kontaktinformationen bearbeiten)."
   },
   {
-    "id": "funktionen_profil_bearbeiten_uebersicht",
+    "id": "\tfunktionen_profil_bearbeiten_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Profil bearbeiten - Übersicht der Bereiche",
     "inhalt": "Im Profil-Bearbeitungsbereich zeigt das Stiftsymbol an, dass die entsprechenden Informationen bearbeitet werden können, das Plus-Symbol zeigt an, dass neue Inhalte hinzugefügt werden können. Bearbeitbare/ergänzbare Bereiche sind: 'Über uns' (Beschreibung hinzufügen), Bilder der Organisation oder Initiative (bis zu drei Bilder für die Organisationsübersicht), Vorstellungsvideo (vom Gerät oder per Link, z. B. YouTube), Engagementbereiche (aus einer Liste auswählen), Dokumente der Organisation oder Initiative (PDF-Dokumente hochladen) und Hilfreiche Links (z. B. zu Websites, Formularen oder Petitionen)."
   },
   {
-    "id": "funktionen_profil_uebersicht_synchronisation",
+    "id": "\tfunktionen_profil_uebersicht_synchronisation",
     "kategorie": "Funktionen",
     "titel": "Zusammenhang zwischen Profil und Organisationsübersicht",
     "inhalt": "Alle im Profil erfassten und aktualisierten Inhalte werden automatisch mit der Organisationsübersicht synchronisiert. Dadurch wird sichergestellt, dass Interessierte jederzeit aktuelle und vollständige Informationen über den Account einsehen können. Das Profil ist der personalisierbare Bereich für gesellschaftliche/politische Akteure, in dem alle relevanten Informationen individuell gepflegt werden; die Übersicht dient als öffentliche Darstellung, in der Organisationen gefunden werden können und Beschreibungen, Bilder und Engagementbereiche an einem zentralen Ort bündelt."
   },
   {
-    "id": "funktionen_ueber_uns_bearbeiten",
+    "id": "\tfunktionen_ueber_uns_bearbeiten",
     "kategorie": "Funktionen",
     "titel": "Über-uns-Beschreibung bearbeiten",
     "inhalt": "Klicke auf das Stiftsymbol neben dem Bereich 'Über uns'. Formuliere die Beschreibung deiner Organisation oder Initiative. Das Stiftsymbol wird anschließend durch ein Speichersymbol ersetzt; klicke darauf, um die Änderungen zu speichern."
   },
   {
-    "id": "funktionen_bilder_organisationsuebersicht",
+    "id": "\tfunktionen_bilder_organisationsuebersicht",
     "kategorie": "Funktionen",
     "titel": "Bilder für die Organisationsübersicht hinzufügen",
     "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Bilder der Organisation oder Initiative', um ein Bild hinzuzufügen. Es können maximal drei Bilder gleichzeitig hinterlegt werden. Sind bereits drei Bilder vorhanden, muss zuerst eines über das Papierkorbsymbol gelöscht und die Löschung bestätigt werden, bevor über das Plus-Symbol ein neues Bild hinzugefügt werden kann."
   },
   {
-    "id": "funktionen_vorstellungsvideo_hinzufuegen",
+    "id": "\tfunktionen_vorstellungsvideo_hinzufuegen",
     "kategorie": "Funktionen",
     "titel": "Vorstellungsvideo hinzufügen",
     "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Vorstellungsvideo'. Wähle aus, ob ein Video von deinem Gerät über die Galerie hochgeladen oder ein Videolink hinzugefügt werden soll. Bei der Option Link fügst du den Videolink (z. B. YouTube oder Vimeo) in das entsprechende Feld ein und klickst auf 'Hinzufügen', um die Änderung zu speichern."
   },
   {
-    "id": "funktionen_engagementbereiche_waehlen",
+    "id": "\tfunktionen_engagementbereiche_waehlen",
     "kategorie": "Funktionen",
     "titel": "Engagementbereiche wählen",
     "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Engagementbereiche'. Wähle bis zu fünf Engagementbereiche aus der Liste aus, indem du auf die Kreise neben den jeweiligen Begriffen klickst (nach der Auswahl erscheint ein Häkchen). Speichere die Auswahl, indem du auf die Schaltfläche 'Anwenden' klickst."
   },
   {
-    "id": "funktionen_dokumente_hinzufuegen",
+    "id": "\tfunktionen_dokumente_hinzufuegen",
     "kategorie": "Funktionen",
     "titel": "Dokumente (PDF) zur Organisation hinzufügen",
     "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Dokumente'. Wähle aus, ob das PDF-Dokument von deinem Gerät hochgeladen oder über einen Link hinzugefügt werden soll. Bei der Option Link kopierst du den Hyperlink in das entsprechende Feld und klickst anschließend auf 'Speichern'."
   },
   {
-    "id": "funktionen_hilfreiche_links_hinzufuegen",
+    "id": "\tfunktionen_hilfreiche_links_hinzufuegen",
     "kategorie": "Funktionen",
     "titel": "Hilfreiche Links hinzufügen",
     "inhalt": "Klicke auf das Plus-Symbol neben dem Bereich 'Hilfreiche Links'. Kopiere den gewünschten Link und füge ihn in das entsprechende Feld ein. Klicke anschließend auf das Plus-Symbol, um dem Link einen Titel zu geben (z. B. für eine Website, ein Formular oder eine Petition), und speichere die Eingabe."
   },
   {
-    "id": "funktionen_kontotypen_uebersicht",
+    "id": "\tfunktionen_kontotypen_uebersicht",
     "kategorie": "Funktionen",
     "titel": "Welche Kontotypen gibt es auf POLI SOCIAL",
     "inhalt": "POLI SOCIAL versteht sich als digitale Brücke, die gesellschaftlichen Austausch fördert und es ermöglicht, regionale sowie überregionale Veränderung voranzutreiben. Auf POLI SOCIAL existieren drei Kontotypen: Gesellschaftliche/politische Akteure - diese Organisationen können Inhalte und Veranstaltungen für bestimmte Regionen erstellen, die dann allen Mitmenschen und anderen Organisationen in dieser Region angezeigt werden. Initiativen - Mitmenschen, die eine Initiative starten möchten, können einen Account anlegen und direkt mit anderen Menschen aus der Region kommunizieren. Mitmenschen - können Inhalte filtern, einsehen und kommentieren."
   },
   {
-    "id": "funktionen_erste_schritte_app",
+    "id": "\tfunktionen_erste_schritte_app",
     "kategorie": "Funktionen",
     "titel": "Erste Schritte - App herunterladen und Registrierung starten",
     "inhalt": "Lade die POLI-SOCIAL-App herunter und öffne sie, oder gehe auf www.poli-social.com. Tippe anschließend auf 'Weiter mit E-Mail'. Tippe danach auf 'Registrierung', um ein neues Konto anzulegen."
   },
   {
-    "id": "funktionen_neues_konto_land_typ",
+    "id": "\tfunktionen_neues_konto_land_typ",
     "kategorie": "Funktionen",
     "titel": "Neues Konto - Land und Kontotyp auswählen",
     "inhalt": "Bestimme zunächst das Land, in dem dein Konto geführt wird (z. B. Deutschland, Österreich, Schweiz). Wähle anschließend den Kontotyp aus, den du registrieren möchtest: Mitmensch, Organisation oder Initiative. Je nach gewähltem Kontotyp folgt die dazugehörige Schritt-für-Schritt-Anleitung."
   },
   {
-    "id": "funktionen_konto_ges_pol_akteure_ablauf",
+    "id": "\tfunktionen_konto_ges_pol_akteure_ablauf",
     "kategorie": "Funktionen",
     "titel": "Konto für gesellschaftliche/politische Akteure anlegen",
     "inhalt": "Für ein Organisationskonto sind bereitzustellen: Organisationsdaten (Name der Organisation, Abkürzung optional, E-Mail, Passwort, Postleitzahl, Stadt, Straße, Hausnummer, Homepage optional), ein optionales Profilbild, die Auswahl der Region(en), für die Inhalte veröffentlicht werden sollen (mit Mehrfachauswahl, inkl. der Option 'Meine Inhalte beschäftigen sich mit bundesweiten Themen' bzw. 'Meine Organisation erstellt Beiträge ausschließlich zu internationalen Themen'), sowie die Auswahl der Themen/Engagementbereiche der Organisation (Mehrfachauswahl, z. B. Anlauf- und Kontaktstelle, Antidiskriminierung, Antikorruption/Transparenz, Beratungsangebote, Beruf und Ausbildung, Bildung, Digitale Rechte und Datenschutz). Abschließend wird der Account über 'Account erstellen' angelegt."
   },
   {
-    "id": "funktionen_konto_initiativen_ablauf",
+    "id": "\tfunktionen_konto_initiativen_ablauf",
     "kategorie": "Funktionen",
     "titel": "Konto für Initiativen anlegen",
     "inhalt": "Für ein Initiativen-Konto sind bereitzustellen: Daten zur Initiative (Name der Initiative, Abkürzung optional, E-Mail, Passwort, Postleitzahl optional, Stadt optional), ein optionales Profilbild, die Auswahl der Region(en), für die die persönliche Initiative Inhalte veröffentlichen möchte (Mehrfachauswahl), sowie die Auswahl der Engagementbereiche/Themen der Initiative (Mehrfachauswahl, z. B. Anlauf- und Kontaktstelle, Antidiskriminierung, Antikorruption/Transparenz, Beratungsangebote, Beruf und Ausbildung, Bildung, Digitale Rechte und Datenschutz). Abschließend wird der Account über 'Account erstellen' angelegt."
   },
   {
-    "id": "funktionen_konto_mitmenschen_ablauf",
+    "id": "\tfunktionen_konto_mitmenschen_ablauf",
     "kategorie": "Funktionen",
     "titel": "Konto für Mitmenschen anlegen",
     "inhalt": "Für ein Mitmenschen-Konto sind bereitzustellen: Personendaten (Nachname, Vorname, E-Mail, Passwort, Geburtstag optional), ein optionales Profilbild, sowie die Auswahl der Region(en), für die man News erhalten möchte. Abschließend wird der Account über 'Account erstellen' angelegt."
   },
   {
-    "id": "vision_kernziele",
+    "id": "\tvision_kernziele",
     "kategorie": "Vision",
     "titel": "Vision und Ziele von POLI SOCIAL",
     "inhalt": "POLI SOCIAL verfolgt das Ziel, eine digitale Infrastruktur anzubieten, mit der die gesamte Gesellschaft effizient vernetzt wird und gesellschaftliche sowie politische Themen, Probleme und Lösungen allen Menschen zugänglich gemacht werden. Mitmenschen erhalten das Recht auf die zeiteffizienteste Art, ungefilterte und originale Informationen direkt von gesellschaftlichen und politischen Akteuren zu erhalten. Akteure erhalten das Recht, ihre Arbeit, Projekte, Ideen, Probleme, Beratungsangebote, Veranstaltungen und Lösungsvorschläge allen Mitmenschen einer Region kostenlos zur Verfügung zu stellen. Ziel ist es, die relevante Plattform für den Informationsaustausch zwischen der Gesellschaft sowie gesellschaftlichen und politischen Akteuren zu werden und die Abhängigkeit von Social-Media-Plattformen und großen Medienhäusern auf Demokratie und öffentliches Meinungsbild zu minimieren."
   },
   {
-    "id": "vision_gesellschaftliche_wirkung",
+    "id": "\tvision_gesellschaftliche_wirkung",
     "kategorie": "Vision",
     "titel": "Gesellschaftliche Wirkung von POLI SOCIAL",
     "inhalt": "POLI SOCIAL wirkt in drei Bereichen: Bildung - gesellschaftliche/politische Bildung wird allen Bürgern zeiteffizient und barrierefrei zugänglich gemacht, u. a. durch Integration in Schulen und Universitäten. Veränderung - Alltagsprobleme werden von Akteuren gezielt dargestellt, Lösungsvorschläge treten in einen Wettbewerb zum Wohl aller, und Bürger erhalten ein transparentes Bild durchsetzbarer Lösungen. Unabhängigkeit - POLI SOCIAL ist der erste direkte digitale Kommunikationskanal zwischen gesellschaftlichen/politischen Akteuren und der Bevölkerung einer Region, wodurch Einflüsse von Lobbyisten, Algorithmen und großen Medienhäusern auf die öffentliche Meinungsbildung minimiert werden."
   },
   {
-    "id": "vision_grundproblem_und_loesung",
+    "id": "\tvision_grundproblem_und_loesung",
     "kategorie": "Vision",
     "titel": "Welches Grundproblem POLI SOCIAL löst",
     "inhalt": "Das Grundproblem der heutigen Informationswelt: Es gibt zu viele Inhalte und zu wenig Verständnis beim Konsumenten - Themen erscheinen schnell und emotional, ohne ausreichenden Hintergrund, komplexe Themen werden konsumiert, aber nicht eingeordnet. Zudem sind Probleme sichtbar, Lösungen aber nicht - negative Schlagzeilen prägen die Wahrnehmung, konkrete Lösungsansätze bleiben dagegen meist unsichtbar, was zu Unsicherheit und Rückzug führt. POLI SOCIAL löst das, indem es einen Ort für strukturierte gesellschaftliche Information schafft: Themen werden nicht isoliert gezeigt, sondern mit Akteuren, Lösungen und Handlungsmöglichkeiten verbunden, sodass Menschen erkennen können, wer bereits an relevanten Themen arbeitet."
   },
   {
-    "id": "vision_demokratische_teilhabe",
+    "id": "\tvision_demokratische_teilhabe",
     "kategorie": "Vision",
     "titel": "Wie POLI SOCIAL demokratische Teilhabe erleichtert",
     "inhalt": "Demokratische Mitbestimmung steht laut POLI SOCIAL unter Druck, weil oft der Zugang fehlt, nicht das Interesse: Beteiligung scheitert am Zugang, lokale Angebote und Lösungen sind schwer nachvollziehbar, es fehlt ein einfacher, direkter Kommunikationskanal zwischen Bevölkerung und Akteuren, gute Ideen setzen sich nicht automatisch durch, und Unterstützung bleibt oft ungezielt, weil unklar ist, welche Akteure an welchen Themen arbeiten. POLI SOCIAL adressiert das, indem es gesellschaftliche und politische Arbeit zugänglicher macht, Projekte und Lösungsansätze sichtbar und vergleichbar macht, einen direkten Kanal zwischen Menschen und Akteuren schafft, eine gemeinsame Bühne unabhängig von Budget oder Bekanntheit bietet, und transparent zeigt, welche Akteure welche Themen bearbeiten - wodurch aus diffuser Sympathie gezieltere Unterstützung werden kann."
