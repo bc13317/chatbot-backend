@@ -49,7 +49,7 @@ export default function Chat() {
     lastSent.current = { hash, ts: now };
 
     if (messages.length > 0 && (now - lastActivityTs.current) > INACTIVITY_THRESHOLD_MS) {
-      appendMessage("Es ist etwas Zeit vergangen – falls ich den Faden verloren habe, formuliere deine Frage gerne noch einmal vollständig.", "bot");
+         appendMessage("Es ist etwas Zeit vergangen - falls ich den Faden verloren habe, formuliere deine Frage gerne noch einmal vollständig.", "bot");
     }
     lastActivityTs.current = now;
 

@@ -397,7 +397,7 @@ const GROUNDING_RULES = `Beantworte die Nutzerfrage AUSSCHLIESSLICH basierend au
 async function callAnswerAI(context, question, extraStyle) {
   const AI_API_KEY = process.env.AI_API_KEY;
   const MODEL = process.env.MODEL;
-  const systemPrompt = `Du bist der freundliche Support-Assistent von POLI SOCIAL. ${GROUNDING_RULES} ${extraStyle || ""}`;
+const systemPrompt = `Du bist der freundliche Support-Assistent von POLI SOCIAL. Sprich den Nutzer IMMER in der Du-Form an, niemals mit "Sie" - auch nicht in Hšflichkeitsfloskeln oder bei komplexen/formellen Themen. ${GROUNDING_RULES} ${extraStyle || ""}`;
   const userPrompt = `Kontext:\n${context || ""}\n\nNutzerfrage:\n${question}`;
   const resp = await fetchWithRetry("https://llm.aihosting.mittwald.de/v1/chat/completions", {
     method: "POST",
