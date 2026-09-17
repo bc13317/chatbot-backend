@@ -49,7 +49,7 @@ export default function Chat() {
     lastSent.current = { hash, ts: now };
 
     if (messages.length > 0 && (now - lastActivityTs.current) > INACTIVITY_THRESHOLD_MS) {
-         appendMessage("Es ist etwas Zeit vergangen - falls ich den Faden verloren habe, formuliere deine Frage gerne noch einmal vollständig.", "bot");
+         appendMessage("Es ist etwas Zeit vergangen - falls ich den Faden verloren habe, formuliere deine Frage gerne noch einmal vollst√§ndig.", "bot");
     }
     lastActivityTs.current = now;
 
@@ -119,7 +119,7 @@ export default function Chat() {
          <div style={{ border: "1px solid #eee", borderRadius: 8, overflow: "hidden" }}>
         {showDisclosure && (
           <div className="ai-disclosure" style={{ padding: "8px 12px", background: "#f1f3f5", fontSize: 13, color: "#555", borderBottom: "1px solid #eee" }}>
-            Hinweis: Du sprichst hier mit einem KI-gestützten Assistenten, keiner echten Person. Bei komplexeren Anliegen leiten wir dich an unser Support-Team weiter.
+            Hinweis: Du sprichst hier mit einem KI-gest√ºtzten Assistenten, keiner echten Person. Bei komplexeren Anliegen leiten wir dich an unser Support-Team weiter.
           </div>
         )}
         <div ref={messagesRef} className="messages" style={{ minHeight: 300, maxHeight: 500, overflowY: "auto", padding: 12 }}>
