@@ -370,7 +370,7 @@ async function classifyYesNo(message) {
   const MODEL = process.env.MODEL;
   if (!AI_API_KEY || !MODEL) return { answer: "UNKLAR", residualQuestion: null };
 
-  const systemPrompt = `Klassifiziere die folgende kurze Nutzerantwort als JA, NEIN, ANKUENDIGUNG_OHNE_FRAGE oder UNKLAR. WICHTIG: Falls die Antwort ZUSÄTZLICH zur Zustimmung eine KONKRETE, inhaltlich ausformulierbare Frage oder ein konkretes Anliegen enthält (auch nur andeutungsweise erkennbar), formuliere diese Frage vollständig und eigenständig aus. Enthält die Antwort NUR eine vage Ankündigung OHNE erkennbaren inhaltlichen Kern (z. B. "ich hab noch was", "ich muss noch was klären, weiß aber nicht wie ich's sagen soll", "ich hab noch eine Frage" - ohne dass klar wird WAS), klassifiziere das als ANKUENDIGUNG_OHNE_FRAGE, unabhängig davon ob davor Zustimmung oder Ablehnung stand. UNKLAR ist nur für Nachrichten, die sich inhaltlich gar keiner der anderen Kategorien zuordnen lassen. Denke kurz nach, gib am ENDE deiner Antwort in einer neuen Zeile GENAU eines dieser Formate aus:
+  const systemPrompt = `Klassifiziere die folgende kurze Nutzerantwort als JA, NEIN, ANKUENDIGUNG_OHNE_FRAGE oder UNKLAR. WICHTIG: Falls die Antwort ZUSÄTZLICH zur Zustimmung eine KONKRETE, inhaltlich ausformulierbare Frage oder ein konkretes Anliegen enthält (auch nur andeutungsweise erkennbar), formuliere diese Frage vollständig und eigenständig aus. Enthält die Antwort NUR eine vage Ankündigung OHNE erkennbaren inhaltlichen Kern (z. B. "ich hab noch was", "ich muss noch was klären, weiß aber nicht wie ich's sagen soll", "ich hab noch eine Frage" - ohne dass klar wird WAS), klassifiziere das als ANKUENDIGUNG_OHNE_FRAGE, unabhängig davon ob davor Zustimmung oder Ablehnung stand. Auch MILDE oder INDIREKTE negative Bewertungen ohne explizites "Nein" gehören zu NEIN (z. B. "geht so", "geht besser", "naja, eher nicht", "könnte besser sein", "nicht wirklich"). UNKLAR ist nur für Nachrichten, die sich inhaltlich gar keiner der anderen Kategorien zuordnen lassen. Denke kurz nach, gib am ENDE deiner Antwort in einer neuen Zeile GENAU eines dieser Formate aus:
 "ANTWORT: JA"
 "ANTWORT: JA_MIT_FRAGE: <die vollständig ausformulierte Frage>"
 "ANTWORT: NEIN"
@@ -796,7 +796,7 @@ app.post("/chat", chatLimiter, async (req, res) => {
     }
 
     if (reply === "KEINE_ANTWORT" || !reply) {
-      if (isClarifyRetry) {
+      if (isClarifyRetry || await isSensitiveTopicAsync(searchQuery)) {
         const result = await handleNoMatch(searchQuery, userId, "kein_treffer_nach_praezisierung", { topk: searchResult.topk, best_score: searchResult.best_score });
         pushHistory(userId, "user", queryForProcessing);
         pushHistory(userId, "assistant", result.reply);
