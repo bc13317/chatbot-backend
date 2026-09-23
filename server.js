@@ -114,12 +114,17 @@ async function isSameIssue(previousMessage, newMessage) {
   }
 }
 
-const SENSITIVE_PATTERN = /(passwort|gehackt|hack\b|konto gesperrt|account gesperrt|gesperrt|sicherheitsl(ü|ue)cke|sicherheitsproblem|betrug|missbrauch|unbefugt|identit(ä|ae)t (gestohlen|missbraucht)|daten (gestohlen|geleakt|leck)|phishing|kompromittiert|verd(ä|ae)chtig|zugriff verloren|(konto|account).{0,40}(ü|ue)bernommen|(ü|ue)bernommen.{0,40}(konto|account)|schadsoftware|malware|erpress|bedroh)/i;
+const SENSITIVE_PATTERN = /(passwort|gehackt|hack\b|konto gesperrt|account gesperrt|gesperrt|sicherheitsl(ü|ue)cke|sicherheitsproblem|betrug|missbrauch|unbefugt|identit(ä|ae)t (gestohlen|missbraucht)|daten (gestohlen|geleakt|leck)|phishing|kompromittiert|verd(ä|ae)chtig|zugriff verloren|schadsoftware|malware|erpress|bedroh)/i;
+const KONTO_WORT_PATTERN = /(konto|account)/i;
+const UEBERNOMMEN_PATTERN = /(ü|ue)bernommen/i;
 
 const DISKRIMINIERUNG_PATTERN = /(rassis(mus|tisch)|diskriminier|beleidig|belästig|gemobbt|mobbing|angegriffen|angefeindet|hassrede|hetze|sexuelle (ü|ue)bergriff|missbrauch(t|es)? (durch|von)|stalking|nachgestellt|gestalkt)/i;
 
 function isSensitiveTopic(text) {
-  return SENSITIVE_PATTERN.test(text || "");
+  const t = text || "";
+  if (SENSITIVE_PATTERN.test(t)) return true;
+  if (KONTO_WORT_PATTERN.test(t) && UEBERNOMMEN_PATTERN.test(t)) return true;
+  return false;
 }
 
 async function isPersonalIncident(message) {
