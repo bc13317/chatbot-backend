@@ -170,6 +170,26 @@ async function isSensitiveTopicAsync(text) {
   return false;
 }
 
+/**
+ * Löst ZUSÄTZLICH zu einer bereits gegebenen, hilfreichen Antwort ein Ticket aus,
+ * falls die Nachricht einen echten sensiblen Vorfall beschreibt - unabhängig davon,
+ * ob die Wissensbasis einen Treffer geliefert hat. Schließt die Lücke, dass ein
+ * Vorfall nie ein Ticket auslöste, wenn zufällig ein allgemeiner Chunk dazu passte.
+ */
+async function triggerSensitiveTicketIfNeeded(userMessage, userId, reasonPrefix, extraContext = {}) {
+  if (!(await isSensitiveTopicAsync(userMessage))) return { ticketId: null, note: "" };
+  const recentTicketMessage = getRecentTicketMessage(userId);
+  if (recentTicketMessage) {
+    const same = await isSameIssue(recentTicketMessage, userMessage);
+    if (same) {
+      return { ticketId: null, note: "\n\nDieses Thema betrifft vermutlich dein bereits gemeldetes Anliegen - unser Support-Team hat den Fall schon vorliegen." };
+    }
+  }
+  const ticketId = await triggerTicket(userMessage, `${reasonPrefix}_sensibel_trotz_treffer`, { userId, ...extraContext });
+  markRecentTicket(userId, userMessage);
+  return { ticketId, note: "\n\nDa es sich um ein sensibles Thema handelt, habe ich zusätzlich unser Support-Team informiert - jemand meldet sich bald bei dir." };
+}
+
 // ---------------- Helper Functions ----------------
 
 async function fetchWithRetry(url, options, retries = 2, backoffMs = 500) {
@@ -718,7 +738,8 @@ app.post("/chat", chatLimiter, async (req, res) => {
             const subOutcome = await handleNoMatch(subQ, userId, "mehrteilig_keine_antwort", { topk: subResult.topk, best_score: subResult.best_score });
             parts.push(`${questionIndex}. ${subQ}\n${subOutcome.reply}`);
           } else {
-            parts.push(`${questionIndex}. ${subQ}\n${subReply}`);
+            const subSensitiveCheck = await triggerSensitiveTicketIfNeeded(subQ, userId, "mehrteilig_treffer_trotzdem_sensibel", { topk: subResult.topk, best_score: subResult.best_score });
+            parts.push(`${questionIndex}. ${subQ}\n${subReply}${subSensitiveCheck.note}`);
           }
         } catch (err) {
           parts.push(`${questionIndex}. ${subQ}\n${FALLBACK_TICKET}`);
@@ -812,11 +833,14 @@ app.post("/chat", chatLimiter, async (req, res) => {
       return res.json({ reply: "Dazu habe ich leider keine gesicherte Antwort gefunden. Kannst du deine Frage etwas genauer formulieren oder in anderen Worten stellen?" });
     }
 
-    pushHistory(userId, "user", queryForProcessing);
-    pushHistory(userId, "assistant", reply);
+    const sensitiveCheck = await triggerSensitiveTicketIfNeeded(searchQuery, userId, "treffer_trotzdem_sensibel", { topk: searchResult.topk, best_score: searchResult.best_score });
+    const replyWithNote = reply + sensitiveCheck.note;
 
-    const fullReply = toPhaseA(userId, searchQuery, searchResult, reply);
-    return res.json({ reply: fullReply, sources: searchResult.topk?.slice(0, 3) || [] });
+    pushHistory(userId, "user", queryForProcessing);
+    pushHistory(userId, "assistant", replyWithNote);
+
+    const fullReply = toPhaseA(userId, searchQuery, searchResult, replyWithNote);
+    return res.json({ reply: fullReply, sources: searchResult.topk?.slice(0, 3) || [], ticketId: sensitiveCheck.ticketId });
 
   } catch (error) {
     console.error("chat handler error:", error);
