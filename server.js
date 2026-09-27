@@ -693,6 +693,7 @@ app.post("/chat", chatLimiter, async (req, res) => {
     const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*)?(danke|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
     const FAREWELL_PATTERN = /^(ciao|tsch(ü|ue)ss|bye|auf wiedersehen|man sieht sich|bis bald)[\s!.,]*$/i;
     const TICKET_REQUEST_PATTERN = /(ticket erstellen|erstell.*ticket|ein ticket|mit (einem |dem )?support|mit einem mitarbeiter|menschlichen support|jemanden vom team|echten menschen sprechen|support-mitarbeiter)/i;
+    const ANKUENDIGUNG_STANDALONE_PATTERN = /^(ich (habe|hab|h(ä|a)tte)|ich m(ö|oe)chte) noch (eine |ne )?(andere )?(frage|sache|anliegen|was)( zu (klären|besprechen|fragen))?[\s!.,?]*$/i;
 
     if (GREETING_PATTERN.test(userMessage.trim())) {
       return res.json({ reply: "Hallo! Ich bin der Assistent von POLI SOCIAL. Ich helfe dir gerne bei Fragen zu deinem Konto, zur Registrierung, zu unseren Richtlinien oder zum Schalten von Werbung. Was möchtest du wissen?" });
@@ -710,6 +711,9 @@ app.post("/chat", chatLimiter, async (req, res) => {
     }
     if (TICKET_REQUEST_PATTERN.test(userMessage)) {
       return res.json({ reply: "Für ein persönliches Gespräch mit unserem Support-Team nutze bitte den Support-Button in den Einstellungen." });
+    }
+    if (ANKUENDIGUNG_STANDALONE_PATTERN.test(userMessage.trim())) {
+      return res.json({ reply: "Klar, was möchtest du wissen?" });
     }
 
     // ---- Gesprächs-Kontext-Erinnerung + Zerlegung ----
