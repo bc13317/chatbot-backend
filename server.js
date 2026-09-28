@@ -114,7 +114,7 @@ async function isSameIssue(previousMessage, newMessage) {
   }
 }
 
-const SENSITIVE_PATTERN = /(passwort|gehackt|hack\b|konto gesperrt|account gesperrt|gesperrt|sicherheitsl(ü|ue)cke|sicherheitsproblem|betrug|missbrauch|unbefugt|identit(ä|ae)t (gestohlen|missbraucht)|daten (gestohlen|geleakt|leck)|phishing|kompromittiert|verd(ä|ae)chtig|zugriff verloren|schadsoftware|malware|erpress|bedroh)/i;
+const SENSITIVE_PATTERN = /(gehackt|hack\b|konto gesperrt|account gesperrt|gesperrt|sicherheitsl(ü|ue)cke|sicherheitsproblem|betrug|missbrauch|unbefugt|identit(ä|ae)t (gestohlen|missbraucht)|daten (gestohlen|geleakt|leck)|phishing|kompromittiert|verd(ä|ae)chtig|zugriff verloren|schadsoftware|malware|erpress|bedroh)/i;
 const KONTO_WORT_PATTERN = /(konto|account)/i;
 const UEBERNOMMEN_PATTERN = /(ü|ue)bernommen/i;
 
