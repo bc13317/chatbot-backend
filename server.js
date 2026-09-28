@@ -868,6 +868,9 @@ app.post("/chat", chatLimiter, async (req, res) => {
     let reply;
     try {
       reply = await callAnswerAI(searchResult.context, searchQuery, "Antworte kurz und klar: eine ein-sätzige Kurzantwort, bei Bedarf ein kurzer Detailabschnitt (max. 3 Sätze), höflich und sachlich. Schließe nicht mit einer Frage; das übernehmen wir serverseitig.");
+      if (searchResult.tentative && reply && reply !== "KEINE_ANTWORT") {
+        reply = "Ich bin mir nicht ganz sicher, ob das deine Frage trifft, aber vielleicht hilft dir das:\n\n" + reply;
+      }
     } catch (err) {
       console.error("AI API final error:", err.message);
       const ticketId = await triggerTicket(queryForProcessing, "ai_provider_error", { userId, topk: searchResult.topk, best_score: searchResult.best_score });
