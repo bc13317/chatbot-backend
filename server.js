@@ -250,9 +250,9 @@ async function submitIncidentTicket(pending, userId) {
   const ticketId = await triggerTicket(combinedDetails, `${pending.reasonPrefix || "sensibler_vorfall"}_sensibel`, { userId, ...(pending.extraContext || {}) });
   if (ticketId) {
     markRecentTicket(userId, combinedDetails);
-    return "Danke, ich habe alle Informationen an unser Support-Team weitergeleitet - jemand meldet sich bald bei dir.";
+    return { confirmationText: "Danke, ich habe alle Informationen an unser Support-Team weitergeleitet - jemand meldet sich bald bei dir.", ticketId, combinedDetails };
   }
-  return "Danke für die Informationen. Die automatische Weiterleitung an unser Support-Team hat gerade leider nicht funktioniert - nutze bitte den Support-Button in den Einstellungen, damit dein Anliegen sicher ankommt.";
+  return { confirmationText: "Danke für die Informationen. Die automatische Weiterleitung an unser Support-Team hat gerade leider nicht funktioniert - nutze bitte den Support-Button in den Einstellungen, damit dein Anliegen sicher ankommt.", ticketId: null, combinedDetails };
 }
 
 /**
@@ -739,9 +739,9 @@ app.post("/chat", chatLimiter, async (req, res) => {
     if (pending && pending.stage === "collecting_incident_details") {
       if (INCIDENT_COMPLETION_PATTERN.test(userMessage.trim())) {
         clearPending(userId);
-        const confirmationText = await submitIncidentTicket(pending, userId);
-        const reply = toPhaseB(userId, pending.originalQuestion, confirmationText);
-        return res.json({ reply });
+        const { confirmationText, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
+        const reply = toPhaseB(userId, combinedDetails, confirmationText);
+        return res.json({ reply, ticketId });
       }
       const denial = INCIDENT_DENIAL_PATTERN.test(userMessage) ? "KEIN_VORFALL" : await classifyIncidentDenial(userMessage);
       if (denial === "KEIN_VORFALL") {
@@ -769,7 +769,8 @@ app.post("/chat", chatLimiter, async (req, res) => {
           : "Klar, was möchtest du noch ergänzen?";
         return res.json({ reply });
       }
-      const confirmationText = await submitIncidentTicket(pending, userId);
+      const { confirmationText: confirmationTextInit, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
+      let confirmationText = confirmationTextInit;
       clearPending(userId);
 
       // Steckt in der NEIN-Antwort zusaetzlich ein NEUER sensibler Vorfall (nicht nur eine
