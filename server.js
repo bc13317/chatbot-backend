@@ -705,6 +705,272 @@ async function classifyBareAnnouncement(message) {
   }
 }
 
+// ---------------- Pending-Phasen-Handler (Punkt 7 Teil 2, Schritt 3) ----------------
+// Jede Funktion wird NUR aufgerufen, wenn der jeweilige pending.stage bereits geprueft
+// wurde - rein mechanisch aus dem /chat-Handler extrahiert, keine Verhaltensaenderung.
+
+/**
+ * Phase: Vorfall-Detail-Sammlung (collecting_incident_details). Immer abschliessend
+ * (jeder Zweig gibt eine fertige Antwort zurueck, nie ein Durchfall zur normalen
+ * Nachrichtenverarbeitung).
+ */
+async function handleCollectingIncidentDetails(pending, userId, userMessage) {
+  if (INCIDENT_COMPLETION_PATTERN.test(userMessage.trim())) {
+    clearPending(userId);
+    const { confirmationText, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
+    const reply = toPhaseB(userId, combinedDetails, confirmationText);
+    return { reply, ticketId };
+  }
+  const denial = INCIDENT_DENIAL_PATTERN.test(userMessage) ? "KEIN_VORFALL" : await classifyIncidentDenial(userMessage);
+  if (denial === "KEIN_VORFALL") {
+    clearPending(userId);
+    const reply = toPhaseB(userId, pending.originalQuestion, "Alles klar, dann habe ich dazu kein Ticket an den Support geschickt.");
+    return { reply };
+  }
+  const details = [...(pending.incidentDetails || []), userMessage];
+  setPending(userId, { ...pending, stage: "confirm_incident_complete", incidentDetails: details });
+  return { reply: "Danke, das habe ich notiert. Möchtest du noch etwas ergänzen?" };
+}
+
+/**
+ * Phase: Vorfall-Abschluss-Bestaetigung (confirm_incident_complete), Antwort auf
+ * "Moechtest du noch etwas ergaenzen?". Immer abschliessend.
+ */
+async function handleConfirmIncidentComplete(pending, userId, userMessage) {
+  const yn = await classifyYesNo(userMessage, "Möchtest du noch etwas ergänzen?");
+  if (yn.answer === "JA") {
+    // Steckte in der JA-Antwort direkt schon der zusaetzliche Inhalt (z.B. "Ja, mein
+    // Passwort wurde auch gehackt"), gleich als weiteres Detail uebernehmen statt zu verwerfen
+    const details = yn.residualQuestion
+      ? [...(pending.incidentDetails || []), yn.residualQuestion]
+      : (pending.incidentDetails || []);
+    setPending(userId, { ...pending, stage: "collecting_incident_details", incidentDetails: details });
+    const reply = yn.residualQuestion
+      ? "Danke, das habe ich notiert. Gibt es noch mehr?"
+      : "Klar, was möchtest du noch ergänzen?";
+    return { reply };
+  }
+  const { confirmationText: confirmationTextInit, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
+  let confirmationText = confirmationTextInit;
+  clearPending(userId);
+
+  // Steckt in der NEIN-Antwort zusaetzlich ein NEUER sensibler Vorfall (nicht nur eine
+  // Frage)? Muss NACH dem obigen clearPending() geprueft werden, da
+  // startIncidentDetailCollection() selbst einen neuen Pending-Zustand setzt, der sonst
+  // hier ueberschrieben wuerde. Fallback auf die Rohnachricht, falls die KI keine saubere
+  // residualQuestion extrahieren konnte - sonst geht ein zweiter Vorfall (z.B. "Nein, aber
+  // mein Passwort wurde auch gehackt") komplett verloren.
+  const residualRaw = yn.residualQuestion || userMessage;
+  if (await isSensitiveTopicAsync(residualRaw)) {
+    const incidentResult = await startIncidentDetailCollection(residualRaw, userId, "weiterer_vorfall_nach_abschluss", {});
+    return { reply: `${confirmationText}\n\n${incidentResult.reply}` };
+  }
+
+  // Steckte in der Antwort zusätzlich eine konkrete neue Frage, gleich mitbeantworten statt zu verwerfen
+  if (yn.residualQuestion) {
+    try {
+      const residualSubQuestions = await analyzeMessage(yn.residualQuestion, getHistory(userId));
+      const residualQuery = residualSubQuestions[0];
+      const residualCacheKey = `kb:${crypto.createHash("sha256").update(residualQuery).digest("hex")}`;
+      let residualResult = cache.get(residualCacheKey) || { matched: false, onTopic: false };
+      if (!residualResult.matched && !residualResult.onTopic) {
+        const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: expandAmbiguousQuery(residualQuery) })
+        }, 1, 300);
+        if (n8nResp && n8nResp.ok) {
+          residualResult = await n8nResp.json();
+          cache.set(residualCacheKey, residualResult);
+        }
+      }
+      if (residualResult.matched) {
+        const residualReply = await callAnswerAI(residualResult.context, residualQuery, "Antworte kurz und klar (max. 2-3 Sätze). Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen.");
+        if (residualReply && residualReply !== "KEINE_ANTWORT") {
+          // Auch die Residual-Frage kann trotz KB-Treffer einen sensiblen Vorfall beschreiben
+          const residualSensitiveCheck = await triggerSensitiveTicketIfNeeded(residualQuery, userId, "residual_treffer_trotzdem_sensibel", { topk: residualResult.topk, best_score: residualResult.best_score });
+          confirmationText += `\n\nZu deiner anderen Frage:\n${residualReply}${residualSensitiveCheck.note}`;
+        }
+      } else if (residualResult.onTopic) {
+        // Kein direkter Treffer, aber On-Topic - handleNoMatch übernimmt Sensibilitäts-Check + passenden Fallback-Text
+        const residualOutcome = await handleNoMatch(residualQuery, userId, "residual_kein_treffer", { topk: residualResult.topk, best_score: residualResult.best_score });
+        confirmationText += `\n\nZu deiner anderen Frage:\n${residualOutcome.reply}`;
+      }
+    } catch (err) {
+      console.warn("Residual-Frage nach Ticket-Abschluss fehlgeschlagen:", err.message);
+    }
+  }
+
+  const reply = toPhaseB(userId, combinedDetails, confirmationText);
+  return { reply, ticketId };
+}
+
+/**
+ * Phase A: post_answer, Antwort auf "Hat dir das geholfen, oder moechtest du mehr
+ * Details?". Im Gegensatz zu den beiden Vorfall-Phasen oben KANN diese Phase "durchfallen"
+ * (NEUE_FRAGE und unbekannter Intent) - dann wird {handled:false, queryForProcessing}
+ * zurueckgegeben und die normale Nachrichtenverarbeitung im Handler geht weiter.
+ */
+async function handlePostAnswerPhase(pending, userId, userMessage, queryForProcessing) {
+  const intentResult = await classifyFollowUpIntent(userMessage);
+  const intent = intentResult.category;
+
+  if (intent === "NEUE_FRAGE" && intentResult.question) {
+    clearPending(userId);
+    return { handled: false, queryForProcessing: intentResult.question };
+  } else if (intent === "ANKUENDIGUNG_OHNE_FRAGE") {
+    clearPending(userId);
+    return { handled: true, response: { reply: "Klar, was möchtest du wissen?" } };
+  } else if (intent === "MEHR_DETAILS") {
+    if (pending.detailsGiven || !pending.context) {
+      clearPending(userId);
+      const result = await handleNoFurtherDetails(pending.originalQuestion, userId, "mehr_details_wiederholt");
+      if (!result.collectingDetails) {
+        pushHistory(userId, "user", pending.originalQuestion);
+        pushHistory(userId, "assistant", result.reply);
+      }
+      const reply = finalizeOutcomeReply(userId, pending.originalQuestion, result);
+      return { handled: true, response: { reply, ticketId: result.ticketId } };
+    }
+
+    const AI_API_KEY = process.env.AI_API_KEY;
+    const MODEL = process.env.MODEL;
+    if (!AI_API_KEY || !MODEL) {
+      return { handled: true, status: 500, response: { error: "Server misconfiguration: missing AI_API_KEY or MODEL" } };
+    }
+
+    try {
+      const expanded = await callAnswerAI(pending.context?.context, pending.originalQuestion, "Der Nutzer möchte eine ausführlichere Antwort - gib alle relevanten Details strukturiert wieder (max. 5 kurze Punkte), ausschließlich basierend auf dem Kontext.");
+
+      if (expanded === "KEINE_ANTWORT" || !expanded) {
+        clearPending(userId);
+        const result = await handleNoFurtherDetails(pending.originalQuestion, userId, "mehr_details_keine_antwort", { topk: pending.context?.topk, best_score: pending.context?.best_score });
+        if (!result.collectingDetails) {
+          pushHistory(userId, "user", pending.originalQuestion);
+          pushHistory(userId, "assistant", result.reply);
+        }
+        const reply = finalizeOutcomeReply(userId, pending.originalQuestion, result);
+        return { handled: true, response: { reply, ticketId: result.ticketId } };
+      }
+
+      pushHistory(userId, "user", pending.originalQuestion);
+      pushHistory(userId, "assistant", expanded);
+      const reply = toPhaseA(userId, pending.originalQuestion, pending.context, expanded, "\n\nHat dir das geholfen, oder brauchst du weitere Unterstützung?", true);
+      return { handled: true, response: { reply } };
+    } catch (err) {
+      const ticketId = await triggerTicket(pending.originalQuestion, "ai_expand_error", { userId, topk: pending.context?.topk, best_score: pending.context?.best_score });
+      clearPending(userId);
+      return { handled: true, response: { reply: ticketId ? FALLBACK_TICKET : FALLBACK_TICKET_FAILED, ticketId } };
+    }
+  } else if (intent === "ZUFRIEDEN") {
+    const reply = toPhaseB(userId, pending.originalQuestion, "Super, freut mich, dass ich helfen konnte!");
+    return { handled: true, response: { reply } };
+  } else if (intent === "VERABSCHIEDUNG") {
+    const reply = toPhaseC(userId, pending.originalQuestion);
+    return { handled: true, response: { reply } };
+  } else {
+    // Fallback: kein bekannter intent - Rohnachricht normal weiterverarbeiten
+    clearPending(userId);
+    return { handled: false, queryForProcessing };
+  }
+}
+
+/**
+ * Phase B: anything_else, Antwort auf "Brauchst du sonst noch etwas?". Kann wie
+ * Phase A durchfallen (JA/NEIN mit residualQuestion und UNKLAR).
+ */
+async function handleAnythingElsePhase(pending, userId, userMessage, queryForProcessing) {
+  const yn = await classifyYesNo(userMessage, "Brauchst du sonst noch etwas?");
+  if (yn.answer === "NEIN") {
+    if (yn.residualQuestion) {
+      clearPending(userId);
+      return { handled: false, queryForProcessing: yn.residualQuestion };
+    }
+    const reply = toPhaseC(userId, pending.originalQuestion);
+    return { handled: true, response: { reply } };
+  } else if (yn.answer === "JA") {
+    clearPending(userId);
+    if (yn.residualQuestion) {
+      return { handled: false, queryForProcessing: yn.residualQuestion };
+    }
+    return { handled: true, response: { reply: "Klar, was möchtest du wissen?" } };
+  } else if (yn.answer === "ANKUENDIGUNG_OHNE_FRAGE") {
+    clearPending(userId);
+    return { handled: true, response: { reply: "Klar, was möchtest du wissen?" } };
+  }
+  // UNKLAR: fällt durch zur normalen Verarbeitung (z.B. eigene neue Frage)
+  clearPending(userId);
+  return { handled: false, queryForProcessing };
+}
+
+/**
+ * Phase C: satisfaction, Antwort auf "Warst du insgesamt mit meiner Hilfe zufrieden?".
+ * Kann wie Phase A/B durchfallen (JA/NEIN mit residualQuestion).
+ */
+async function handleSatisfactionPhase(pending, userId, userMessage, queryForProcessing) {
+  const yn = await classifyYesNo(userMessage, "Warst du insgesamt mit meiner Hilfe zufrieden?");
+  if (yn.answer === "JA") {
+    clearPending(userId);
+    if (yn.residualQuestion) {
+      return { handled: false, queryForProcessing: yn.residualQuestion };
+    }
+    return { handled: true, response: { reply: "Danke für dein Feedback! Schön, dass alles geklappt hat. Auf Wiedersehen!" } };
+  } else if (yn.answer === "NEIN") {
+    clearPending(userId);
+    if (yn.residualQuestion) {
+      // Unzufriedenheits-Hinweis entfaellt zugunsten der direkten Antwort
+      return { handled: false, queryForProcessing: yn.residualQuestion };
+    }
+    return { handled: true, response: { reply: "Das tut mir leid zu hören. Bei Beschwerden oder wenn du weitere Hilfe brauchst, wende dich gerne über den Support-Button in den Einstellungen an unser Team." } };
+  } else if (yn.answer === "ANKUENDIGUNG_OHNE_FRAGE") {
+    clearPending(userId);
+    return { handled: true, response: { reply: "Klar, was möchtest du wissen?" } };
+  }
+  clearPending(userId);
+  return { handled: false, queryForProcessing };
+}
+
+// ---------------- Statische Muster-Erkennung (Begruessung, Smalltalk, etc.) ----------------
+// Punkt 7 Teil 2, Schritt 1: aus dem /chat-Handler extrahiert, rein mechanisch (keine
+// Verhaltensaenderung) - komplett zustandslos bis auf das clearPending() bei Verabschiedung/
+// Danke, das als Seiteneffekt bewusst in der Funktion bleibt (gehoert inhaltlich zusammen).
+const GREETING_PATTERN = /^(hallo|hi|hey|servus|moin|guten\s?tag|guten\s?morgen|guten\s?abend|na)[\s!.,]*$/i;
+const SMALLTALK_PATTERN = /\b(wie gehts|wie geht es dir|was machst du|wetter|spaß|witz)\b/i;
+const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*)?(danke|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
+const FAREWELL_PATTERN = /^(ciao|tsch(ü|ue)ss|bye|auf wiedersehen|man sieht sich|bis bald)[\s!.,]*$/i;
+const TICKET_REQUEST_PATTERN = /(ticket erstellen|erstell.*ticket|ein ticket|mit (einem |dem )?support|mit einem mitarbeiter|menschlichen support|jemanden vom team|echten menschen sprechen|support-mitarbeiter)/i;
+const ANKUENDIGUNG_STANDALONE_PATTERN = /^(ich (habe|hab|h(ä|a)tte|wollte|muss)|ich m(ö|oe)chte) noch (eine |ne |ein )?(andere )?(frage|sache|anliegen|was|thema|ding|punkt)( zu (klären|besprechen|fragen))?[\s!.,?]*$/i;
+
+/**
+ * Prueft die eindeutigen, zustandslosen Begruessungs-/Smalltalk-/Verabschiedungs-/Dank-/
+ * Ticket-Wunsch-/Ankuendigungs-Muster. Gibt den fertigen Antworttext zurueck, oder null,
+ * falls keines der Muster zutrifft (dann geht die normale Verarbeitung weiter).
+ */
+function getQuickPatternReply(userMessage, userId) {
+  const trimmed = userMessage.trim();
+  if (GREETING_PATTERN.test(trimmed)) {
+    return "Hallo! Ich bin der Assistent von POLI SOCIAL. Ich helfe dir gerne bei Fragen zu deinem Konto, zur Registrierung, zu unseren Richtlinien oder zum Schalten von Werbung. Was möchtest du wissen?";
+  }
+  if (SMALLTALK_PATTERN.test(userMessage)) {
+    return "Ich bin ein sachlicher Assistent von POLI SOCIAL — bei Fragen zu deinem Konto, Richtlinien oder Werbung helfe ich dir gern.";
+  }
+  if (FAREWELL_PATTERN.test(trimmed)) {
+    clearPending(userId);
+    return "Bis bald! Wenn du weitere Fragen hast, bin ich hier für dich.";
+  }
+  if (THANKS_PATTERN.test(trimmed)) {
+    clearPending(userId);
+    return "Gerne! Wenn du noch weitere Fragen hast, helfe ich dir gerne weiter.";
+  }
+  if (TICKET_REQUEST_PATTERN.test(userMessage)) {
+    return TICKET_REQUEST_REPLY;
+  }
+  if (ANKUENDIGUNG_STANDALONE_PATTERN.test(trimmed)) {
+    return "Klar, was möchtest du wissen?";
+  }
+  return null;
+}
+
 app.post("/chat", chatLimiter, async (req, res) => {
   try {
     const userMessageRaw = req.body?.message;
@@ -737,243 +1003,45 @@ app.post("/chat", chatLimiter, async (req, res) => {
 
     // ================= Sensibler Vorfall: Detail-Sammlung =================
     if (pending && pending.stage === "collecting_incident_details") {
-      if (INCIDENT_COMPLETION_PATTERN.test(userMessage.trim())) {
-        clearPending(userId);
-        const { confirmationText, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
-        const reply = toPhaseB(userId, combinedDetails, confirmationText);
-        return res.json({ reply, ticketId });
-      }
-      const denial = INCIDENT_DENIAL_PATTERN.test(userMessage) ? "KEIN_VORFALL" : await classifyIncidentDenial(userMessage);
-      if (denial === "KEIN_VORFALL") {
-        clearPending(userId);
-        const reply = toPhaseB(userId, pending.originalQuestion, "Alles klar, dann habe ich dazu kein Ticket an den Support geschickt.");
-        return res.json({ reply });
-      }
-      const details = [...(pending.incidentDetails || []), userMessage];
-      setPending(userId, { ...pending, stage: "confirm_incident_complete", incidentDetails: details });
-      const reply = "Danke, das habe ich notiert. Möchtest du noch etwas ergänzen?";
-      return res.json({ reply });
+      return res.json(await handleCollectingIncidentDetails(pending, userId, userMessage));
     }
 
     if (pending && pending.stage === "confirm_incident_complete") {
-      const yn = await classifyYesNo(userMessage, "Möchtest du noch etwas ergänzen?");
-      if (yn.answer === "JA") {
-        // Steckte in der JA-Antwort direkt schon der zusaetzliche Inhalt (z.B. "Ja, mein
-        // Passwort wurde auch gehackt"), gleich als weiteres Detail uebernehmen statt zu verwerfen
-        const details = yn.residualQuestion
-          ? [...(pending.incidentDetails || []), yn.residualQuestion]
-          : (pending.incidentDetails || []);
-        setPending(userId, { ...pending, stage: "collecting_incident_details", incidentDetails: details });
-        const reply = yn.residualQuestion
-          ? "Danke, das habe ich notiert. Gibt es noch mehr?"
-          : "Klar, was möchtest du noch ergänzen?";
-        return res.json({ reply });
-      }
-      const { confirmationText: confirmationTextInit, ticketId, combinedDetails } = await submitIncidentTicket(pending, userId);
-      let confirmationText = confirmationTextInit;
-      clearPending(userId);
-
-      // Steckt in der NEIN-Antwort zusaetzlich ein NEUER sensibler Vorfall (nicht nur eine
-      // Frage)? Muss NACH dem obigen clearPending() geprueft werden, da
-      // startIncidentDetailCollection() selbst einen neuen Pending-Zustand setzt, der sonst
-      // hier ueberschrieben wuerde. Fallback auf die Rohnachricht, falls die KI keine saubere
-      // residualQuestion extrahieren konnte - sonst geht ein zweiter Vorfall (z.B. "Nein, aber
-      // mein Passwort wurde auch gehackt") komplett verloren.
-      const residualRaw = yn.residualQuestion || userMessage;
-      if (await isSensitiveTopicAsync(residualRaw)) {
-        const incidentResult = await startIncidentDetailCollection(residualRaw, userId, "weiterer_vorfall_nach_abschluss", {});
-        return res.json({ reply: `${confirmationText}\n\n${incidentResult.reply}` });
-      }
-
-      // Steckte in der Antwort zusätzlich eine konkrete neue Frage, gleich mitbeantworten statt zu verwerfen
-      if (yn.residualQuestion) {
-        try {
-          const residualSubQuestions = await analyzeMessage(yn.residualQuestion, getHistory(userId));
-          const residualQuery = residualSubQuestions[0];
-          const residualCacheKey = `kb:${crypto.createHash("sha256").update(residualQuery).digest("hex")}`;
-          let residualResult = cache.get(residualCacheKey) || { matched: false, onTopic: false };
-          if (!residualResult.matched && !residualResult.onTopic) {
-            const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ query: expandAmbiguousQuery(residualQuery) })
-            }, 1, 300);
-            if (n8nResp && n8nResp.ok) {
-              residualResult = await n8nResp.json();
-              cache.set(residualCacheKey, residualResult);
-            }
-          }
-          if (residualResult.matched) {
-            const residualReply = await callAnswerAI(residualResult.context, residualQuery, "Antworte kurz und klar (max. 2-3 Sätze). Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen.");
-            if (residualReply && residualReply !== "KEINE_ANTWORT") {
-              // Auch die Residual-Frage kann trotz KB-Treffer einen sensiblen Vorfall beschreiben
-              const residualSensitiveCheck = await triggerSensitiveTicketIfNeeded(residualQuery, userId, "residual_treffer_trotzdem_sensibel", { topk: residualResult.topk, best_score: residualResult.best_score });
-              confirmationText += `\n\nZu deiner anderen Frage:\n${residualReply}${residualSensitiveCheck.note}`;
-            }
-          } else if (residualResult.onTopic) {
-            // Kein direkter Treffer, aber On-Topic - handleNoMatch übernimmt Sensibilitäts-Check + passenden Fallback-Text
-            const residualOutcome = await handleNoMatch(residualQuery, userId, "residual_kein_treffer", { topk: residualResult.topk, best_score: residualResult.best_score });
-            confirmationText += `\n\nZu deiner anderen Frage:\n${residualOutcome.reply}`;
-          }
-        } catch (err) {
-          console.warn("Residual-Frage nach Ticket-Abschluss fehlgeschlagen:", err.message);
-        }
-      }
-
-      const reply = toPhaseB(userId, combinedDetails, confirmationText);
-      return res.json({ reply, ticketId });
+      return res.json(await handleConfirmIncidentComplete(pending, userId, userMessage));
     }
 
     // ================= Phase A: post_answer =================
     if (pending && pending.stage === "post_answer") {
-      const intentResult = await classifyFollowUpIntent(userMessage);
-      const intent = intentResult.category;
-
-      if (intent === "NEUE_FRAGE" && intentResult.question) {
-        clearPending(userId);
-        queryForProcessing = intentResult.question;
-        // kein return - die extrahierte Frage wird unten normal weiterverarbeitet
-      } else if (intent === "ANKUENDIGUNG_OHNE_FRAGE") {
-        clearPending(userId);
-        return res.json({ reply: "Klar, was möchtest du wissen?" });
-      } else if (intent === "MEHR_DETAILS") {
-        if (pending.detailsGiven || !pending.context) {
-          clearPending(userId);
-          const result = await handleNoFurtherDetails(pending.originalQuestion, userId, "mehr_details_wiederholt");
-          if (!result.collectingDetails) {
-            pushHistory(userId, "user", pending.originalQuestion);
-            pushHistory(userId, "assistant", result.reply);
-          }
-          const reply = finalizeOutcomeReply(userId, pending.originalQuestion, result);
-          return res.json({ reply, ticketId: result.ticketId });
-        }
-
-        const AI_API_KEY = process.env.AI_API_KEY;
-        const MODEL = process.env.MODEL;
-        if (!AI_API_KEY || !MODEL) {
-          return res.status(500).json({ error: "Server misconfiguration: missing AI_API_KEY or MODEL" });
-        }
-
-        try {
-          const expanded = await callAnswerAI(pending.context?.context, pending.originalQuestion, "Der Nutzer möchte eine ausführlichere Antwort - gib alle relevanten Details strukturiert wieder (max. 5 kurze Punkte), ausschließlich basierend auf dem Kontext.");
-
-          if (expanded === "KEINE_ANTWORT" || !expanded) {
-            clearPending(userId);
-            const result = await handleNoFurtherDetails(pending.originalQuestion, userId, "mehr_details_keine_antwort", { topk: pending.context?.topk, best_score: pending.context?.best_score });
-            if (!result.collectingDetails) {
-              pushHistory(userId, "user", pending.originalQuestion);
-              pushHistory(userId, "assistant", result.reply);
-            }
-            const reply = finalizeOutcomeReply(userId, pending.originalQuestion, result);
-            return res.json({ reply, ticketId: result.ticketId });
-          }
-
-          pushHistory(userId, "user", pending.originalQuestion);
-          pushHistory(userId, "assistant", expanded);
-          const reply = toPhaseA(userId, pending.originalQuestion, pending.context, expanded, "\n\nHat dir das geholfen, oder brauchst du weitere Unterstützung?", true);
-          return res.json({ reply });
-        } catch (err) {
-          const ticketId = await triggerTicket(pending.originalQuestion, "ai_expand_error", { userId, topk: pending.context?.topk, best_score: pending.context?.best_score });
-          clearPending(userId);
-          return res.json({ reply: ticketId ? FALLBACK_TICKET : FALLBACK_TICKET_FAILED, ticketId });
-        }
-      } else if (intent === "ZUFRIEDEN") {
-        const reply = toPhaseB(userId, pending.originalQuestion, "Super, freut mich, dass ich helfen konnte!");
-        return res.json({ reply });
-      } else if (intent === "VERABSCHIEDUNG") {
-        const reply = toPhaseC(userId, pending.originalQuestion);
-        return res.json({ reply });
-      } else {
-        // Fallback: kein bekannter intent - Rohnachricht normal weiterverarbeiten
-        clearPending(userId);
+      const result = await handlePostAnswerPhase(pending, userId, userMessage, queryForProcessing);
+      if (result.handled) {
+        return res.status(result.status || 200).json(result.response);
       }
+      queryForProcessing = result.queryForProcessing;
     }
 
     // ================= Phase B: anything_else =================
     if (pending && pending.stage === "anything_else") {
-      const yn = await classifyYesNo(userMessage, "Brauchst du sonst noch etwas?");
-      if (yn.answer === "NEIN") {
-        if (yn.residualQuestion) {
-          clearPending(userId);
-          queryForProcessing = yn.residualQuestion;
-          // kein return - die enthaltene Frage wird unten normal weiterverarbeitet
-        } else {
-          const reply = toPhaseC(userId, pending.originalQuestion);
-          return res.json({ reply });
-        }
-      } else
-      if (yn.answer === "JA") {
-        clearPending(userId);
-        if (yn.residualQuestion) {
-          queryForProcessing = yn.residualQuestion;
-          // kein return - die enthaltene Frage wird unten normal weiterverarbeitet
-        } else {
-          return res.json({ reply: "Klar, was möchtest du wissen?" });
-        }
-      } else if (yn.answer === "ANKUENDIGUNG_OHNE_FRAGE") {
-        clearPending(userId);
-        return res.json({ reply: "Klar, was möchtest du wissen?" });
-      } else {
-        // UNKLAR: fällt durch zur normalen Verarbeitung (z.B. eigene neue Frage)
-        clearPending(userId);
+      const result = await handleAnythingElsePhase(pending, userId, userMessage, queryForProcessing);
+      if (result.handled) {
+        return res.json(result.response);
       }
+      queryForProcessing = result.queryForProcessing;
     }
 
     // ================= Phase C: satisfaction =================
     if (pending && pending.stage === "satisfaction") {
-      const yn = await classifyYesNo(userMessage, "Warst du insgesamt mit meiner Hilfe zufrieden?");
-      if (yn.answer === "JA") {
-        clearPending(userId);
-        if (yn.residualQuestion) {
-          queryForProcessing = yn.residualQuestion;
-          // kein return - die enthaltene Frage wird unten normal weiterverarbeitet
-        } else {
-          return res.json({ reply: "Danke für dein Feedback! Schön, dass alles geklappt hat. Auf Wiedersehen!" });
-        }
-      } else if (yn.answer === "NEIN") {
-        clearPending(userId);
-        if (yn.residualQuestion) {
-          queryForProcessing = yn.residualQuestion;
-          // kein return - die enthaltene Frage wird unten normal weiterverarbeitet (Unzufriedenheits-Hinweis entfällt zugunsten der direkten Antwort)
-        } else {
-          return res.json({ reply: "Das tut mir leid zu hören. Bei Beschwerden oder wenn du weitere Hilfe brauchst, wende dich gerne über den Support-Button in den Einstellungen an unser Team." });
-        }
-      } else if (yn.answer === "ANKUENDIGUNG_OHNE_FRAGE") {
-        clearPending(userId);
-        return res.json({ reply: "Klar, was möchtest du wissen?" });
-      } else {
-        clearPending(userId);
+      const result = await handleSatisfactionPhase(pending, userId, userMessage, queryForProcessing);
+      if (result.handled) {
+        return res.json(result.response);
       }
+      queryForProcessing = result.queryForProcessing;
     }
 
     // ================= Keine/nicht behandelte pending: neue Frage =================
 
-    const GREETING_PATTERN = /^(hallo|hi|hey|servus|moin|guten\s?tag|guten\s?morgen|guten\s?abend|na)[\s!.,]*$/i;
-    const SMALLTALK_PATTERN = /\b(wie gehts|wie geht es dir|was machst du|wetter|spaß|witz)\b/i;
-    const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*)?(danke|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
-    const FAREWELL_PATTERN = /^(ciao|tsch(ü|ue)ss|bye|auf wiedersehen|man sieht sich|bis bald)[\s!.,]*$/i;
-    const TICKET_REQUEST_PATTERN = /(ticket erstellen|erstell.*ticket|ein ticket|mit (einem |dem )?support|mit einem mitarbeiter|menschlichen support|jemanden vom team|echten menschen sprechen|support-mitarbeiter)/i;
-    const ANKUENDIGUNG_STANDALONE_PATTERN = /^(ich (habe|hab|h(ä|a)tte|wollte|muss)|ich m(ö|oe)chte) noch (eine |ne |ein )?(andere )?(frage|sache|anliegen|was|thema|ding|punkt)( zu (klären|besprechen|fragen))?[\s!.,?]*$/i;
-
-    if (GREETING_PATTERN.test(userMessage.trim())) {
-      return res.json({ reply: "Hallo! Ich bin der Assistent von POLI SOCIAL. Ich helfe dir gerne bei Fragen zu deinem Konto, zur Registrierung, zu unseren Richtlinien oder zum Schalten von Werbung. Was möchtest du wissen?" });
-    }
-    if (SMALLTALK_PATTERN.test(userMessage)) {
-      return res.json({ reply: "Ich bin ein sachlicher Assistent von POLI SOCIAL — bei Fragen zu deinem Konto, Richtlinien oder Werbung helfe ich dir gern." });
-    }
-    if (FAREWELL_PATTERN.test(userMessage.trim())) {
-      clearPending(userId);
-      return res.json({ reply: "Bis bald! Wenn du weitere Fragen hast, bin ich hier für dich." });
-    }
-    if (THANKS_PATTERN.test(userMessage.trim())) {
-      clearPending(userId);
-      return res.json({ reply: "Gerne! Wenn du noch weitere Fragen hast, helfe ich dir gerne weiter." });
-    }
-    if (TICKET_REQUEST_PATTERN.test(userMessage)) {
-      return res.json({ reply: TICKET_REQUEST_REPLY });
-    }
-    if (ANKUENDIGUNG_STANDALONE_PATTERN.test(userMessage.trim())) {
-      return res.json({ reply: "Klar, was möchtest du wissen?" });
+    const quickReply = getQuickPatternReply(userMessage, userId);
+    if (quickReply) {
+      return res.json({ reply: quickReply });
     }
 
     // ---- Vage Ankündigung ohne Inhalt (kein pending-Status aktiv) ----
