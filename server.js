@@ -930,6 +930,269 @@ async function handleSatisfactionPhase(pending, userId, userMessage, queryForPro
   return { handled: false, queryForProcessing };
 }
 
+/**
+ * Mehrfach-Anliegen-Verarbeitung (Punkt 7 Teil 2, Schritt 4): wird aufgerufen, wenn
+ * analyzeMessage() mehr als eine Teilfrage erkannt hat. Immer abschliessend (beide
+ * Pfade am Ende geben eine fertige Antwort zurueck).
+ */
+async function handleMultiSubquestions(subQuestions, subQuestionsTruncated, userId, queryForProcessing) {
+  const AI_API_KEY = process.env.AI_API_KEY;
+  const MODEL = process.env.MODEL;
+
+  // Phase 1 (parallel): fuer jede Teilfrage alle unabhaengigen Netzwerk-/KI-
+  // Aufrufe (KB-Suche, KI-Antwort, Sensibilitaets-Check) GLEICHZEITIG statt
+  // nacheinander ausfuehren - der Sensibilitaets-Check startet dabei sofort,
+  // parallel zur Suche, statt erst danach. KEINE Pending-Zustandsaenderung in
+  // dieser Phase: startIncidentDetailCollection() liest/schreibt den
+  // gemeinsamen Pending-Zustand des Nutzers (Merge-Logik) und wuerde bei
+  // paralleler Ausfuehrung mehrerer Teilfragen ein Lost-Update-Race erzeugen
+  // (zwei Teilfragen lesen denselben alten Zustand und ueberschreiben sich
+  // gegenseitig). Die Pending-Mutation passiert deshalb bewusst erst in
+  // Phase 2, sequenziell, aber ohne weitere AI-/Netzwerk-Aufrufe - dadurch
+  // bleibt sie trotzdem sehr schnell.
+  const subResults = await Promise.all(subQuestions.map(async (subQ) => {
+    if (TICKET_REQUEST_PATTERN.test(subQ)) {
+      return { subQ, kind: "ticket_request" };
+    }
+
+    const sensitivePromise = isSensitiveTopicAsync(subQ);
+
+    const subCacheKey = `kb:${crypto.createHash("sha256").update(subQ).digest("hex")}`;
+    let subResult = cache.get(subCacheKey) || { matched: false, onTopic: false };
+
+    if (!subResult.matched && !subResult.onTopic) {
+      try {
+        const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: expandAmbiguousQuery(subQ) })
+        }, 1, 300);
+        if (n8nResp && n8nResp.ok) {
+          subResult = await n8nResp.json();
+          cache.set(subCacheKey, subResult);
+        }
+      } catch (err) {
+        console.warn("n8n error (Teilfrage):", err.message);
+      }
+    }
+
+    if (!subResult.matched && !subResult.onTopic) {
+      return { subQ, kind: "offtopic" };
+    }
+
+    if (!subResult.matched && subResult.onTopic) {
+      return { subQ, kind: "no_match", subResult, isSensitive: await sensitivePromise };
+    }
+
+    if (!AI_API_KEY || !MODEL) {
+      return { subQ, kind: "misconfigured" };
+    }
+
+    try {
+      const subReply = await callAnswerAI(subResult.context, subQ, "Antworte kurz und klar (max. 2-3 Sätze). Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen; lass nicht relevante Zusatzinfos weg, auch wenn sie im Kontext stehen.");
+      if (subReply === "KEINE_ANTWORT" || !subReply) {
+        return { subQ, kind: "no_answer", subResult, isSensitive: await sensitivePromise };
+      }
+      return { subQ, kind: "answered", subResult, subReply, isSensitive: await sensitivePromise };
+    } catch (err) {
+      return { subQ, kind: "error" };
+    }
+  }));
+
+  // Phase 2 (sequenziell, aber ohne weitere AI-/Netzwerk-Aufrufe): Ergebnisse
+  // in urspruenglicher Reihenfolge zusammensetzen, Pending-Zustand fuer
+  // sensible Teilfragen dabei nacheinander mergen (siehe Kommentar oben).
+  const parts = [];
+  // Sensible Teilfragen werden hier gesammelt statt einzeln mit eigener "bitte
+  // beschreibe"/"notiert"-Zeile zu erscheinen - am Ende gibt es EINE gemeinsame
+  // Rueckfrage statt mehrerer, teils widerspruechlich wirkender Einzelmeldungen.
+  const incidentTopics = [];
+  let anyCollectionStarted = false;
+
+  for (let i = 0; i < subResults.length; i++) {
+    const questionIndex = i + 1;
+    const r = subResults[i];
+
+    if (r.kind === "ticket_request") {
+      parts.push(`${questionIndex}. ${r.subQ}\n${TICKET_REQUEST_REPLY}`);
+      continue;
+    }
+
+    if (r.kind === "offtopic") {
+      parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_OFFTOPIC}`);
+      continue;
+    }
+
+    if (r.kind === "misconfigured") {
+      console.error("Server misconfiguration: missing AI_API_KEY or MODEL (Teilfrage)");
+      parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_TICKET}`);
+      continue;
+    }
+
+    if (r.kind === "error") {
+      parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_TICKET}`);
+      continue;
+    }
+
+    if (r.kind === "no_match" || r.kind === "no_answer") {
+      const reasonPrefix = r.kind === "no_match" ? "mehrteilig_kein_treffer" : "mehrteilig_keine_antwort";
+      const subOutcome = await handleNoMatch(r.subQ, userId, reasonPrefix, { topk: r.subResult.topk, best_score: r.subResult.best_score }, r.isSensitive);
+      if (subOutcome.collectingDetails) {
+        anyCollectionStarted = true;
+        incidentTopics.push(r.subQ);
+        // Teilfrage bleibt sichtbar (sonst wirkt es, als waere sie verschluckt worden) -
+        // nur die einzelne "bitte beschreibe"-Aufforderung entfaellt, die kommt gebuendelt am Ende
+        parts.push(`${questionIndex}. ${r.subQ}`);
+        continue;
+      }
+      parts.push(`${questionIndex}. ${r.subQ}\n${subOutcome.reply}`);
+      continue;
+    }
+
+    if (r.kind === "answered") {
+      const subSensitiveCheck = await triggerSensitiveTicketIfNeeded(r.subQ, userId, "mehrteilig_treffer_trotzdem_sensibel", { topk: r.subResult.topk, best_score: r.subResult.best_score }, r.isSensitive);
+      if (subSensitiveCheck.startedCollection) {
+        anyCollectionStarted = true;
+        incidentTopics.push(r.subQ);
+        // Nuetzlichen KB-Tipp trotzdem zeigen, aber ohne die einzelne "notiert"-Zeile -
+        // die kommt gebuendelt am Ende
+        parts.push(`${questionIndex}. ${r.subQ}\n${r.subReply}`);
+      } else {
+        parts.push(`${questionIndex}. ${r.subQ}\n${r.subReply}${subSensitiveCheck.note}`);
+      }
+    }
+  }
+
+  const truncationNote = subQuestionsTruncated ? "\n\nDu hattest noch mehr Anliegen in deiner Nachricht - ich habe die ersten 4 beantwortet. Stelle die restlichen gerne in einer neuen Nachricht." : "";
+  let baseReply = parts.join("\n\n") + truncationNote;
+  if (incidentTopics.length > 0) {
+    const incidentAck = incidentTopics.length > 1
+      ? "Da es sich um sensible Themen handelt, kannst du mir zu den genannten Vorfällen jeweils die Situation genauer beschreiben und/oder die passenden Links bereitstellen? Ich leite die Informationen gesammelt an unser Support-Team weiter."
+      : "Da es sich um ein sensibles Thema handelt, kannst du mir die Situation genauer beschreiben und/oder den Link zum betroffenen Beitrag bereitstellen? Ich leite die Informationen gesammelt an unser Support-Team weiter.";
+    baseReply = baseReply ? `${baseReply}\n\n${incidentAck}` : incidentAck;
+  }
+  if (anyCollectionStarted) {
+    return { reply: baseReply };
+  }
+  pushHistory(userId, "user", queryForProcessing);
+  pushHistory(userId, "assistant", baseReply);
+  const reply = toPhaseB(userId, queryForProcessing, baseReply);
+  return { reply };
+}
+
+/**
+ * Einzelanliegen-Flow (Punkt 7 Teil 2, Schritt 5): KB-Suche + KI-Antwort fuer die
+ * einzige/erste Teilfrage. Ruft res.json()/res.status() wie die Original-Stelle
+ * direkt selbst auf (mehrere fruehe Rueckgaben an unterschiedlichen Punkten), statt
+ * ein einheitliches {handled, response}-Objekt zurueckzugeben - damit bleibt die
+ * urspruengliche Kontrollfluss-Struktur 1:1 erhalten (geringstes Risiko).
+ */
+async function handleSingleQuestion(res, searchQuery, userMessage, queryForProcessing, userId, isClarifyRetry) {
+  // Sensibilitaets-Check startet sofort, parallel zur Wissensbasis-Suche und zur
+  // KI-Antwort weiter unten - beides sind unabhaengige KI-/Netzwerk-Aufrufe, die
+  // vorher unnoetig nacheinander liefen (die spaeteren handleNoMatch()/
+  // triggerSensitiveTicketIfNeeded()-Aufrufe bekommen das Ergebnis vorberechnet
+  // uebergeben, statt es dort erneut sequenziell zu berechnen).
+  const sensitivePromise = isSensitiveTopicAsync(searchQuery);
+
+  const cacheKey = `kb:${crypto.createHash("sha256").update(searchQuery).digest("hex")}`;
+  const dedupeKey = `dedupe:${userId || "anon"}:${crypto.createHash("sha256").update(userMessage).digest("hex")}`;
+  const now = Date.now();
+  if (recentRequests.has(dedupeKey) && (now - recentRequests.get(dedupeKey) < DEBOUNCE_WINDOW_MS)) {
+    return res.json({ reply: "Ich bearbeite gerade eine ähnliche Anfrage — bitte kurz warten." });
+  }
+  recentRequests.set(dedupeKey, now);
+  setTimeout(() => recentRequests.delete(dedupeKey), DEBOUNCE_WINDOW_MS);
+
+  res.setHeader("X-Bot-Status", "processing");
+
+  let searchResult = { matched: false, onTopic: false };
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    searchResult = cached;
+  }
+
+  if (!searchResult || Object.keys(searchResult).length === 0 || (searchResult.matched === false && searchResult.onTopic === false)) {
+    try {
+      const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: expandAmbiguousQuery(searchQuery) })
+      }, 1, 300);
+      if (n8nResp && n8nResp.ok) {
+        searchResult = await n8nResp.json();
+        cache.set(cacheKey, searchResult);
+      }
+    } catch (err) {
+      console.warn("n8n error:", err.message);
+      searchResult = searchResult || { matched: false, onTopic: false };
+    }
+  }
+
+  if (!searchResult.matched && !searchResult.onTopic) {
+    pushHistory(userId, "user", queryForProcessing);
+    pushHistory(userId, "assistant", FALLBACK_OFFTOPIC);
+    return res.json({ reply: FALLBACK_OFFTOPIC });
+  }
+
+  if (!searchResult.matched && searchResult.onTopic) {
+    const result = await handleNoMatch(searchQuery, userId, "kein_wissensbasis_treffer", { topk: searchResult.topk, best_score: searchResult.best_score }, await sensitivePromise);
+    if (!result.collectingDetails) {
+      pushHistory(userId, "user", queryForProcessing);
+      pushHistory(userId, "assistant", result.reply);
+    }
+    const reply = finalizeOutcomeReply(userId, searchQuery, result);
+    return res.json({ reply, ticketId: result.ticketId });
+  }
+
+  const AI_API_KEY = process.env.AI_API_KEY;
+  const MODEL = process.env.MODEL;
+  if (!AI_API_KEY || !MODEL) {
+    console.error("Server misconfiguration: missing AI_API_KEY or MODEL");
+    return res.status(500).json({ error: "Server misconfiguration: missing AI_API_KEY or MODEL" });
+  }
+
+  let reply;
+  try {
+    reply = await callAnswerAI(searchResult.context, searchQuery, "Antworte kurz und klar: eine ein-sätzige Kurzantwort, bei Bedarf ein kurzer Detailabschnitt (max. 3 Sätze), höflich und sachlich. Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen; lass nicht relevante Zusatzinfos weg, auch wenn sie im Kontext stehen. Schließe nicht mit einer Frage; das übernehmen wir serverseitig.");
+    if (searchResult.tentative && reply && reply !== "KEINE_ANTWORT") {
+      reply = "Ich bin mir nicht ganz sicher, ob das deine Frage trifft, aber vielleicht hilft dir das:\n\n" + reply;
+    }
+  } catch (err) {
+    console.error("AI API final error:", err.message);
+    const ticketId = await triggerTicket(queryForProcessing, "ai_provider_error", { userId, topk: searchResult.topk, best_score: searchResult.best_score });
+    return res.json({ reply: ticketId ? FALLBACK_TICKET : FALLBACK_TICKET_FAILED, ticketId });
+  }
+
+  if (reply === "KEINE_ANTWORT" || !reply) {
+    const isSensitiveQuery = await sensitivePromise;
+    if (isClarifyRetry || isSensitiveQuery) {
+      const result = await handleNoMatch(searchQuery, userId, "kein_treffer_nach_praezisierung", { topk: searchResult.topk, best_score: searchResult.best_score }, isSensitiveQuery);
+      if (!result.collectingDetails) {
+        pushHistory(userId, "user", queryForProcessing);
+        pushHistory(userId, "assistant", result.reply);
+      }
+      const finalReply = finalizeOutcomeReply(userId, searchQuery, result);
+      return res.json({ reply: finalReply, ticketId: result.ticketId });
+    }
+    setPending(userId, { originalQuestion: searchQuery, stage: "clarifying" });
+    return res.json({ reply: "Dazu habe ich leider keine gesicherte Antwort gefunden. Kannst du deine Frage etwas genauer formulieren oder in anderen Worten stellen?" });
+  }
+
+  const sensitiveCheck = await triggerSensitiveTicketIfNeeded(searchQuery, userId, "treffer_trotzdem_sensibel", { topk: searchResult.topk, best_score: searchResult.best_score }, await sensitivePromise);
+  const replyWithNote = reply + sensitiveCheck.note;
+
+  if (sensitiveCheck.startedCollection) {
+    return res.json({ reply: replyWithNote });
+  }
+
+  pushHistory(userId, "user", queryForProcessing);
+  pushHistory(userId, "assistant", replyWithNote);
+
+  const fullReply = toPhaseA(userId, searchQuery, searchResult, replyWithNote);
+  return res.json({ reply: fullReply, sources: searchResult.topk?.slice(0, 3) || [] });
+}
+
 // ---------------- Statische Muster-Erkennung (Begruessung, Smalltalk, etc.) ----------------
 // Punkt 7 Teil 2, Schritt 1: aus dem /chat-Handler extrahiert, rein mechanisch (keine
 // Verhaltensaenderung) - komplett zustandslos bis auf das clearPending() bei Verabschiedung/
@@ -1060,256 +1323,12 @@ app.post("/chat", chatLimiter, async (req, res) => {
 
     // ---- Mehrfach-Anliegen ----
     if (subQuestions.length > 1) {
-      const AI_API_KEY = process.env.AI_API_KEY;
-      const MODEL = process.env.MODEL;
-
-      // Phase 1 (parallel): fuer jede Teilfrage alle unabhaengigen Netzwerk-/KI-
-      // Aufrufe (KB-Suche, KI-Antwort, Sensibilitaets-Check) GLEICHZEITIG statt
-      // nacheinander ausfuehren - der Sensibilitaets-Check startet dabei sofort,
-      // parallel zur Suche, statt erst danach. KEINE Pending-Zustandsaenderung in
-      // dieser Phase: startIncidentDetailCollection() liest/schreibt den
-      // gemeinsamen Pending-Zustand des Nutzers (Merge-Logik) und wuerde bei
-      // paralleler Ausfuehrung mehrerer Teilfragen ein Lost-Update-Race erzeugen
-      // (zwei Teilfragen lesen denselben alten Zustand und ueberschreiben sich
-      // gegenseitig). Die Pending-Mutation passiert deshalb bewusst erst in
-      // Phase 2, sequenziell, aber ohne weitere AI-/Netzwerk-Aufrufe - dadurch
-      // bleibt sie trotzdem sehr schnell.
-      const subResults = await Promise.all(subQuestions.map(async (subQ) => {
-        if (TICKET_REQUEST_PATTERN.test(subQ)) {
-          return { subQ, kind: "ticket_request" };
-        }
-
-        const sensitivePromise = isSensitiveTopicAsync(subQ);
-
-        const subCacheKey = `kb:${crypto.createHash("sha256").update(subQ).digest("hex")}`;
-        let subResult = cache.get(subCacheKey) || { matched: false, onTopic: false };
-
-        if (!subResult.matched && !subResult.onTopic) {
-          try {
-            const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ query: expandAmbiguousQuery(subQ) })
-            }, 1, 300);
-            if (n8nResp && n8nResp.ok) {
-              subResult = await n8nResp.json();
-              cache.set(subCacheKey, subResult);
-            }
-          } catch (err) {
-            console.warn("n8n error (Teilfrage):", err.message);
-          }
-        }
-
-        if (!subResult.matched && !subResult.onTopic) {
-          return { subQ, kind: "offtopic" };
-        }
-
-        if (!subResult.matched && subResult.onTopic) {
-          return { subQ, kind: "no_match", subResult, isSensitive: await sensitivePromise };
-        }
-
-        if (!AI_API_KEY || !MODEL) {
-          return { subQ, kind: "misconfigured" };
-        }
-
-        try {
-          const subReply = await callAnswerAI(subResult.context, subQ, "Antworte kurz und klar (max. 2-3 Sätze). Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen; lass nicht relevante Zusatzinfos weg, auch wenn sie im Kontext stehen.");
-          if (subReply === "KEINE_ANTWORT" || !subReply) {
-            return { subQ, kind: "no_answer", subResult, isSensitive: await sensitivePromise };
-          }
-          return { subQ, kind: "answered", subResult, subReply, isSensitive: await sensitivePromise };
-        } catch (err) {
-          return { subQ, kind: "error" };
-        }
-      }));
-
-      // Phase 2 (sequenziell, aber ohne weitere AI-/Netzwerk-Aufrufe): Ergebnisse
-      // in urspruenglicher Reihenfolge zusammensetzen, Pending-Zustand fuer
-      // sensible Teilfragen dabei nacheinander mergen (siehe Kommentar oben).
-      const parts = [];
-      // Sensible Teilfragen werden hier gesammelt statt einzeln mit eigener "bitte
-      // beschreibe"/"notiert"-Zeile zu erscheinen - am Ende gibt es EINE gemeinsame
-      // Rueckfrage statt mehrerer, teils widerspruechlich wirkender Einzelmeldungen.
-      const incidentTopics = [];
-      let anyCollectionStarted = false;
-
-      for (let i = 0; i < subResults.length; i++) {
-        const questionIndex = i + 1;
-        const r = subResults[i];
-
-        if (r.kind === "ticket_request") {
-          parts.push(`${questionIndex}. ${r.subQ}\n${TICKET_REQUEST_REPLY}`);
-          continue;
-        }
-
-        if (r.kind === "offtopic") {
-          parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_OFFTOPIC}`);
-          continue;
-        }
-
-        if (r.kind === "misconfigured") {
-          console.error("Server misconfiguration: missing AI_API_KEY or MODEL (Teilfrage)");
-          parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_TICKET}`);
-          continue;
-        }
-
-        if (r.kind === "error") {
-          parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_TICKET}`);
-          continue;
-        }
-
-        if (r.kind === "no_match" || r.kind === "no_answer") {
-          const reasonPrefix = r.kind === "no_match" ? "mehrteilig_kein_treffer" : "mehrteilig_keine_antwort";
-          const subOutcome = await handleNoMatch(r.subQ, userId, reasonPrefix, { topk: r.subResult.topk, best_score: r.subResult.best_score }, r.isSensitive);
-          if (subOutcome.collectingDetails) {
-            anyCollectionStarted = true;
-            incidentTopics.push(r.subQ);
-            // Teilfrage bleibt sichtbar (sonst wirkt es, als waere sie verschluckt worden) -
-            // nur die einzelne "bitte beschreibe"-Aufforderung entfaellt, die kommt gebuendelt am Ende
-            parts.push(`${questionIndex}. ${r.subQ}`);
-            continue;
-          }
-          parts.push(`${questionIndex}. ${r.subQ}\n${subOutcome.reply}`);
-          continue;
-        }
-
-        if (r.kind === "answered") {
-          const subSensitiveCheck = await triggerSensitiveTicketIfNeeded(r.subQ, userId, "mehrteilig_treffer_trotzdem_sensibel", { topk: r.subResult.topk, best_score: r.subResult.best_score }, r.isSensitive);
-          if (subSensitiveCheck.startedCollection) {
-            anyCollectionStarted = true;
-            incidentTopics.push(r.subQ);
-            // Nuetzlichen KB-Tipp trotzdem zeigen, aber ohne die einzelne "notiert"-Zeile -
-            // die kommt gebuendelt am Ende
-            parts.push(`${questionIndex}. ${r.subQ}\n${r.subReply}`);
-          } else {
-            parts.push(`${questionIndex}. ${r.subQ}\n${r.subReply}${subSensitiveCheck.note}`);
-          }
-        }
-      }
-
-      const truncationNote = subQuestionsTruncated ? "\n\nDu hattest noch mehr Anliegen in deiner Nachricht - ich habe die ersten 4 beantwortet. Stelle die restlichen gerne in einer neuen Nachricht." : "";
-      let baseReply = parts.join("\n\n") + truncationNote;
-      if (incidentTopics.length > 0) {
-        const incidentAck = incidentTopics.length > 1
-          ? "Da es sich um sensible Themen handelt, kannst du mir zu den genannten Vorfällen jeweils die Situation genauer beschreiben und/oder die passenden Links bereitstellen? Ich leite die Informationen gesammelt an unser Support-Team weiter."
-          : "Da es sich um ein sensibles Thema handelt, kannst du mir die Situation genauer beschreiben und/oder den Link zum betroffenen Beitrag bereitstellen? Ich leite die Informationen gesammelt an unser Support-Team weiter.";
-        baseReply = baseReply ? `${baseReply}\n\n${incidentAck}` : incidentAck;
-      }
-      if (anyCollectionStarted) {
-        return res.json({ reply: baseReply });
-      }
-      pushHistory(userId, "user", queryForProcessing);
-      pushHistory(userId, "assistant", baseReply);
-      const reply = toPhaseB(userId, queryForProcessing, baseReply);
-      return res.json({ reply });
+      return res.json(await handleMultiSubquestions(subQuestions, subQuestionsTruncated, userId, queryForProcessing));
     }
 
     // ---- Einzelanliegen ----
     const searchQuery = subQuestions[0];
-
-    // Sensibilitaets-Check startet sofort, parallel zur Wissensbasis-Suche und zur
-    // KI-Antwort weiter unten - beides sind unabhaengige KI-/Netzwerk-Aufrufe, die
-    // vorher unnoetig nacheinander liefen (die spaeteren handleNoMatch()/
-    // triggerSensitiveTicketIfNeeded()-Aufrufe bekommen das Ergebnis vorberechnet
-    // uebergeben, statt es dort erneut sequenziell zu berechnen).
-    const sensitivePromise = isSensitiveTopicAsync(searchQuery);
-
-    const cacheKey = `kb:${crypto.createHash("sha256").update(searchQuery).digest("hex")}`;
-    const dedupeKey = `dedupe:${userId || "anon"}:${crypto.createHash("sha256").update(userMessage).digest("hex")}`;
-    const now = Date.now();
-    if (recentRequests.has(dedupeKey) && (now - recentRequests.get(dedupeKey) < DEBOUNCE_WINDOW_MS)) {
-      return res.json({ reply: "Ich bearbeite gerade eine ähnliche Anfrage — bitte kurz warten." });
-    }
-    recentRequests.set(dedupeKey, now);
-    setTimeout(() => recentRequests.delete(dedupeKey), DEBOUNCE_WINDOW_MS);
-
-    res.setHeader("X-Bot-Status", "processing");
-
-    let searchResult = { matched: false, onTopic: false };
-    const cached = cache.get(cacheKey);
-    if (cached) {
-      searchResult = cached;
-    }
-
-    if (!searchResult || Object.keys(searchResult).length === 0 || (searchResult.matched === false && searchResult.onTopic === false)) {
-      try {
-        const n8nResp = await fetchWithRetry(process.env.N8N_WEBHOOK, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ query: expandAmbiguousQuery(searchQuery) })
-        }, 1, 300);
-        if (n8nResp && n8nResp.ok) {
-          searchResult = await n8nResp.json();
-          cache.set(cacheKey, searchResult);
-        }
-      } catch (err) {
-        console.warn("n8n error:", err.message);
-        searchResult = searchResult || { matched: false, onTopic: false };
-      }
-    }
-
-    if (!searchResult.matched && !searchResult.onTopic) {
-      pushHistory(userId, "user", queryForProcessing);
-      pushHistory(userId, "assistant", FALLBACK_OFFTOPIC);
-      return res.json({ reply: FALLBACK_OFFTOPIC });
-    }
-
-    if (!searchResult.matched && searchResult.onTopic) {
-      const result = await handleNoMatch(searchQuery, userId, "kein_wissensbasis_treffer", { topk: searchResult.topk, best_score: searchResult.best_score }, await sensitivePromise);
-      if (!result.collectingDetails) {
-        pushHistory(userId, "user", queryForProcessing);
-        pushHistory(userId, "assistant", result.reply);
-      }
-      const reply = finalizeOutcomeReply(userId, searchQuery, result);
-      return res.json({ reply, ticketId: result.ticketId });
-    }
-
-    const AI_API_KEY = process.env.AI_API_KEY;
-    const MODEL = process.env.MODEL;
-    if (!AI_API_KEY || !MODEL) {
-      console.error("Server misconfiguration: missing AI_API_KEY or MODEL");
-      return res.status(500).json({ error: "Server misconfiguration: missing AI_API_KEY or MODEL" });
-    }
-
-    let reply;
-    try {
-      reply = await callAnswerAI(searchResult.context, searchQuery, "Antworte kurz und klar: eine ein-sätzige Kurzantwort, bei Bedarf ein kurzer Detailabschnitt (max. 3 Sätze), höflich und sachlich. Nutze nur die Informationen aus dem Kontext, die direkt zur Frage passen; lass nicht relevante Zusatzinfos weg, auch wenn sie im Kontext stehen. Schließe nicht mit einer Frage; das übernehmen wir serverseitig.");
-      if (searchResult.tentative && reply && reply !== "KEINE_ANTWORT") {
-        reply = "Ich bin mir nicht ganz sicher, ob das deine Frage trifft, aber vielleicht hilft dir das:\n\n" + reply;
-      }
-    } catch (err) {
-      console.error("AI API final error:", err.message);
-      const ticketId = await triggerTicket(queryForProcessing, "ai_provider_error", { userId, topk: searchResult.topk, best_score: searchResult.best_score });
-      return res.json({ reply: ticketId ? FALLBACK_TICKET : FALLBACK_TICKET_FAILED, ticketId });
-    }
-
-    if (reply === "KEINE_ANTWORT" || !reply) {
-      const isSensitiveQuery = await sensitivePromise;
-      if (isClarifyRetry || isSensitiveQuery) {
-        const result = await handleNoMatch(searchQuery, userId, "kein_treffer_nach_praezisierung", { topk: searchResult.topk, best_score: searchResult.best_score }, isSensitiveQuery);
-        if (!result.collectingDetails) {
-          pushHistory(userId, "user", queryForProcessing);
-          pushHistory(userId, "assistant", result.reply);
-        }
-        const finalReply = finalizeOutcomeReply(userId, searchQuery, result);
-        return res.json({ reply: finalReply, ticketId: result.ticketId });
-      }
-      setPending(userId, { originalQuestion: searchQuery, stage: "clarifying" });
-      return res.json({ reply: "Dazu habe ich leider keine gesicherte Antwort gefunden. Kannst du deine Frage etwas genauer formulieren oder in anderen Worten stellen?" });
-    }
-
-    const sensitiveCheck = await triggerSensitiveTicketIfNeeded(searchQuery, userId, "treffer_trotzdem_sensibel", { topk: searchResult.topk, best_score: searchResult.best_score }, await sensitivePromise);
-    const replyWithNote = reply + sensitiveCheck.note;
-
-    if (sensitiveCheck.startedCollection) {
-      return res.json({ reply: replyWithNote });
-    }
-
-    pushHistory(userId, "user", queryForProcessing);
-    pushHistory(userId, "assistant", replyWithNote);
-
-    const fullReply = toPhaseA(userId, searchQuery, searchResult, replyWithNote);
-    return res.json({ reply: fullReply, sources: searchResult.topk?.slice(0, 3) || [] });
+    return await handleSingleQuestion(res, searchQuery, userMessage, queryForProcessing, userId, isClarifyRetry);
     });
 
   } catch (error) {
