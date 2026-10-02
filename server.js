@@ -1335,7 +1335,7 @@ async function handleSingleQuestion(res, searchQuery, userMessage, queryForProce
 // Danke, das als Seiteneffekt bewusst in der Funktion bleibt (gehoert inhaltlich zusammen).
 const GREETING_PATTERN = /^(hallo|hi|hey|servus|moin|guten\s?tag|guten\s?morgen|guten\s?abend|na)[\s!.,]*$/i;
 const SMALLTALK_PATTERN = /\b(wie gehts|wie geht es dir|was machst du|wetter|spaß|witz)\b/i;
-const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*)?(danke|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
+const THANKS_PATTERN = /^(ok,?\s*|okay,?\s*|alles klar,?\s*|das (w(a|ä)r'?s|w(a|ä)re'?s|war alles|ist alles)[,.]?\s*|mehr (habe ich |brauche ich )?nicht[,.]?\s*|nichts weiter[,.]?\s*)?(danke( dir| sch(ö|oe)n)?|vielen dank|dankesch(ö|oe)n|dank dir)[\s!.,]*$/i;
 const FAREWELL_PATTERN = /^(ciao|tsch(ü|ue)ss|bye|auf wiedersehen|man sieht sich|bis bald)[\s!.,]*$/i;
 const TICKET_REQUEST_PATTERN = /(ticket erstellen|erstell.*ticket|ein ticket|mit (einem |dem )?support|mit einem mitarbeiter|menschlichen support|jemanden vom team|echten menschen sprechen|support-mitarbeiter)/i;
 const ANKUENDIGUNG_STANDALONE_PATTERN = /^(ich (habe|hab|h(ä|a)tte|wollte|muss)|ich m(ö|oe)chte) noch (eine |ne |ein )?(andere )?(frage|sache|anliegen|was|thema|ding|punkt)( zu (klären|besprechen|fragen))?[\s!.,?]*$/i;
