@@ -1065,7 +1065,10 @@ async function handleMultiSubquestions(subQuestions, subQuestionsTruncated, user
     }
 
     if (!subResult.matched && !subResult.onTopic) {
-      return { subQ, kind: "offtopic" };
+      // Dieselbe Luecke wie im Einzelanliegen-Pfad: ein echter sensibler Vorfall ohne
+      // jeden thematisch verwandten KB-Treffer bekam bisher nur die generische Absage,
+      // da isSensitive fuer "offtopic" bisher nicht einmal berechnet wurde.
+      return { subQ, kind: "offtopic", isSensitive: await sensitivePromise };
     }
 
     if (!subResult.matched && subResult.onTopic) {
@@ -1107,6 +1110,20 @@ async function handleMultiSubquestions(subQuestions, subQuestionsTruncated, user
     }
 
     if (r.kind === "offtopic") {
+      if (r.isSensitive) {
+        // Gleiches Muster wie bei "no_match"/"no_answer" unten: handleNoMatch deckt auch
+        // den Fall ab, dass das Anliegen bereits zu einem kuerzlich gemeldeten Ticket
+        // gehoert (collectingDetails dann false, aber eigener erklaerender Text).
+        const subOutcome = await handleNoMatch(r.subQ, userId, "mehrteilig_offtopic_aber_sensibel", {}, true);
+        if (subOutcome.collectingDetails) {
+          anyCollectionStarted = true;
+          incidentTopics.push(r.subQ);
+          parts.push(`${questionIndex}. ${r.subQ}`);
+          continue;
+        }
+        parts.push(`${questionIndex}. ${r.subQ}\n${subOutcome.reply}`);
+        continue;
+      }
       parts.push(`${questionIndex}. ${r.subQ}\n${FALLBACK_OFFTOPIC}`);
       continue;
     }
@@ -1218,6 +1235,20 @@ async function handleSingleQuestion(res, searchQuery, userMessage, queryForProce
   }
 
   if (!searchResult.matched && !searchResult.onTopic) {
+    // Vorher wurde hier die bereits parallel gestartete sensitivePromise NIE ausgewertet -
+    // ein echter sensibler Vorfall, der zufaellig GAR keinen thematisch verwandten Chunk
+    // trifft (komplett off-topic laut n8n), bekam nur die generische Absage-Antwort statt
+    // der Vorfall-Sammlung/eines Tickets. Jetzt wird wie bei den anderen Treffer-Faellen
+    // (handleNoMatch, triggerSensitiveTicketIfNeeded) zuerst auf Sensibilitaet geprueft.
+    const isSensitiveQuery = await sensitivePromise;
+    if (isSensitiveQuery) {
+      const result = await handleNoMatch(searchQuery, userId, "komplett_offtopic_aber_sensibel", {}, true);
+      if (!result.collectingDetails) {
+        pushHistory(userId, "user", queryForProcessing);
+        pushHistory(userId, "assistant", result.reply);
+      }
+      return res.json({ reply: result.reply });
+    }
     pushHistory(userId, "user", queryForProcessing);
     pushHistory(userId, "assistant", FALLBACK_OFFTOPIC);
     return res.json({ reply: FALLBACK_OFFTOPIC });
